@@ -1,0 +1,778 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Risk &amp; Disclosures - The Brief</title>
+<style>
+:root{
+  --bg:#0d0f14; --card:#151820; --card2:#1c2030; --line:#252a38;
+  --text:#e2e6f0; --dim:#6b7591;
+  --green:#34d399; --red:#f87171; --amber:#fbbf24; --blue:#5aa9ff;
+}
+*{box-sizing:border-box}
+html,body{max-width:100%;overflow-x:hidden}
+body{background:var(--bg);color:var(--text);margin:0;
+ font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
+ 'Helvetica Neue',Arial,sans-serif;font-size:14px;line-height:1.55;
+ -webkit-font-smoothing:antialiased}
+.wrap{max-width:1100px;margin:0 auto;padding:20px 16px 64px}
+section{padding-top:34px}
+h2{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;
+ text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin:0 0 14px}
+.chip{display:inline-flex;align-items:center;justify-content:center;
+ min-width:22px;height:20px;padding:0 6px;border:1px solid var(--line);
+ border-radius:4px;background:var(--card);color:var(--dim);font-size:11px;
+ font-weight:700;letter-spacing:.6px;flex:0 0 auto}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;
+ padding:20px}
+.kicker{font-size:11px;text-transform:uppercase;letter-spacing:1.4px;
+ color:var(--blue);font-weight:700;margin:0 0 8px}
+h1{font-size:30px;line-height:1.15;margin:0 0 12px;letter-spacing:-.5px}
+h3{font-size:17px;margin:0 0 6px;letter-spacing:-.2px}
+h4{font-size:13px;margin:20px 0 8px}
+p{max-width:78ch}
+.card > p:last-child{margin-bottom:0}
+
+/* opening statement */
+.alert{background:var(--card);border:1px solid var(--line);
+ border-left:3px solid var(--red);border-radius:10px;padding:22px 22px}
+.alert .lead{font-size:19px;line-height:1.4;font-weight:600;margin:0 0 12px;
+ color:#fff;letter-spacing:-.2px;max-width:60ch}
+.alert p{color:#b9c1d4;font-size:14px;margin:0 0 12px}
+.alert p:last-child{margin-bottom:0}
+
+/* the plain PDF control */
+.pdfrow{display:flex;flex-wrap:wrap;gap:14px;align-items:center;
+ margin:18px 0 0}
+a.pdfbtn{display:inline-flex;align-items:center;gap:10px;
+ background:var(--card2);border:1px solid var(--blue);border-radius:8px;
+ color:var(--blue);text-decoration:none;font-size:14px;font-weight:600;
+ padding:12px 18px;line-height:1.3}
+a.pdfbtn:hover{background:#20263a;color:#8cc4ff}
+a.pdfbtn:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+a.pdfbtn .ic{font-size:12px;font-weight:700;letter-spacing:.8px;
+ border:1px solid var(--blue);border-radius:3px;padding:1px 5px;flex:0 0 auto}
+.pdfnote{color:var(--dim);font-size:12.5px;margin:0;max-width:46ch}
+
+.lede{color:#9aa3ba;font-size:13px;margin:0 0 16px;max-width:78ch}
+.grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:18px}
+.panel{background:var(--card2);border:1px solid var(--line);border-radius:8px;
+ padding:16px}
+.panel h4{margin:0 0 10px;font-size:11px;text-transform:uppercase;
+ letter-spacing:1px;color:var(--dim);font-weight:700}
+.panel p + h4{margin-top:18px}
+.panel p:last-child,.panel ul:last-child{margin-bottom:0}
+.panel p{font-size:13px;color:#b9c1d4;margin:0 0 10px}
+
+ul{margin:0 0 12px;padding-left:18px;color:#b9c1d4;font-size:13.5px;
+ max-width:78ch}
+li{margin-bottom:7px}
+li:last-child{margin-bottom:0}
+li strong{color:var(--text);font-weight:600}
+
+.worst{display:flex;flex-wrap:wrap;gap:10px;align-items:baseline;
+ border-top:1px solid var(--line);margin-top:16px;padding-top:14px}
+.worst .lbl{font-size:11px;text-transform:uppercase;letter-spacing:1px;
+ color:var(--dim);font-weight:700}
+.worst .val{font-size:14px;font-weight:600;color:var(--amber);max-width:70ch}
+.worst .val.bad{color:var(--red)}
+
+.ex{margin:14px 0 0;background:#0d0f14;border:1px solid var(--line);
+ border-radius:6px;padding:12px 14px;overflow-x:auto;
+ -webkit-overflow-scrolling:touch}
+.ex pre{margin:0;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,
+ 'Liberation Mono',monospace;font-size:12px;line-height:1.7;color:#b9c1d4}
+.ex .cap{font-size:11px;text-transform:uppercase;letter-spacing:1px;
+ color:var(--dim);font-weight:700;margin:0 0 8px}
+
+.note{border-left:2px solid var(--amber);background:rgba(251,191,36,.05);
+ padding:12px 14px;margin:16px 0 0;color:#b9c1d4;font-size:12.5px;
+ border-radius:0 6px 6px 0;max-width:78ch}
+.note.stop{border-left-color:var(--red);background:rgba(248,113,113,.06)}
+
+.disclaimer{color:var(--dim);font-size:12px;border-top:1px solid var(--line);
+ padding-top:16px;margin-top:20px;max-width:78ch}
+.dates{color:var(--dim);font-size:12px;margin:14px 0 0}
+
+.docmeta{list-style:none;margin:14px 0 0;padding:0;max-width:66ch}
+.docmeta li{display:flex;justify-content:space-between;gap:20px;padding:8px 0;
+ border-bottom:1px solid var(--line);font-size:13px;margin:0}
+.docmeta span{flex:0 0 auto;white-space:nowrap}
+.docmeta li:last-child{border-bottom:0}
+.docmeta span{color:var(--dim)}
+.docmeta strong{font-weight:600;text-align:right}
+
+@media(max-width:760px){
+  .grid{grid-template-columns:minmax(0,1fr)}
+  h1{font-size:24px}
+  .alert .lead{font-size:17px}
+  .docmeta li{flex-direction:column;gap:2px}
+  .docmeta strong{text-align:left}
+}
+</style></head><body>
+<!-- SHARED NAVIGATION -->
+<style>
+.tb-shell{background:#0d0f14;border-bottom:1px solid #252a38;
+ font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+.tb-bar{max-width:1100px;margin:0 auto;padding:14px 16px 0;display:flex;
+ align-items:baseline;gap:12px;flex-wrap:wrap}
+.tb-mark{font-size:20px;font-weight:700;color:#fff;letter-spacing:-0.4px}
+.tb-ed{font-size:11px;color:#6b7591}
+.tb-nav{max-width:1100px;margin:0 auto;padding:0 16px;display:flex;gap:2px;
+ flex-wrap:wrap}
+.tb-nav a{display:block;padding:10px 14px;font-size:13px;color:#6b7591;
+ text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap}
+.tb-nav a:hover{color:#e2e6f0}
+.tb-nav a[aria-current="page"]{color:#fff;border-bottom-color:#5aa9ff;
+ font-weight:600}
+.tb-nav a.tb-off{color:#4a5266;cursor:not-allowed}
+.tb-stale{background:#3a2a12;color:#fbbf24;border-bottom:1px solid #5a4520;
+ font:600 12px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+ padding:8px 16px;text-align:center}
+.tb-note{background:#1b2430;color:#9fb3c8;font:12px/1.5 -apple-system,
+ BlinkMacSystemFont,'Segoe UI',sans-serif;padding:5px 16px;text-align:center;
+ border-bottom:1px solid #26313f}
+.tb-prelaunch{background:#1c2030;color:#9fb3c8;border-bottom:1px solid #2a3040;
+ font:600 11px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+ letter-spacing:.4px;padding:6px 16px;text-align:center}
+@media(max-width:640px){.tb-nav a{padding:9px 10px;font-size:12px}}
+</style>
+<div class="tb-prelaunch" role="note">Pre-launch review — not final</div>
+<div class="tb-shell">
+  <div class="tb-bar"><div class="tb-mark">The Brief</div><div class="tb-ed">Edition 2026-09-06</div></div>
+  <nav class="tb-nav" aria-label="Primary"><a href="brief.html">The Brief</a><a href="screeners.html">Screeners</a><a href="sp-overview.html">S&P Overview</a><a href="economy.html">Economy</a><a href="learning.html">Learning</a><a href="tools.html">Tools</a><a href="risk.html" aria-current="page">Risk & Disclosures</a></nav>
+</div>
+
+
+<div class="wrap">
+
+<section id="start" style="padding-top:14px">
+  <p class="kicker">Risk &amp; Disclosures</p>
+  <h1>Options involve risk, and they are not suitable for every investor.</h1>
+  <div class="alert">
+    <p class="lead">You can lose money trading options. Depending on what you
+    do, you can lose the entire amount you paid, you can lose more than you
+    received, and in some positions there is no fixed limit on the loss at
+    all.</p>
+    <p>That is not a formality at the bottom of a page. It is the first thing
+    on this one because it is the most important thing on this site. Before
+    you trade options you should read the industry disclosure document below
+    in full, understand the specific position you are opening, and be certain
+    you can carry the worst outcome that position allows.</p>
+    <p>Nothing on this site is a recommendation to buy or sell anything. It is
+    education and general market analysis. It does not know who you are, what
+    you own, what you can afford to lose, or what you are trying to achieve,
+    and it is therefore incapable of telling you what you should do.</p>
+    <div class="pdfrow">
+      <a class="pdfbtn" href="options-risk-disclosure.pdf" target="_blank"
+         rel="noopener">
+        <span class="ic">PDF</span>
+        Open the full options risk disclosure (PDF)
+      </a>
+      <p class="pdfnote">Characteristics and Risks of Standardized Options,
+      June 2024. Opens in a new tab.</p>
+    </div>
+  </div>
+</section>
+
+<section id="disclaimer">
+  <h2><span class="chip">02</span> The disclaimer, in full</h2>
+  <div class="card">
+    <p class="lede">Every page of this site carries a short version of this at
+    its foot. This is the whole of it.</p>
+    <div class="grid">
+      <div class="panel">
+        <h4>Educational use only</h4>
+        <p>Everything published here is for education and general market
+        commentary. It is a description of how instruments and strategies work
+        and of what the market has been doing. It is not a service that tells
+        anybody what to trade.</p>
+
+        <h4>Not investment advice</h4>
+        <p>Nothing on this site is investment, financial, legal, tax or
+        accounting advice, and nothing on it is an offer or a solicitation to
+        buy or sell any security or any option. The people who publish it are
+        not acting as your broker, your adviser or your fiduciary. Consult a
+        licensed professional who knows your circumstances before acting on
+        anything you read here.</p>
+
+        <h4>Not personalised</h4>
+        <p>Nothing here is tailored to you. This site has no knowledge of your
+        financial position, your income, your tax situation, your existing
+        holdings, your time horizon, your obligations or your tolerance for
+        loss. A strategy that is reasonable for one person is ruinous for
+        another, and the difference is exactly the information this site does
+        not have. Suitability is your decision, and your broker's, not this
+        site's.</p>
+      </div>
+      <div class="panel">
+        <h4>Data may be delayed, incomplete or inaccurate</h4>
+        <p>Market data shown elsewhere on this site comes from third parties. It
+        may be delayed. It may be incomplete. It may simply be wrong. Figures
+        may be revised after publication, symbols may be missing, and a page may
+        continue to display the last value it received after that value has
+        stopped being current. Nothing here is a real-time quote and nothing
+        here should be used as one. Verify every price, quote, spread and
+        expiration against your broker or another primary source before you act
+        on it.</p>
+
+        <h4>Past performance does not indicate future results</h4>
+        <p>Any historical figure, backtest, chart, illustration or worked
+        example describes what happened in the past under conditions that will
+        not recur in the same form. Past performance does not indicate, predict
+        or guarantee future results. Hypothetical and illustrative results in
+        particular have the benefit of hindsight, do not represent actual
+        trading, and do not account for the costs, timing, liquidity, emotion
+        and execution problems that real trading involves.</p>
+
+        <h4>No warranty, no liability</h4>
+        <p>This site is provided as it is, without warranty of any kind, express
+        or implied, including as to accuracy, completeness, timeliness or
+        fitness for any purpose. To the maximum extent the law allows, no
+        liability is accepted for any loss arising from the use of, or reliance
+        on, anything published here. You are solely responsible for your own
+        decisions and for their outcome.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="buyers">
+  <h2><span class="chip">03</span> If you buy options</h2>
+  <div class="card">
+    <p class="lede">A long option is a wasting asset. It has an expiry date, and
+    on that date it is either worth its intrinsic value or it is worth
+    nothing.</p>
+    <div class="grid">
+      <div class="panel">
+        <h4>The entire premium can be lost</h4>
+        <p>When you buy a call or a put you pay a premium. That premium is the
+        most you can lose &mdash; and losing all of it is an ordinary outcome,
+        not an extreme one. If the option is out of the money at expiration it
+        expires worthless and the whole amount you paid is gone.</p>
+        <p>This is different from owning shares. A shareholder whose stock falls
+        can wait. An option holder cannot wait, because the contract ends.</p>
+      </div>
+      <div class="panel">
+        <h4>Time works against you</h4>
+        <p>You have to be right about direction <em>and</em> about timing. If
+        the move you expected happens the week after expiration, you were right
+        and you still lost everything.</p>
+        <p>The further out of the money the option is and the less time it has
+        left, the larger the move it needs and the less time it has to get
+        there &mdash; so the more likely the total loss becomes.</p>
+      </div>
+    </div>
+    <div class="ex">
+      <p class="cap">Illustration only</p>
+      <pre>You pay $3.00 a share for a $100 call, one contract, $300 total.
+At expiration the stock is $99.
+The call is out of the money and expires worthless.
+Loss: $300, being 100% of what you paid.
+The stock only had to fail to reach $100 for that to happen.</pre>
+    </div>
+    <div class="worst">
+      <span class="lbl">Worst case</span>
+      <span class="val">100% of the premium paid, plus costs.</span>
+    </div>
+    <p class="note">Leverage cuts both ways and the downside arrives more often
+    than the upside does. Buying more contracts with the same money increases
+    the percentage return if you are right and increases the probability of
+    losing everything if you are not.</p>
+  </div>
+</section>
+
+<section id="uncovered">
+  <h2><span class="chip">04</span> If you sell options you do not own</h2>
+  <div class="card">
+    <p class="lede">Selling an uncovered &mdash; naked &mdash; option is the
+    most dangerous thing described on this page. The premium you receive is the
+    most you can make. It is nowhere near the most you can lose.</p>
+    <div class="grid">
+      <div class="panel">
+        <h4>Uncovered calls: no natural ceiling</h4>
+        <p>If you sell a call without owning the shares and the stock rises, you
+        are obliged to deliver stock you do not have, at the strike, whatever it
+        costs you to buy. There is no upper limit on a share price, so there is
+        no natural ceiling on the loss. A takeover bid, a squeeze or a single
+        headline can move a stock far enough overnight to produce a loss many
+        times the premium you collected.</p>
+      </div>
+      <div class="panel">
+        <h4>Uncovered puts: down to nearly zero</h4>
+        <p>If you sell a put without the cash set aside, you are obliged to buy
+        the stock at the strike no matter how far it has fallen. The stock can
+        fall to almost nothing, and the loss is the strike less what the shares
+        are then worth, less the premium you received. That loss can
+        substantially exceed the premium.</p>
+      </div>
+    </div>
+    <div class="ex">
+      <p class="cap">Illustration only</p>
+      <pre>You sell one uncovered $100 call and receive $4.00 a share, $400.
+News arrives and the stock opens at $160.
+To close or to deliver, you must buy at about $160.
+Loss: about ($160 - $100) x 100 - $400 = $5,600.
+You collected $400. Nothing about the trade limited what you could lose.</pre>
+    </div>
+    <div class="worst">
+      <span class="lbl">Worst case</span>
+      <span class="val bad">Potentially unlimited on the call side. On the put
+      side, the full strike less the premium.</span>
+    </div>
+    <p class="note stop">Margin is part of the risk, not a cushion against it.
+    If the position moves against you your broker can demand substantially more
+    money at short notice, and if you do not provide it the broker may close
+    your positions &mdash; at whatever price is available at that moment, with
+    little or no prior notice, and without regard to what you thought the
+    position was worth. Uncovered writing is suitable only for people who
+    understand it, can meet those demands, and can absorb a large loss.</p>
+  </div>
+</section>
+
+<section id="spreads">
+  <h2><span class="chip">05</span> Defined-risk spreads</h2>
+  <div class="card">
+    <p class="lede">A spread caps the loss. It does not make the loss small, and
+    it does not make it unlikely. Defined risk means you know the number in
+    advance &mdash; it does not mean you will not pay it.</p>
+    <div class="grid">
+      <div class="panel">
+        <h4>The maximum loss is real</h4>
+        <p>On a credit spread the maximum loss is the <strong>width of the
+        spread less the credit received</strong>, multiplied by the contract
+        size. That figure is not a remote tail. It is what you pay any time both
+        strikes finish in the money, which happens routinely.</p>
+        <p>Because the credit is small relative to the width, a single maximum
+        loss can undo the gains from several winning spreads.</p>
+      </div>
+      <div class="panel">
+        <h4>Assignment on one leg</h4>
+        <p>The two legs are separate contracts. You can be assigned on the short
+        leg while still holding the long leg, which leaves you with an unwanted
+        stock position &mdash; long or short &mdash; and the market risk that
+        goes with it until you deal with it. Exercising the long leg to cover is
+        possible only if it is exercisable, and it destroys any remaining time
+        value in it.</p>
+        <p>Assignment can also trigger a margin call, and a stock position can
+        move overnight before you can react.</p>
+      </div>
+    </div>
+    <div class="ex">
+      <p class="cap">Illustration only</p>
+      <pre>You sell a $100 put and buy a $95 put for a net credit of $1.20.
+Width          $5.00
+Credit         $1.20
+Maximum loss   $5.00 - $1.20 = $3.80 a share, $380 per contract
+Maximum gain   $1.20 a share, $120 per contract
+Losing once at the maximum wipes out more than three full winners.</pre>
+    </div>
+    <p><strong>Pin risk.</strong> If the underlying finishes at or extremely
+    close to your short strike at expiration, you will not know at the closing
+    bell whether you have been assigned. You may be assigned on part of your
+    position, or all of it, or none of it &mdash; and you may not find out until
+    the following morning. In the meantime you are exposed to whatever the
+    stock does after hours and over the weekend, on a position you did not
+    choose to hold. <em>Pin risk</em> is the name for that uncertainty, and the
+    only reliable way to avoid it is to close the position before expiration
+    rather than let it settle.</p>
+    <div class="worst">
+      <span class="lbl">Worst case</span>
+      <span class="val">The width of the spread less the credit, plus costs
+      &mdash; and an unintended stock position if one leg is assigned.</span>
+    </div>
+  </div>
+</section>
+
+<section id="csp">
+  <h2><span class="chip">06</span> Cash-secured puts and assignment</h2>
+  <div class="card">
+    <p class="lede">Setting the cash aside removes the margin problem. It does
+    not remove the market risk, and it does not make the obligation optional.</p>
+    <p>When you sell a put you are <strong>obliged to buy</strong> the shares at
+    the strike if you are assigned, regardless of where the stock is trading.
+    Not at the market price. At the strike. If the stock has fallen well below
+    it, you buy anyway, at a price you can see is worse than the one available
+    to everyone else.</p>
+    <ul>
+      <li><strong>The premium is a small offset, not protection.</strong> It
+      lowers your effective cost by the amount you received and no more. A
+      decline larger than the premium is a loss.</li>
+      <li><strong>You can be assigned at any time,</strong> not only at
+      expiration, if the option is American-style. See section 08.</li>
+      <li><strong>The obligation does not go away because you changed your
+      mind.</strong> Once an exercise is assigned to you, you can no longer
+      close the option. You own the consequence.</li>
+      <li><strong>The cash is committed for the whole life of the trade.</strong>
+      It cannot be used elsewhere, and the return you are being paid for
+      committing it should be judged against that, not against the premium
+      alone.</li>
+      <li><strong>Only sell a put on something you actually want to own, at a
+      price you actually want to pay,</strong> because that is the outcome you
+      have agreed to.</li>
+    </ul>
+    <div class="ex">
+      <p class="cap">Illustration only</p>
+      <pre>You sell one $100 put and receive $3.00 a share, $300.
+You hold $10,000 in cash against it.
+The company disappoints and the stock falls to $72.
+You are assigned. You pay $100 a share, $10,000, for stock worth $7,200.
+Effective cost basis $97.00. Unrealised loss about $2,500.
+The premium reduced the loss. It did not prevent it.</pre>
+    </div>
+    <div class="worst">
+      <span class="lbl">Worst case</span>
+      <span class="val">The full strike less the premium received, if the shares
+      become worthless.</span>
+    </div>
+  </div>
+</section>
+
+<section id="cc">
+  <h2><span class="chip">07</span> Covered calls</h2>
+  <div class="card">
+    <p class="lede">A covered call is often described as conservative. What it
+    actually does is trade away your upside while leaving your downside almost
+    entirely intact.</p>
+    <div class="grid">
+      <div class="panel">
+        <h4>The downside is still yours</h4>
+        <p>You own the shares. If they fall, you lose on them exactly as you
+        would have without the call, less the premium you collected. On a large
+        decline the premium is a rounding error. Writing calls against a
+        position does not hedge it in any meaningful sense.</p>
+      </div>
+      <div class="panel">
+        <h4>The upside is capped</h4>
+        <p>If the stock rises above the strike you are likely to be assigned and
+        must sell at the strike. Your total proceeds are capped at the strike
+        plus the premium, however far above it the stock has gone. You gave up
+        that gain when you sold the call, and no adjustment gets it back for
+        free.</p>
+      </div>
+    </div>
+    <div class="ex">
+      <p class="cap">Illustration only</p>
+      <pre>You own 100 shares bought at $100 and sell a $110 call for $2.00.
+
+The stock goes to $140. You are assigned and sell at $110.
+  You realise $112 a share. You forwent $28 a share.
+
+The stock goes to $60. The call expires worthless.
+  You keep $200 of premium against a $4,000 decline in the shares.</pre>
+    </div>
+    <div class="worst">
+      <span class="lbl">Worst case</span>
+      <span class="val">Nearly the entire value of the shares, less the premium
+      received &mdash; while your best case stays fixed at the strike plus the
+      premium.</span>
+    </div>
+    <p class="note">There are also tax and dividend consequences to being
+    assigned on stock you hold, and they differ by jurisdiction and by how long
+    you have held the shares. This site does not address them. Ask someone
+    qualified before writing calls against a position with an embedded gain.</p>
+  </div>
+</section>
+
+<section id="assignment">
+  <h2><span class="chip">08</span> Exercise and early assignment</h2>
+  <div class="card">
+    <p class="lede">Most listed equity options are American-style, which means
+    the holder can exercise at any time until expiration &mdash; and the writer
+    can be assigned at any time, starting the day the option is written.</p>
+    <ul>
+      <li><strong>Early assignment is not rare and it is not in your
+      control.</strong> If you are short an option, you are subject to
+      assignment every day it is exercisable. You do not get a warning, you do
+      not get a vote, and being short only a few days does not protect you.</li>
+      <li><strong>Notice can arrive late.</strong> You may not learn you were
+      assigned until one or more days after the assignment was made. In the
+      meantime you may believe you hold a position you no longer hold.</li>
+      <li><strong>Once assigned, you cannot close the option.</strong> An
+      attempt to buy it back after assignment simply opens a new position. The
+      obligation to deliver or to purchase the shares stands.</li>
+      <li><strong>Dividends drive early exercise of calls.</strong> Stock
+      options are not generally adjusted for ordinary cash dividends, so a call
+      holder who exercises before the <strong>ex-dividend</strong> date captures
+      the dividend. The chance of being assigned on a short call therefore rises
+      as the ex-dividend date approaches, particularly when the call is in the
+      money and has little time value left. If you are short a call on a stock
+      about to go ex-dividend, assume you may be assigned and end up short the
+      stock and liable for the dividend.</li>
+      <li><strong>Assignment changes what you are holding.</strong> A leg that
+      disappears overnight can turn a defined-risk position into an
+      undefined-risk one: a spread becomes a naked long or short stock position
+      plus a single option, with all the exposure that implies until you
+      unwind it.</li>
+      <li><strong>Exercise can be restricted.</strong> If trading in an option
+      is halted, exercise may be restricted as well, and holders and writers can
+      be locked into positions until the restriction is lifted.</li>
+    </ul>
+    <p class="note stop">Any short option can become a stock position without
+    your involvement. Before you sell one, know what shares or cash you would
+    need, know what it would do to your account, and know that you might find
+    out about it after the fact.</p>
+  </div>
+</section>
+
+<section id="expiration">
+  <h2><span class="chip">09</span> Expiration</h2>
+  <div class="card">
+    <p class="lede">Expiration is the point at which unresolved positions get
+    resolved for you, on rules set by other people.</p>
+    <div class="grid">
+      <div class="panel">
+        <h4>Automatic exercise</h4>
+        <p>Brokers commonly submit, or accept standing instructions to submit,
+        an exercise for every option that is in the money at expiration by some
+        specified amount. That threshold is the broker's, not yours, and firms
+        differ. An option can therefore be exercised on your behalf even where
+        the transaction costs of exercising exceed the value received, leaving
+        you with a net loss from an option that finished in the money.</p>
+        <p>The same works the other way: an option just under the threshold may
+        not be exercised, and will expire worthless even though it had value.
+        Find out your own broker's threshold and cut-off time before you rely on
+        either.</p>
+      </div>
+      <div class="panel">
+        <h4>Expiring worthless</h4>
+        <p>An option that is not sold or exercised before it expires becomes
+        worthless. For a buyer that is the loss of the entire premium. For a
+        seller it is the best case, and it is the outcome that makes selling
+        feel safe right up until the one time it is not.</p>
+        <p>If you intend to exercise, you must give instructions before your
+        broker's cut-off, which may fall before the market closes on the last
+        trading day.</p>
+      </div>
+    </div>
+    <p><strong>Weekend and settlement exposure.</strong> Assignment on Friday is
+    typically reported over the weekend, so you may not learn until Saturday or
+    Monday what you are holding &mdash; and by then the shares have had a
+    weekend of news to react to. Stock resulting from an exercise settles on the
+    business day after exercise, so the cash or the shares are not available to
+    you immediately. A position that is at or near the strike into the close on
+    expiration day carries all of this at once: uncertain assignment, an
+    unhedged weekend, and a settlement date you cannot accelerate. Closing the
+    position before expiration is the way to avoid it.</p>
+    <div class="worst">
+      <span class="lbl">Worst case</span>
+      <span class="val">An unintended and unhedged stock position over a
+      weekend, or the total loss of a position that expired just short of a
+      threshold.</span>
+    </div>
+  </div>
+</section>
+
+<section id="liquidity">
+  <h2><span class="chip">10</span> Liquidity, the spread and execution</h2>
+  <div class="card">
+    <p class="lede">A price on a screen is not money. The price you get is the
+    price somebody is willing to trade at, at the moment you ask.</p>
+    <ul>
+      <li><strong>The mid is not a fill.</strong> Option chains and calculators
+      &mdash; including the ones on this site &mdash; commonly use the midpoint
+      between the bid and the ask. Nobody is obliged to trade with you at the
+      mid. On an illiquid contract you may have to give up a large part of the
+      spread to get filled at all, on the way in and again on the way out.</li>
+      <li><strong>Wide bid/ask spreads are a real cost.</strong> A contract
+      quoted $1.00 bid at $1.40 has a spread worth $40 a contract. Paying half
+      of it twice can consume a large share of the expected profit of a trade
+      before the market has moved at all. On multi-leg positions you pay a
+      spread on every leg.</li>
+      <li><strong>Slippage.</strong> Between the moment you decide and the
+      moment you are filled, the quote moves. In fast markets it moves a lot.
+      Market orders in options are especially unforgiving for this reason.</li>
+      <li><strong>There may be no market at all.</strong> There is no guarantee
+      that a liquid secondary market will exist for any given option at any
+      given time. If it does not, you may be unable to close a position and
+      would remain exposed &mdash; a holder until expiration, a writer until
+      expiration or assignment.</li>
+      <li><strong>Trading can be halted.</strong> Trading in an option can be
+      halted or suspended, including when the underlying is halted. While it is,
+      you cannot close, and the value of the underlying can move sharply before
+      it reopens.</li>
+      <li><strong>Open interest and volume are not depth.</strong> A contract
+      that traded heavily yesterday may be untradeable at a fair price today.
+      Check the current quote and the size behind it, not yesterday's
+      statistics.</li>
+    </ul>
+    <p class="note">Commissions, per-contract fees, exercise and assignment
+    fees, regulatory fees and financing costs all reduce returns and are not
+    reflected in illustrations on this site.</p>
+  </div>
+</section>
+
+<section id="vol">
+  <h2><span class="chip">11</span> Implied volatility and time decay</h2>
+  <div class="card">
+    <p class="lede">An option's price is not just a bet on direction. Two other
+    things move it, and both of them can beat you while you are right about the
+    stock.</p>
+    <div class="grid">
+      <div class="panel">
+        <h4>Implied volatility</h4>
+        <p><strong>Implied volatility</strong> is the market's collective
+        estimate of how much the underlying will move. It is an input to the
+        price, and it changes on its own. When it rises, options get more
+        expensive. When it falls, they get cheaper &mdash; even if the stock has
+        not moved at all.</p>
+        <p>Implied volatility usually rises into a known event, such as an
+        earnings release, and collapses immediately after it. That collapse is
+        commonly called <em>IV crush</em>. A long option bought before the event
+        can lose value the morning after even when the stock moved in the
+        direction you expected, simply because the uncertainty it was pricing
+        has been resolved. Selling volatility has the mirror problem: an
+        unexpected expansion can produce a large loss on a position that
+        looked calm.</p>
+      </div>
+      <div class="panel">
+        <h4>Time decay</h4>
+        <p>An option is a wasting asset. All else equal, the time value in it
+        erodes as expiration approaches, and that erosion
+        <strong>accelerates</strong> as the remaining time shortens. The common
+        name for that erosion is <em>theta</em>.</p>
+        <p>For a buyer this is a headwind every single day, including days the
+        market is closed. For a seller it is the tailwind the whole position
+        depends on &mdash; which is precisely why a seller is being paid, and
+        why the payment is small relative to the loss that occasionally
+        arrives.</p>
+      </div>
+    </div>
+    <p class="note stop"><strong>The stated maximum loss is a real outcome, not
+    a theoretical one.</strong> If you buy an option, expect to lose the entire
+    premium some of the time; that is how the strategy behaves, not a sign that
+    something went wrong. If you enter a defined-risk spread, expect to reach
+    the maximum loss some of the time. If you sell uncovered options, the loss
+    has no such definition at all. Size every position so that its worst
+    permitted outcome is one you can absorb without it mattering, because
+    sooner or later you will get it.</p>
+  </div>
+</section>
+
+<section id="data">
+  <h2><span class="chip">12</span> Market data on this site</h2>
+  <div class="card">
+    <p class="lede">This page carries no market data. The rest of the site does,
+    and it comes from third parties.</p>
+    <ul>
+      <li><strong>It may be delayed.</strong> Quotes, chains, screener output
+      and index levels shown elsewhere on this site are not real-time. Some are
+      end-of-day. Assume anything you see is older than it looks.</li>
+      <li><strong>It may be incomplete.</strong> Symbols can be missing,
+      screens can return partial results, a provider can drop a field, and a
+      page can be built from a file that arrived short.</li>
+      <li><strong>It may be inaccurate.</strong> Third-party data contains
+      errors. Values are revised after the fact. A stale figure can be displayed
+      as though it were current.</li>
+      <li><strong>Every page states its dates.</strong> Each page carries its
+      edition date and the date its data runs through. Check them. If a page is
+      out of date it will say so, and a page that says so means it.</li>
+      <li><strong>Verify before you act.</strong> Confirm every price, quote,
+      spread, strike, expiration and earnings date against your broker or
+      another primary source before placing an order. Do not trade from a
+      number on this site.</li>
+    </ul>
+    <p>Providers are named on the pages that use their data. No data provider
+    endorses, reviews or is responsible for anything published here, and their
+    supplying a price is not their agreeing with a word of the commentary
+    around it.</p>
+  </div>
+</section>
+
+<section id="notadvice">
+  <h2><span class="chip">13</span> Screens and examples are not recommendations</h2>
+  <div class="card">
+    <p class="lede">This is the point most easily misread, so it is stated
+    bluntly.</p>
+    <p><strong>Appearing on a screen is not a recommendation.</strong> A screen
+    is a filter. It returns everything that matched a set of mechanical
+    conditions on the day it ran &mdash; nothing more. It has not read the
+    company's filings, it does not know why the stock moved, it cannot see the
+    news, and it has no opinion. A name on a list has not been endorsed by
+    anybody. Some of what a screen returns will be there because something is
+    wrong.</p>
+    <p><strong>Educational examples are not recommendations.</strong> Worked
+    examples on this site exist to show how an instrument or a calculation
+    behaves. The symbols, strikes, expirations and prices in them are chosen to
+    make the arithmetic clear. They are not trade ideas, they were not selected
+    for merit, and they are not being suggested to anyone.</p>
+    <p><strong>A structure being possible is not a structure being
+    appropriate.</strong> The site can describe how a spread is built and what
+    its maximum loss would be. It cannot tell you whether you should hold it,
+    because that depends on everything about you that the site does not know.</p>
+    <p><strong>Nothing here is qualified until every condition is
+    verified.</strong> Where this site describes conditions for a strategy, all
+    of them have to be checked before anything is called qualified &mdash;
+    direction, volatility where the structure requires it, the expiration, the
+    strike placement, the level it sits against, liquidity, earnings timing and
+    the structure's own risk and adjustment rules. Any one of them failing is
+    enough. The general state of the market alone never qualifies anything, and
+    a page that cannot verify a condition says so instead of assuming it.</p>
+    <p class="note">If you take one sentence from this page, take this one:
+    a list is a list, an example is an example, and the decision was always
+    going to be yours.</p>
+  </div>
+</section>
+
+<section id="document">
+  <h2><span class="chip">14</span> The full disclosure document</h2>
+  <div class="card">
+    <p class="lede">Everything above is a summary written in plain language. It
+    is not the authority. This is.</p>
+    <p><em>Characteristics and Risks of Standardized Options</em> is the
+    disclosure document prepared by the U.S. options markets together with The
+    Options Clearing Corporation, and distributed to options customers under SEC
+    Rule 9b-1. It is the document your broker is required to make available to
+    you before you trade options. Read it.</p>
+    <div class="pdfrow">
+      <a class="pdfbtn" href="options-risk-disclosure.pdf" target="_blank"
+         rel="noopener">
+        <span class="ic">PDF</span>
+        Open the full options risk disclosure (PDF)
+      </a>
+      <p class="pdfnote">Served from this site, unmodified. Opens in a new
+      tab.</p>
+    </div>
+    <ul class="docmeta">
+      <li><span>Document</span><strong>Characteristics and Risks of
+      Standardized Options</strong></li>
+      <li><span>Edition</span><strong>June 2024</strong></li>
+      <li><span>Prepared by</span><strong>The U.S. options markets and The
+      Options Clearing Corporation</strong></li>
+      <li><span>Prepared under</span><strong>SEC Rule 9b-1, Securities Exchange
+      Act of 1934</strong></li>
+      <li><span>Latest amendment</span><strong>June 2024 &mdash; options market
+      list, and settlement moved to T+1</strong></li>
+    </ul>
+    <h4>What the summary above leaves out</h4>
+    <p>This page covers the risks that apply to options on shares and on fund
+    shares, because that is what a reader of this site is likely to trade. The
+    document also covers index options, debt and credit default options, foreign
+    currency options, flexibly structured options, binary options, range options
+    and capped options, together with contract adjustments, margin, tax and
+    settlement mechanics in detail. None of that is summarised here. If you
+    trade any of it, read the document.</p>
+    <p>The document itself notes that it does not attempt to present a complete
+    description of all of the provisions governing options, and that nothing in
+    it should be construed as furnishing investment advice or as a
+    recommendation, solicitation or offer to buy or sell any option or any other
+    security. The same is true, and more so, of this page.</p>
+
+    <p class="disclaimer">For educational use only. General education and market
+    analysis, not investment advice, not personalised to anyone, not a
+    recommendation, and not an offer or solicitation to buy or sell any
+    security. Options involve risk and are not suitable for every investor.
+    Market data elsewhere on this site comes from third parties and may be
+    delayed, incomplete or inaccurate. Past performance does not indicate future
+    results. Nothing here describes any account, position or result. Do your own
+    analysis and consult a licensed advisor before making any trade.</p>
+    <p class="dates">Edition 2026-09-06 &middot; Content current through
+    2024-06-30. This page is static: it carries no market data and is not
+    rebuilt each session. It changes only when the disclaimer above changes or
+    when the governing risk document is amended or replaced. Its through-date is
+    the date of the governing document, which is the June 2024 edition of
+    Characteristics and Risks of Standardized Options.</p>
+  </div>
+</section>
+
+</div>
+</body></html>

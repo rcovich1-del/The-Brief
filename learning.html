@@ -1,0 +1,289 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Learning - The Brief</title>
+<style>
+:root{
+  --bg:#0d0f14; --card:#151820; --line:#252a38; --text:#e2e6f0;
+  --dim:#6b7591; --accent:#5aa9ff;
+}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--text);margin:0;
+ font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
+ 'Helvetica Neue',Arial,sans-serif;font-size:14px;line-height:1.55;
+ -webkit-font-smoothing:antialiased}
+.wrap{max-width:1100px;margin:0 auto;padding:0 16px 64px}
+section{padding-top:36px}
+.page-notice{margin-top:28px;background:#241a0c;border:1px solid #5a4520;
+ border-radius:10px;padding:18px 20px;color:#fbbf24}
+.page-notice .rh-label{display:block;font-size:11px;font-weight:700;
+ text-transform:uppercase;letter-spacing:1.4px;margin-bottom:8px}
+.page-notice p{margin:0 0 10px;font-size:13.5px;max-width:82ch;color:#fbbf24}
+.page-notice p:last-child{margin-bottom:0}
+h2{display:flex;align-items:center;gap:10px;font-size:12px;font-weight:700;
+ text-transform:uppercase;letter-spacing:1.4px;color:var(--dim);
+ margin:0 0 16px}
+.chip{display:inline-flex;align-items:center;justify-content:center;
+ min-width:22px;height:20px;padding:0 6px;border:1px solid var(--line);
+ border-radius:4px;background:var(--card);color:var(--dim);font-size:11px;
+ font-weight:700;letter-spacing:.6px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;
+ padding:22px}
+.hero{display:flex;flex-wrap:wrap;gap:24px;align-items:flex-start}
+.hero .primary{flex:1 1 460px;min-width:280px}
+.hero .side{flex:0 1 300px;min-width:240px}
+.kicker{font-size:11px;text-transform:uppercase;letter-spacing:1.4px;
+ color:var(--accent);font-weight:700;margin:0 0 8px}
+h1{font-size:30px;line-height:1.15;margin:0 0 12px;letter-spacing:-.5px}
+.standfirst{color:#b9c1d4;font-size:15px;margin:0}
+.meta{list-style:none;margin:0;padding:0}
+.meta li{display:flex;justify-content:space-between;gap:16px;
+ padding:8px 0;border-bottom:1px solid var(--line);font-size:13px}
+.meta li:last-child{border-bottom:0}
+.meta span{color:var(--dim)}
+.meta strong{font-weight:600}
+.weeks{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+.week{background:var(--card);border:1px solid var(--line);border-radius:10px;
+ padding:16px;position:relative}
+.week.now{border-color:var(--accent);box-shadow:0 0 0 1px rgba(90,169,255,.28)}
+.week.done{opacity:.9}
+.week.ahead .wk-summary{color:var(--dim)}
+.wk-top{display:flex;align-items:center;justify-content:space-between;
+ gap:8px;margin-bottom:10px}
+.wk-n{font-size:11px;text-transform:uppercase;letter-spacing:1.2px;
+ color:var(--dim);font-weight:700}
+.tag{font-size:10px;text-transform:uppercase;letter-spacing:1px;
+ font-weight:700;padding:3px 7px;border-radius:999px;border:1px solid var(--line);
+ color:var(--dim)}
+.tag.now{border-color:var(--accent);color:var(--accent)}
+.tag.done{color:#7f8aa3}
+.wk-title{font-size:14px;font-weight:600;margin:0 0 8px;line-height:1.35}
+.wk-summary{font-size:12.5px;color:#9aa3ba;margin:0}
+.wk-level{font-size:10px;text-transform:uppercase;letter-spacing:1px;
+ color:var(--dim);margin-top:12px}
+.unit h3{font-size:20px;margin:0 0 4px;letter-spacing:-.2px}
+.unit .unit-meta{color:var(--dim);font-size:12px;text-transform:uppercase;
+ letter-spacing:1.2px;font-weight:700;margin:0 0 18px}
+.unit p{margin:0 0 14px;max-width:74ch}
+.unit h4{font-size:13px;font-weight:700;margin:24px 0 10px;color:var(--text);
+ letter-spacing:.2px}
+.unit ul{margin:0 0 14px;padding-left:18px;max-width:74ch}
+.unit li{margin-bottom:8px}
+dl.terms{margin:0 0 16px;display:grid;grid-template-columns:190px 1fr;
+ gap:0;border-top:1px solid var(--line)}
+dl.terms dt{padding:10px 12px 10px 0;border-bottom:1px solid var(--line);
+ font-weight:600;font-size:13px}
+dl.terms dd{padding:10px 0;border-bottom:1px solid var(--line);margin:0;
+ color:#b9c1d4;font-size:13px}
+.note{border-left:2px solid var(--accent);background:rgba(90,169,255,.05);
+ padding:14px 16px;margin:0 0 16px;color:#b9c1d4;font-size:13px;
+ border-radius:0 6px 6px 0;max-width:78ch}
+#progression .note{margin-top:14px}
+.limits{border:1px dashed var(--line);border-radius:8px;padding:16px 18px;
+ margin-top:22px}
+.limits h4{margin:0 0 10px}
+.limits ul{margin:0;padding-left:18px;color:#9aa3ba;font-size:13px}
+.next{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.next .card h4{margin:0 0 6px;font-size:14px}
+.next .card p{margin:0;color:#9aa3ba;font-size:13px}
+.next .card .kicker{margin-bottom:10px}
+table.year{width:100%;border-collapse:collapse;font-size:13px}
+table.year th{text-align:left;font-size:11px;text-transform:uppercase;
+ letter-spacing:1.1px;color:var(--dim);font-weight:700;padding:0 12px 10px 0;
+ border-bottom:1px solid var(--line)}
+table.year td{padding:11px 12px 11px 0;border-bottom:1px solid var(--line);
+ vertical-align:top;color:#b9c1d4}
+table.year td.m{color:var(--dim);white-space:nowrap;width:96px}
+table.year td.s{color:var(--text);font-weight:600;width:250px}
+table.year tr.now td{color:var(--text)}
+table.year tr.now td.m{color:var(--accent);font-weight:700}
+.foot p{color:#9aa3ba;max-width:78ch;margin:0 0 12px;font-size:13px}
+.foot .disclaimer{color:var(--dim);font-size:12px;border-top:1px solid var(--line);
+ padding-top:16px;margin-top:20px}
+@media(max-width:900px){
+  .weeks{grid-template-columns:repeat(2,1fr)}
+  .next{grid-template-columns:1fr}
+  dl.terms{grid-template-columns:1fr}
+  dl.terms dt{border-bottom:0;padding-bottom:0}
+}
+@media(max-width:560px){
+  .weeks{grid-template-columns:1fr}
+  h1{font-size:24px}
+}
+</style></head><body>
+<!-- SHARED NAVIGATION -->
+<style>
+.tb-shell{background:#0d0f14;border-bottom:1px solid #252a38;
+ font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+.tb-bar{max-width:1100px;margin:0 auto;padding:14px 16px 0;display:flex;
+ align-items:baseline;gap:12px;flex-wrap:wrap}
+.tb-mark{font-size:20px;font-weight:700;color:#fff;letter-spacing:-0.4px}
+.tb-ed{font-size:11px;color:#6b7591}
+.tb-nav{max-width:1100px;margin:0 auto;padding:0 16px;display:flex;gap:2px;
+ flex-wrap:wrap}
+.tb-nav a{display:block;padding:10px 14px;font-size:13px;color:#6b7591;
+ text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap}
+.tb-nav a:hover{color:#e2e6f0}
+.tb-nav a[aria-current="page"]{color:#fff;border-bottom-color:#5aa9ff;
+ font-weight:600}
+.tb-nav a.tb-off{color:#4a5266;cursor:not-allowed}
+.tb-stale{background:#3a2a12;color:#fbbf24;border-bottom:1px solid #5a4520;
+ font:600 12px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+ padding:8px 16px;text-align:center}
+.tb-note{background:#1b2430;color:#9fb3c8;font:12px/1.5 -apple-system,
+ BlinkMacSystemFont,'Segoe UI',sans-serif;padding:5px 16px;text-align:center;
+ border-bottom:1px solid #26313f}
+.tb-prelaunch{background:#1c2030;color:#9fb3c8;border-bottom:1px solid #2a3040;
+ font:600 11px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+ letter-spacing:.4px;padding:6px 16px;text-align:center}
+@media(max-width:640px){.tb-nav a{padding:9px 10px;font-size:12px}}
+</style>
+<div class="tb-prelaunch" role="note">Pre-launch review — not final</div>
+<div class="tb-shell">
+  <div class="tb-bar"><div class="tb-mark">The Brief</div><div class="tb-ed">Edition 2026-09-06</div></div>
+  <nav class="tb-nav" aria-label="Primary"><a href="brief.html">The Brief</a><a href="screeners.html">Screeners</a><a href="sp-overview.html">S&P Overview</a><a href="economy.html">Economy</a><a href="learning.html" aria-current="page">Learning</a><a href="tools.html">Tools</a><a href="risk.html">Risk & Disclosures</a></nav>
+</div>
+
+
+<div class="wrap">
+
+<div class="page-notice" role="note" aria-label="Worked examples">
+  <span class="rh-label">Worked examples &middot; not archived trades</span>
+  <p>No archived trade and no case study has been cleared for publication, for
+  this subject or for any other month in the calendar. Week 4 of every month
+  therefore runs a labelled hypothetical worked example: a constructed
+  illustration, not a trade anyone took, and not evidence of what any structure
+  returns.</p>
+</div>
+
+<section id="this-month">
+  <h2><span class="chip">01</span> This month</h2>
+  <div class="hero">
+    <div class="primary card">
+      <p class="kicker">September &middot; Month 9 of 12</p>
+      <h1>Diagonal Spreads</h1>
+      <p class="standfirst">Two expirations instead of one. This month sits after the chart framework because the entry condition is a chart reading, and after the volatility framework because the position's volatility exposure is the reason it behaves as it does. It is also the one structure in this curriculum whose rule is: do not repair it.</p>
+    </div>
+    <div class="side card">
+      <ul class="meta">
+        <li><span>Subject</span><strong>Diagonal Spreads</strong></li>
+        <li><span>Current unit</span><strong>Week 1 &middot; Foundations</strong></li>
+        <li><span>Units this month</span><strong>4</strong></li>
+        <li><span>Next subject</span><strong>Earnings and Event Risk</strong></li>
+        <li><span>Selected by</span><strong>The calendar</strong></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section id="progression">
+  <h2><span class="chip">02</span> The four-week progression</h2>
+  <div class="weeks"><article class="week now"><div class="wk-top"><span class="wk-n">Week 1</span><span class="tag now">This week</span></div><h3 class="wk-title">Two expirations, two jobs: what a diagonal is</h3><p class="wk-summary">The definition, the different job each leg does, and the exposures that follow from having two expirations rather than one.</p><div class="wk-level">Foundations</div></article><article class="week ahead"><div class="wk-top"><span class="wk-n">Week 2</span><span class="tag">Ahead</span></div><h3 class="wk-title">Construction and the entry condition</h3><p class="wk-summary">Two timeframes that have to agree, entry after an extreme recent move, and the disqualifying conditions.</p><div class="wk-level">Intermediate</div></article><article class="week ahead"><div class="wk-top"><span class="wk-n">Week 3</span><span class="tag">Ahead</span></div><h3 class="wk-title">The position that is not repaired</h3><p class="wk-summary">The month's distinctive rule, the reason behind it, the exits that replace adjustment, and the failure mode that arrives fastest.</p><div class="wk-level">Advanced</div></article><article class="week ahead"><div class="wk-top"><span class="wk-n">Week 4</span><span class="tag">Ahead</span></div><h3 class="wk-title">Hypothetical worked example and review</h3><p class="wk-summary">A hypothetical illustration carried through the month's decision sequence, then reviewed against the rules rather than against the outcome. No archived trade has been cleared for publication, so none is shown.</p><div class="wk-level">Applied</div></article></div>
+  <p class="note">Week 4 is a hypothetical worked example, in this month and in
+  every other month of the calendar. No archived trade has been cleared for
+  publication, so none is shown: the unit works through a constructed
+  illustration built from round numbers and then reviews it against the month's
+  own rules.</p>
+</section>
+
+<section id="this-week">
+  <h2><span class="chip">03</span> This week</h2>
+  <div class="card unit">
+    <h3>Two expirations, two jobs: what a diagonal is</h3>
+    <p class="unit-meta">Week 1 &middot; Foundations &middot; Diagonal Spreads</p>
+    <p>A vertical spread uses two strikes in one expiration. A calendar spread uses one strike in two expirations. A diagonal changes both at once - two different strikes and two different expirations. That is the entire definition, and every property this month discusses follows from it.</p>
+<p>The near-dated option is sold. The later-dated option is bought. They are not two halves of the same thing; they have different jobs. The short option's job is to decay: it is closer to expiration, so the passage of time works on it faster than on the option behind it. The long option's job is twofold. First, it limits what an adverse move beyond the short strike can cost, though not to a fixed figure - because the two legs expire at different dates, the worst case depends on what the later-dated option is still worth at the near expiration, and has to be read off the position's own payoff rather than calculated from the strikes. Second, it is still there, holding value, after the short option has expired or been closed.</p>
+<h4>Why two expirations behave differently from one</h4>
+<p>In a vertical spread, both legs experience time identically. Whatever time does to one, it does to the other, and the position's value depends almost entirely on where price sits relative to the strikes. A diagonal breaks that symmetry deliberately. As the near expiration approaches, the sold option loses time value quickly while the purchased option, which still has time remaining, loses it slowly. The gap between those two rates is what the position is designed to collect.</p>
+<p>The same asymmetry is what makes the position awkward to describe with a single payoff diagram. A diagram drawn to the near expiration and a diagram drawn to the far expiration are different pictures of the same trade, and a reader who looks only at the far one can convince themselves a position is comfortable while the near-term exposure is anything but.</p>
+<h4>This is a directional position</h4>
+<p>It is tempting to file a diagonal under income structures and assume it is neutral. It is not. A call diagonal, built above the market, leans against further upside; a put diagonal, built below it, leans against further downside. Put diagonals require additional caution because markets can continue falling quickly. The lean is deliberate and it is the point: the structure is normally opened after an extended move, in the expectation that the move slows, stalls or partially retraces. If the move continues at speed, this position is on the wrong side of it.</p>
+<h4>The exposures</h4>
+<dl class="terms"><dt>Diagonal spread</dt><dd>A short option in a nearer expiration and a long option in a later expiration, at different strikes.</dd><dt>Near-dated leg</dt><dd>The option that was sold. Closer to expiration, decays faster, and defines where the position gets uncomfortable.</dd><dt>Later-dated leg</dt><dd>The option that was bought. Limits, but does not fix, what an adverse move beyond the short strike can cost, and retains value after the short leg is gone.</dd><dt>Theta</dt><dd>The rate at which an option loses value as time passes, all else equal. The two legs of a diagonal have different thetas; that difference is the structure's reason to exist.</dd><dt>Vega</dt><dd>Sensitivity to a change in implied volatility. A diagonal usually starts positive-vega, because the later-dated option it owns is more sensitive to volatility than the nearer one it has sold.</dd><dt>Term structure</dt><dd>The relationship between implied volatility at one expiration and another. A diagonal is exposed to it by construction, because its two legs sit at different points on that curve.</dd><dt>Short strike</dt><dd>The strike of the sold option. The distance between price and this strike is monitored continuously while the position is open, alongside the position's Greeks and its payoff at the near expiration.</dd></dl>
+<p>Positive vega is worth stating plainly, because it is frequently misread as protection. It means the position generally benefits if implied volatility rises and suffers if it falls. It does not mean the position is hedged. A sharp adverse move in the underlying will usually cost more than any accompanying rise in volatility returns, and the two do not net out in the holder's favour just because one of them is pointing the right way.</p>
+<p class="note">This unit publishes no strike or expiration figures. The accepted figures for the short-horizon form of this structure fall outside the parameter ranges this site publishes, and a parameter that cannot be published is left out rather than adjusted to fit. The month therefore teaches the structure, the exposure, the entry condition and the management discipline, and does not teach a number.</p>
+<div class="limits"><h4>What this unit does not establish</h4><ul><li>It does not give an entry rule. That is next week.</li><li>It does not say a diagonal is currently appropriate for anything. The subject is on the page because the calendar put it there.</li><li>It does not establish strike distances. Those are specific to the instrument and do not transfer between a broad index and a single stock; the material supplies no rule for converting one to the other, so none is given.</li></ul></div>
+  </div>
+</section>
+
+<section id="coming-next">
+  <h2><span class="chip">04</span> Coming next</h2>
+  <div class="next">
+    <div class="card">
+      <p class="kicker">Next unit</p>
+      <h4>Construction and the entry condition</h4>
+      <p>Week 2, September. Two timeframes that have to agree, entry after an extreme recent move, and the disqualifying conditions.</p>
+    </div>
+    <div class="card">
+      <p class="kicker">Next month</p>
+      <h4>Earnings and Event Risk</h4>
+      <p>Scheduled announcements can change how expirations are selected and managed. October examines a structure built deliberately around an announcement. It is treated as introductory, because the material behind it is marked provisional in its own right.</p>
+    </div>
+  </div>
+</section>
+
+<section id="year">
+  <h2><span class="chip">05</span> The year ahead</h2>
+  <div class="card">
+    <table class="year"><thead><tr><th>Month</th><th>Subject</th><th>The four units</th></tr></thead><tbody><tr><td class="m">January</td><td class="s">Iron Condor Month</td><td>What an iron condor is: two credit spreads, one expiration &middot; Construction: the two sides are not symmetric &middot; Management: profit target, loss limit, and the repair ceiling &middot; Hypothetical worked example and review</td></tr><tr><td class="m">February</td><td class="s">The Cash-Secured Put</td><td>The obligation you are selling &middot; Choosing a candidate you would accept owning &middot; The layered exit: review level, trend break, hard maximum &middot; Hypothetical worked example and review</td></tr><tr><td class="m">March</td><td class="s">The Bull Put Spread</td><td>Why a second, cheaper option changes everything &middot; Entry: delta, expiration, volatility rank, and where the strike sits &middot; Targets, the loss limit, and the three risk triggers &middot; Hypothetical worked example and review</td></tr><tr><td class="m">April</td><td class="s">Volatility as an Input</td><td>Implied and realised volatility are different measurements &middot; Term structure and skew: reading the surface &middot; Vega, and why a volatility level is not an allocation instruction &middot; Hypothetical worked example and review</td></tr><tr><td class="m">May</td><td class="s">The Wheel, End to End</td><td>The cycle, and why assignment is the plan &middot; The covered call leg and the adjusted cost basis &middot; Where the cycle stops, and the documented way it goes wrong &middot; Hypothetical worked example and review</td></tr><tr><td class="m">June</td><td class="s">The Bear Call Spread</td><td>Selling above the market: the mirror is not exact &middot; Entry on the call side, and where resistance sits &middot; Management, and the exposure that appears above the short strike &middot; Hypothetical worked example and review</td></tr><tr><td class="m">July</td><td class="s">What a Purchased Option Can and Cannot Do</td><td>The right without the obligation, and the premium as maximum loss &middot; The four sensitivities, and why a correct view can still lose &middot; Time as the failure mode &middot; Hypothetical worked example and review</td></tr><tr><td class="m">August</td><td class="s">Reading the Chart</td><td>Price structure first: highs, lows, support, resistance &middot; Trend context, and matching the chart to the holding period &middot; Momentum inside a trend, and breadth as backdrop &middot; Hypothetical worked example and review</td></tr><tr class="now"><td class="m">September</td><td class="s">Diagonal Spreads</td><td>Two expirations, two jobs: what a diagonal is &middot; Construction and the entry condition &middot; The position that is not repaired &middot; Hypothetical worked example and review</td></tr><tr><td class="m">October</td><td class="s">Earnings and Event Risk</td><td>Why an announcement changes what expirations cost &middot; Pairing expirations around a date &middot; Exiting before the event, and why holding through is a separate decision &middot; Hypothetical worked example and review</td></tr><tr><td class="m">November</td><td class="s">Management Across Structures</td><td>Deciding the exit before the entry &middot; Profit targets: partial credit, taken early &middot; Loss limits, repair boundaries, and the structures that have neither &middot; Hypothetical worked example and review</td></tr><tr><td class="m">December</td><td class="s">What the Material Does Not Settle</td><td>Defined risk as arithmetic: width minus credit &middot; Objectives are not expectations &middot; The open questions, named &middot; Hypothetical worked example and review</td></tr></tbody></table>
+  </div>
+</section>
+
+<section id="how" class="foot">
+  <h2><span class="chip">06</span> How this tab is built</h2>
+  <div class="card">
+    <p>One subject a month, four units inside it, planned twelve months ahead.
+    The subject is chosen by the curriculum. It is not chosen by what the market
+    is doing, and nothing appearing here carries any suggestion that a structure
+    is appropriate for current conditions or for any particular reader.</p>
+
+    <p>The teaching on this tab is grounded in an internal, reviewed set of
+    records derived from the source material behind this curriculum. The
+    explanations you are reading were written for this page rather than taken
+    from those records: they paraphrase what the records permit and are worded
+    here for the first time. That wording has been reviewed and approved
+    statement by statement against those records.</p>
+
+    <p>Explanations are written for this page. They are bounded by a reviewed
+    internal knowledge library, which decides what may be stated, what may be
+    called a rule, and what must be described as general options mechanics
+    attributed to no individual. Where that material records an absence - a rule
+    the underlying sources never state - this page says so rather than filling
+    it in. Where two accepted sources disagree, no figure is published.</p>
+
+    <p>Where a parameter is published, it follows the ranges this site accepts:
+    a short strike of approximately 15-20 delta, approximately 30-180 days to
+    expiration on monthly cycles, and, for credit spreads, IV Rank above 50%.
+    That volatility condition applies to credit structures and is not applied to
+    debit strategies. A parameter that falls outside those ranges is left out
+    rather than adjusted to fit, which is why some months teach a structure and
+    its discipline without teaching a number.</p>
+
+    <p>Week 4 of every month is a hypothetical worked example. No archived trade
+    and no case study has been cleared for publication, in any month, so none is
+    shown: the case material behind this curriculum consists of dated individual
+    demonstrations recorded as demonstrations rather than as evidence of
+    expected performance, and republishing one without clearance would invite a
+    reader to treat a single outcome as a result.</p>
+
+    <p class="disclaimer">General education and market analysis. Not personal
+    advice, not a recommendation, and not an offer or solicitation. Options
+    involve risk and are not suitable for every investor. Nothing here describes
+    any account, position or result.<br>
+    Edition 2026-09-06 &middot; Curriculum reviewed through
+    2026-09-04.</p>
+  </div>
+</section>
+
+</div>
+
+<!-- SHARED DISCLAIMER -->
+<style>.tb-dis{max-width:1100px;margin:32px auto 0;padding:16px;
+ border-top:1px solid #252a38;color:#6b7591;font:11px/1.6 -apple-system,
+ BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}</style>
+<div class="tb-dis">Educational use only - not investment advice. Nothing here
+is a recommendation to buy or sell any security, and nothing here is
+personalised to your circumstances, objectives or risk tolerance. Options carry
+substantial risk and are not suitable for every investor. Data may be delayed,
+incomplete or inaccurate. Past performance does not indicate future results.</div>
+</body></html>

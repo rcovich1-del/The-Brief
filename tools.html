@@ -1,0 +1,840 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tools - The Brief</title>
+<style>
+:root{
+  --bg:#0d0f14; --card:#151820; --card2:#1c2030; --line:#252a38;
+  --text:#e2e6f0; --dim:#6b7591;
+  --green:#34d399; --red:#f87171; --amber:#fbbf24; --blue:#5aa9ff;
+}
+*{box-sizing:border-box}
+html,body{max-width:100%;overflow-x:hidden}
+body{background:var(--bg);color:var(--text);margin:0;
+ font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,
+ 'Helvetica Neue',Arial,sans-serif;font-size:14px;line-height:1.55;
+ -webkit-font-smoothing:antialiased}
+.wrap{max-width:1100px;margin:0 auto;padding:20px 16px 64px}
+section{padding-top:34px}
+h2{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;
+ text-transform:uppercase;letter-spacing:1px;color:var(--dim);margin:0 0 14px}
+.chip{display:inline-flex;align-items:center;justify-content:center;
+ min-width:22px;height:20px;padding:0 6px;border:1px solid var(--line);
+ border-radius:4px;background:var(--card);color:var(--dim);font-size:11px;
+ font-weight:700;letter-spacing:.6px;flex:0 0 auto}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;
+ padding:20px}
+.hero{display:flex;flex-wrap:wrap;gap:20px;align-items:flex-start}
+.hero .primary{flex:1 1 460px;min-width:260px}
+.hero .side{flex:0 1 300px;min-width:240px}
+.kicker{font-size:11px;text-transform:uppercase;letter-spacing:1.4px;
+ color:var(--blue);font-weight:700;margin:0 0 8px}
+h1{font-size:30px;line-height:1.15;margin:0 0 12px;letter-spacing:-.5px}
+.standfirst{color:#b9c1d4;font-size:15px;margin:0 0 12px}
+.hero p.small{color:var(--dim);font-size:12.5px;margin:0}
+.meta{list-style:none;margin:0;padding:0}
+.meta li{display:flex;justify-content:space-between;gap:14px;padding:8px 0;
+ border-bottom:1px solid var(--line);font-size:13px}
+.meta li:last-child{border-bottom:0}
+.meta span{color:var(--dim)}
+.meta strong{font-weight:600;text-align:right}
+
+.calc h3{font-size:17px;margin:0 0 6px;letter-spacing:-.2px}
+.calc .lede{color:#9aa3ba;font-size:13px;margin:0 0 18px;max-width:74ch}
+.io{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+ gap:18px;align-items:start}
+.panel{background:var(--card2);border:1px solid var(--line);border-radius:8px;
+ padding:16px}
+.panel h4{margin:0 0 12px;font-size:11px;text-transform:uppercase;
+ letter-spacing:1px;color:var(--dim);font-weight:700}
+.field{margin-bottom:12px}
+.field:last-child{margin-bottom:0}
+.field label{display:block;font-size:12px;color:#b9c1d4;margin-bottom:5px}
+.field .hint{color:var(--dim);font-size:11px}
+input[type=text]{width:100%;background:#0d0f14;border:1px solid var(--line);
+ border-radius:6px;color:var(--text);padding:9px 10px;font-size:14px;
+ font-family:inherit;font-variant-numeric:tabular-nums}
+input[type=text]:focus{outline:none;border-color:var(--blue);
+ box-shadow:0 0 0 2px rgba(90,169,255,.22)}
+fieldset{border:0;padding:0;margin:0 0 12px}
+legend{font-size:12px;color:#b9c1d4;padding:0;margin-bottom:6px}
+.radios{display:flex;gap:8px;flex-wrap:wrap}
+.radios label{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;
+ color:#b9c1d4;border:1px solid var(--line);border-radius:6px;
+ padding:7px 10px;background:#0d0f14;cursor:pointer}
+.radios input{accent-color:var(--blue);margin:0}
+.radios input:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+
+.orow{display:flex;justify-content:space-between;align-items:baseline;gap:12px;
+ padding:9px 0;border-bottom:1px solid var(--line)}
+.orow:last-child{border-bottom:0}
+.ol{color:var(--dim);font-size:12.5px;min-width:0}
+.ov{font-size:15px;font-weight:600;white-space:nowrap;
+ font-variant-numeric:tabular-nums;font-feature-settings:"tnum"}
+.ov.pos{color:var(--green)}
+.ov.neg{color:var(--red)}
+.ov.tag{color:var(--amber);font-size:13px;font-weight:600;white-space:normal;
+ text-align:right}
+.ov.blank{color:var(--dim);font-weight:400}
+
+.formula{margin-top:16px;border-top:1px solid var(--line);padding-top:14px}
+.formula h4{margin:0 0 8px;font-size:11px;text-transform:uppercase;
+ letter-spacing:1px;color:var(--dim);font-weight:700}
+.formula pre{margin:0;overflow-x:auto;background:#0d0f14;
+ border:1px solid var(--line);border-radius:6px;padding:12px 14px;
+ font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,'Liberation Mono',monospace;
+ font-size:12px;line-height:1.7;color:#b9c1d4;-webkit-overflow-scrolling:touch}
+.caveat{margin:12px 0 0;color:var(--dim);font-size:12px;max-width:74ch}
+.note{border-left:2px solid var(--amber);background:rgba(251,191,36,.05);
+ padding:12px 14px;margin:16px 0 0;color:#b9c1d4;font-size:12.5px;
+ border-radius:0 6px 6px 0;max-width:78ch}
+.foot p{color:#9aa3ba;max-width:78ch;margin:0 0 12px;font-size:13px}
+.foot h4{font-size:13px;margin:20px 0 8px}
+.foot ul{margin:0 0 12px;padding-left:18px;color:#9aa3ba;font-size:13px;
+ max-width:78ch}
+.foot li{margin-bottom:6px}
+.foot .disclaimer{color:var(--dim);font-size:12px;border-top:1px solid var(--line);
+ padding-top:16px;margin-top:20px}
+@media(max-width:760px){
+  .io{grid-template-columns:minmax(0,1fr)}
+  h1{font-size:24px}
+  .ov{font-size:14px}
+}
+</style></head><body>
+<!-- SHARED NAVIGATION -->
+<style>
+.tb-shell{background:#0d0f14;border-bottom:1px solid #252a38;
+ font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+.tb-bar{max-width:1100px;margin:0 auto;padding:14px 16px 0;display:flex;
+ align-items:baseline;gap:12px;flex-wrap:wrap}
+.tb-mark{font-size:20px;font-weight:700;color:#fff;letter-spacing:-0.4px}
+.tb-ed{font-size:11px;color:#6b7591}
+.tb-nav{max-width:1100px;margin:0 auto;padding:0 16px;display:flex;gap:2px;
+ flex-wrap:wrap}
+.tb-nav a{display:block;padding:10px 14px;font-size:13px;color:#6b7591;
+ text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap}
+.tb-nav a:hover{color:#e2e6f0}
+.tb-nav a[aria-current="page"]{color:#fff;border-bottom-color:#5aa9ff;
+ font-weight:600}
+.tb-nav a.tb-off{color:#4a5266;cursor:not-allowed}
+.tb-stale{background:#3a2a12;color:#fbbf24;border-bottom:1px solid #5a4520;
+ font:600 12px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+ padding:8px 16px;text-align:center}
+.tb-note{background:#1b2430;color:#9fb3c8;font:12px/1.5 -apple-system,
+ BlinkMacSystemFont,'Segoe UI',sans-serif;padding:5px 16px;text-align:center;
+ border-bottom:1px solid #26313f}
+.tb-prelaunch{background:#1c2030;color:#9fb3c8;border-bottom:1px solid #2a3040;
+ font:600 11px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+ letter-spacing:.4px;padding:6px 16px;text-align:center}
+@media(max-width:640px){.tb-nav a{padding:9px 10px;font-size:12px}}
+</style>
+<div class="tb-prelaunch" role="note">Pre-launch review — not final</div>
+<div class="tb-shell">
+  <div class="tb-bar"><div class="tb-mark">The Brief</div><div class="tb-ed">Edition 2026-09-06</div></div>
+  <nav class="tb-nav" aria-label="Primary"><a href="brief.html">The Brief</a><a href="screeners.html">Screeners</a><a href="sp-overview.html">S&P Overview</a><a href="economy.html">Economy</a><a href="learning.html">Learning</a><a href="tools.html" aria-current="page">Tools</a><a href="risk.html">Risk & Disclosures</a></nav>
+</div>
+
+
+<div class="wrap">
+
+<section id="intro" style="padding-top:28px">
+  <div class="hero">
+    <div class="primary card">
+      <p class="kicker">Seven calculators &middot; static tab</p>
+      <h1>Tools</h1>
+      <p class="standfirst">You bring the numbers. These work out what they
+      imply &mdash; cost basis, breakeven, return on risk, annualized yield
+      &mdash; the same way every time, with the formula printed beside every
+      result.</p>
+      <p class="small">Nothing here evaluates a trade. A calculator does
+      arithmetic; it has no opinion about whether the arithmetic describes
+      something worth doing. Everything is computed in your browser: the page
+      makes no network request and stores nothing.</p>
+    </div>
+    <div class="side card">
+      <ul class="meta">
+        <li><span>Edition</span><strong>2026-09-05</strong></li>
+        <li><span>Content through</span><strong>2026-09-05</strong></li>
+        <li><span>Market data used</span><strong>None</strong></li>
+        <li><span>Cadence</span><strong>Static</strong></li>
+        <li><span>Rebuilt when</span><strong>A formula changes</strong></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- 01 -->
+<section id="csp">
+  <h2><span class="chip">01</span> Cash-secured put</h2>
+  <div class="card calc">
+    <h3>Cash-secured put</h3>
+    <p class="lede">Selling a put with the full purchase amount held in cash.
+    Shows what the shares would cost you if assigned, how much cash the
+    obligation ties up, and what the premium is worth as a rate.</p>
+    <div class="io">
+      <div class="panel">
+        <h4>Inputs</h4>
+        <div class="field">
+          <label for="csp-k">Put strike ($ per share)</label>
+          <input type="text" id="csp-k" inputmode="decimal" autocomplete="off" placeholder="e.g. 100">
+        </div>
+        <div class="field">
+          <label for="csp-p">Premium received ($ per share)</label>
+          <input type="text" id="csp-p" inputmode="decimal" autocomplete="off" placeholder="e.g. 2.50">
+        </div>
+        <div class="field">
+          <label for="csp-s">Current price of the underlying ($)</label>
+          <input type="text" id="csp-s" inputmode="decimal" autocomplete="off" placeholder="e.g. 104">
+        </div>
+        <div class="field">
+          <label for="csp-d">Days to expiration</label>
+          <input type="text" id="csp-d" inputmode="decimal" autocomplete="off" placeholder="e.g. 60">
+          <span class="hint">Used only to annualize the static return.</span>
+        </div>
+      </div>
+      <div class="panel" aria-live="polite">
+        <h4>Results</h4>
+        <div class="orow"><span class="ol">Cost basis if assigned</span><span class="ov blank" id="csp-basis">&mdash;</span></div>
+        <div class="orow"><span class="ol">Basis vs current price</span><span class="ov blank" id="csp-vs">&mdash;</span></div>
+        <div class="orow"><span class="ol">Capital committed (1 contract)</span><span class="ov blank" id="csp-cap">&mdash;</span></div>
+        <div class="orow"><span class="ol">Static return</span><span class="ov blank" id="csp-static">&mdash;</span></div>
+        <div class="orow"><span class="ol">Annualized return</span><span class="ov blank" id="csp-ann">&mdash;</span></div>
+        <div class="orow"><span class="ol">Breakeven</span><span class="ov blank" id="csp-be">&mdash;</span></div>
+      </div>
+    </div>
+    <div class="formula">
+      <h4>The formulas used</h4>
+      <pre>cost basis        = strike - premium
+basis vs price    = (cost basis / current price - 1) x 100
+capital committed = strike x 100
+static return     = premium / strike x 100
+annualized return = static return x 365 / days
+breakeven         = strike - premium</pre>
+    </div>
+    <p class="caveat">Static return is measured against the strike, because the
+    strike is what the cash has to cover. A negative basis-vs-price figure means
+    the cost basis sits below the current price; it is a description of the
+    arithmetic, not an assessment of the underlying.</p>
+  </div>
+</section>
+
+<!-- 02 -->
+<section id="cc">
+  <h2><span class="chip">02</span> Covered call</h2>
+  <div class="card calc">
+    <h3>Covered call</h3>
+    <p class="lede">Shares held, one call sold against every hundred of them.
+    Shows the premium as a rate on the shares, the total return if the shares
+    are called away at the strike, and the price at which the premium stops
+    covering the decline.</p>
+    <div class="io">
+      <div class="panel">
+        <h4>Inputs</h4>
+        <div class="field">
+          <label for="cc-s">Share price ($)</label>
+          <input type="text" id="cc-s" inputmode="decimal" autocomplete="off" placeholder="e.g. 100">
+          <span class="hint">The price the return is measured against.</span>
+        </div>
+        <div class="field">
+          <label for="cc-k">Call strike ($ per share)</label>
+          <input type="text" id="cc-k" inputmode="decimal" autocomplete="off" placeholder="e.g. 108">
+        </div>
+        <div class="field">
+          <label for="cc-p">Premium received ($ per share)</label>
+          <input type="text" id="cc-p" inputmode="decimal" autocomplete="off" placeholder="e.g. 2.20">
+        </div>
+        <div class="field">
+          <label for="cc-d">Days to expiration</label>
+          <input type="text" id="cc-d" inputmode="decimal" autocomplete="off" placeholder="e.g. 45">
+        </div>
+      </div>
+      <div class="panel" aria-live="polite">
+        <h4>Results</h4>
+        <div class="orow"><span class="ol">Premium yield</span><span class="ov blank" id="cc-yield">&mdash;</span></div>
+        <div class="orow"><span class="ol">Return if called</span><span class="ov blank" id="cc-called">&mdash;</span></div>
+        <div class="orow"><span class="ol">Annualized if called</span><span class="ov blank" id="cc-ann">&mdash;</span></div>
+        <div class="orow"><span class="ol">Breakeven</span><span class="ov blank" id="cc-be">&mdash;</span></div>
+      </div>
+    </div>
+    <div class="formula">
+      <h4>The formulas used</h4>
+      <pre>premium yield     = premium / share price x 100
+return if called  = ((strike - share price) + premium) / share price x 100
+annualized        = return if called x 365 / days
+breakeven         = share price - premium</pre>
+    </div>
+    <p class="caveat">Return if called is negative whenever the strike sits far
+    enough below the share price that the premium does not make up the
+    difference. The calculator reports that number as readily as a positive one.
+    Annualizing a short holding period magnifies it; see the annualization
+    helper below for why the two annualization conventions differ.</p>
+  </div>
+</section>
+
+<!-- 03 -->
+<section id="vertical">
+  <h2><span class="chip">03</span> Vertical spread</h2>
+  <div class="card calc">
+    <h3>Vertical spread &mdash; credit and debit</h3>
+    <p class="lede">Two strikes, one expiration. Choose whether the position was
+    opened for a net credit or a net debit; the arithmetic differs, and so does
+    which strike the breakeven is measured from.</p>
+    <div class="io">
+      <div class="panel">
+        <h4>Inputs</h4>
+        <fieldset>
+          <legend>Opened for</legend>
+          <div class="radios">
+            <label><input type="radio" name="vs-mode" id="vs-credit" value="credit" checked> Net credit</label>
+            <label><input type="radio" name="vs-mode" id="vs-debit" value="debit"> Net debit</label>
+          </div>
+        </fieldset>
+        <div class="field">
+          <label for="vs-short">Short strike ($)</label>
+          <input type="text" id="vs-short" inputmode="decimal" autocomplete="off" placeholder="e.g. 95">
+          <span class="hint">The option sold.</span>
+        </div>
+        <div class="field">
+          <label for="vs-long">Long strike ($)</label>
+          <input type="text" id="vs-long" inputmode="decimal" autocomplete="off" placeholder="e.g. 90">
+          <span class="hint">The option bought.</span>
+        </div>
+        <div class="field">
+          <label for="vs-amt">Net credit or debit ($ per share)</label>
+          <input type="text" id="vs-amt" inputmode="decimal" autocomplete="off" placeholder="e.g. 1.40">
+          <span class="hint">Enter as a positive number.</span>
+        </div>
+      </div>
+      <div class="panel" aria-live="polite">
+        <h4>Results</h4>
+        <div class="orow"><span class="ol">Structure</span><span class="ov blank tag" id="vs-type">&mdash;</span></div>
+        <div class="orow"><span class="ol">Width</span><span class="ov blank" id="vs-width">&mdash;</span></div>
+        <div class="orow"><span class="ol">Max gain (per share)</span><span class="ov blank" id="vs-gain">&mdash;</span></div>
+        <div class="orow"><span class="ol">Max loss (per share)</span><span class="ov blank" id="vs-loss">&mdash;</span></div>
+        <div class="orow"><span class="ol">Breakeven</span><span class="ov blank" id="vs-be">&mdash;</span></div>
+        <div class="orow"><span class="ol">Return on risk</span><span class="ov blank" id="vs-ror">&mdash;</span></div>
+      </div>
+    </div>
+    <div class="formula">
+      <h4>The formulas used</h4>
+      <pre>width           = |short strike - long strike|
+
+credit spread   max gain  = credit
+                max loss  = width - credit
+                return on risk = credit / (width - credit) x 100
+                breakeven = short strike - credit   (short strike above long)
+                breakeven = short strike + credit   (short strike below long)
+
+debit spread    max gain  = width - debit
+                max loss  = debit
+                return on risk = (width - debit) / debit x 100
+                breakeven = long strike + debit     (long strike below short)
+                breakeven = long strike - debit     (long strike above short)</pre>
+    </div>
+    <p class="caveat">Per contract, multiply the per-share gain and loss figures
+    by 100. A credit larger than the width, or a debit larger than the width,
+    is arithmetically possible to type but not a spread that trades; the
+    calculator will show the negative max loss or negative max gain that
+    follows rather than silently correcting it.</p>
+    <p class="note"><strong>The site's parameter ranges, for context.</strong>
+    Where this site publishes strategy parameters it uses a short strike of
+    approximately 15&ndash;20 delta and approximately 30&ndash;180 days to
+    expiration on monthly cycles, and for <em>credit</em> spreads an IV Rank
+    above 50%. That volatility condition applies to credit structures only and
+    is not applied to debit strategies. These ranges are stated here as
+    context. This calculator does not check them, does not know your
+    expiration or delta, and a result it produces is never a statement that a
+    spread qualifies &mdash; qualification requires every condition to be
+    verified separately, and market regime alone never qualifies a strategy.</p>
+  </div>
+</section>
+
+<!-- 04 -->
+<section id="wheel">
+  <h2><span class="chip">04</span> Wheel cycle</h2>
+  <div class="card calc">
+    <h3>Wheel cycle</h3>
+    <p class="lede">One full turn: a put is sold and assigned, then a call is
+    sold against the shares and they are called away. Shows the basis at each
+    stage and what the whole cycle returns on the capital the put committed.</p>
+    <div class="io">
+      <div class="panel">
+        <h4>Inputs</h4>
+        <div class="field">
+          <label for="wh-kp">Put strike ($ per share)</label>
+          <input type="text" id="wh-kp" inputmode="decimal" autocomplete="off" placeholder="e.g. 100">
+        </div>
+        <div class="field">
+          <label for="wh-pp">Put premium ($ per share)</label>
+          <input type="text" id="wh-pp" inputmode="decimal" autocomplete="off" placeholder="e.g. 2.50">
+        </div>
+        <div class="field">
+          <label for="wh-kc">Call strike ($ per share)</label>
+          <input type="text" id="wh-kc" inputmode="decimal" autocomplete="off" placeholder="e.g. 105">
+        </div>
+        <div class="field">
+          <label for="wh-pc">Call premium ($ per share)</label>
+          <input type="text" id="wh-pc" inputmode="decimal" autocomplete="off" placeholder="e.g. 1.80">
+        </div>
+      </div>
+      <div class="panel" aria-live="polite">
+        <h4>Results</h4>
+        <div class="orow"><span class="ol">Cost basis after assignment</span><span class="ov blank" id="wh-basis">&mdash;</span></div>
+        <div class="orow"><span class="ol">Basis after call premium</span><span class="ov blank" id="wh-adj">&mdash;</span></div>
+        <div class="orow"><span class="ol">Income yield (both premiums)</span><span class="ov blank" id="wh-income">&mdash;</span></div>
+        <div class="orow"><span class="ol">Full-cycle return if called</span><span class="ov blank" id="wh-cycle">&mdash;</span></div>
+      </div>
+    </div>
+    <div class="formula">
+      <h4>The formulas used</h4>
+      <pre>cost basis          = put strike - put premium
+basis after call    = put strike - put premium - call premium
+income yield        = (put premium + call premium) / put strike x 100
+full-cycle return   = (call strike - put strike + put premium + call premium)
+                      / put strike x 100</pre>
+    </div>
+    <p class="caveat">The cycle return assumes both legs run to their described
+    conclusion: the put is assigned and the shares are subsequently called away
+    at the call strike. A cycle that stops part-way &mdash; a put that expires
+    worthless, shares that are never called &mdash; is a different calculation
+    and this is not it. Returns are measured against the put strike, which is
+    the capital the cash-secured leg committed.</p>
+  </div>
+</section>
+
+<!-- 05 -->
+<section id="sizing">
+  <h2><span class="chip">05</span> Position sizing by defined risk</h2>
+  <div class="card calc">
+    <h3>Position sizing by defined risk</h3>
+    <p class="lede">A risk budget divided by the worst case on one contract.
+    That is the entire calculation.</p>
+    <div class="io">
+      <div class="panel">
+        <h4>Inputs</h4>
+        <div class="field">
+          <label for="ps-budget">Risk budget ($)</label>
+          <input type="text" id="ps-budget" inputmode="decimal" autocomplete="off" placeholder="e.g. 1000">
+          <span class="hint">An amount you decide on. Nothing is asked about
+          what it is a fraction of.</span>
+        </div>
+        <div class="field">
+          <label for="ps-loss">Maximum loss per contract ($)</label>
+          <input type="text" id="ps-loss" inputmode="decimal" autocomplete="off" placeholder="e.g. 360">
+          <span class="hint">For a defined-risk spread this is
+          (width &minus; credit) &times; 100.</span>
+        </div>
+      </div>
+      <div class="panel" aria-live="polite">
+        <h4>Results</h4>
+        <div class="orow"><span class="ol">Contracts the budget covers</span><span class="ov blank" id="ps-n">&mdash;</span></div>
+        <div class="orow"><span class="ol">Risk deployed at that size</span><span class="ov blank" id="ps-used">&mdash;</span></div>
+        <div class="orow"><span class="ol">Budget remaining</span><span class="ov blank" id="ps-left">&mdash;</span></div>
+      </div>
+    </div>
+    <div class="formula">
+      <h4>The formulas used</h4>
+      <pre>contracts       = floor( risk budget / max loss per contract )
+risk deployed   = contracts x max loss per contract
+budget left     = risk budget - risk deployed</pre>
+    </div>
+    <p class="note"><strong>This calculator asks for two numbers and no
+    others.</strong> It never asks what the budget is a fraction of, there is
+    no field for a total, and neither figure here can be used to work one out.
+    The budget is an abstract amount you supply. What proportion of anything it
+    represents is your business and stays that way &mdash; nothing typed on
+    this page leaves your browser.</p>
+    <p class="caveat">The result rounds down, because a partial contract cannot
+    be traded. It also assumes the stated maximum loss is genuinely the maximum:
+    for a defined-risk spread held to expiration that holds; for an undefined-
+    risk position there is no maximum loss to divide by and this calculator has
+    nothing useful to say.</p>
+  </div>
+</section>
+
+<!-- 06 -->
+<section id="annualize">
+  <h2><span class="chip">06</span> Annualization helper</h2>
+  <div class="card calc">
+    <h3>Annualization helper</h3>
+    <p class="lede">A return earned over some number of days, restated as an
+    annual rate. Two conventions are shown, because they disagree, and the
+    disagreement is worth seeing.</p>
+    <div class="io">
+      <div class="panel">
+        <h4>Inputs</h4>
+        <div class="field">
+          <label for="an-r">Period return (%)</label>
+          <input type="text" id="an-r" inputmode="decimal" autocomplete="off" placeholder="e.g. 2.5">
+        </div>
+        <div class="field">
+          <label for="an-d">Length of the period (days)</label>
+          <input type="text" id="an-d" inputmode="decimal" autocomplete="off" placeholder="e.g. 60">
+        </div>
+      </div>
+      <div class="panel" aria-live="polite">
+        <h4>Results</h4>
+        <div class="orow"><span class="ol">Annualized, simple scaling</span><span class="ov blank" id="an-simple">&mdash;</span></div>
+        <div class="orow"><span class="ol">Annualized, compounded</span><span class="ov blank" id="an-comp">&mdash;</span></div>
+        <div class="orow"><span class="ol">Periods in a year</span><span class="ov blank" id="an-periods">&mdash;</span></div>
+      </div>
+    </div>
+    <div class="formula">
+      <h4>The formulas used</h4>
+      <pre>periods in a year = 365 / days
+simple scaling    = period return x 365 / days
+compounded        = ((1 + period return / 100) ^ (365 / days) - 1) x 100</pre>
+    </div>
+    <p class="caveat">Both figures answer the question &ldquo;what rate is this,
+    per year?&rdquo; and they answer it differently. Simple scaling assumes the
+    return is taken as cash each period; compounding assumes it is reinvested.
+    Neither is a forecast. An annualized figure derived from a two-week holding
+    period is an arithmetic restatement of two weeks, and treating it as an
+    expectation for a year is the most common way this number is misused.</p>
+  </div>
+</section>
+
+<!-- 07 -->
+<section id="breakeven">
+  <h2><span class="chip">07</span> Breakeven and required move</h2>
+  <div class="card calc">
+    <h3>Breakeven and required move</h3>
+    <p class="lede">For a short option: the price at which the premium is
+    exactly used up, and how far the underlying has to travel from here to
+    reach it.</p>
+    <div class="io">
+      <div class="panel">
+        <h4>Inputs</h4>
+        <fieldset>
+          <legend>Option sold</legend>
+          <div class="radios">
+            <label><input type="radio" name="be-side" id="be-put" value="put" checked> Short put</label>
+            <label><input type="radio" name="be-side" id="be-call" value="call"> Short call</label>
+          </div>
+        </fieldset>
+        <div class="field">
+          <label for="be-k">Strike ($ per share)</label>
+          <input type="text" id="be-k" inputmode="decimal" autocomplete="off" placeholder="e.g. 95">
+        </div>
+        <div class="field">
+          <label for="be-p">Premium received ($ per share)</label>
+          <input type="text" id="be-p" inputmode="decimal" autocomplete="off" placeholder="e.g. 1.75">
+        </div>
+        <div class="field">
+          <label for="be-s">Current price of the underlying ($)</label>
+          <input type="text" id="be-s" inputmode="decimal" autocomplete="off" placeholder="e.g. 100">
+        </div>
+      </div>
+      <div class="panel" aria-live="polite">
+        <h4>Results</h4>
+        <div class="orow"><span class="ol">Breakeven price</span><span class="ov blank" id="be-be">&mdash;</span></div>
+        <div class="orow"><span class="ol">Move required to reach it</span><span class="ov blank" id="be-move">&mdash;</span></div>
+        <div class="orow"><span class="ol">Distance from current price</span><span class="ov blank" id="be-dist">&mdash;</span></div>
+      </div>
+    </div>
+    <div class="formula">
+      <h4>The formulas used</h4>
+      <pre>short put    breakeven = strike - premium
+short call   breakeven = strike + premium
+
+distance     = breakeven - current price
+move required= (breakeven - current price) / current price x 100</pre>
+    </div>
+    <p class="note"><strong>This is not a probability.</strong> A required move
+    of &minus;8% says the underlying has to fall 8% before the premium is used
+    up. It says nothing whatever about how likely that is. A short option's
+    delta is sometimes used as a rough approximation of the chance of finishing
+    in the money &mdash; it is an approximation, it is not a probability of
+    profit, and finishing in the money is not the same event as losing money on
+    the position. This calculator does not estimate any probability, and no
+    number it produces should be read as one.</p>
+  </div>
+</section>
+
+<!-- 08 -->
+<section id="about" class="foot">
+  <h2><span class="chip">08</span> About these tools</h2>
+  <div class="card">
+    <p>This tab is static. Unlike the rest of the site it is not rebuilt each
+    day, because there is nothing in it that changes daily: the return on a
+    cash-secured put is the premium over the strike whatever the date is. It is
+    rebuilt only when a formula is corrected, when the presentation changes, or
+    when the publication rules change in a way that touches something stated
+    here. Every calculator on the page has been driven in a real browser and its
+    outputs checked against the same arithmetic computed independently.</p>
+
+    <h4>What these calculators do not do</h4>
+    <ul>
+      <li>They do not say a trade is good, attractive or qualified. A high
+      return on risk is a ratio, not a verdict.</li>
+      <li>They do not suggest a strike, an expiration, an underlying, or a
+      size.</li>
+      <li>They ask nothing about your finances. There is no field for a total,
+      a percentage of a total, or anything you own, and no figure on the page
+      can be used to work one out.</li>
+      <li>They do not estimate probability. Delta is named as a rough
+      approximation where it is mentioned at all, and never as a probability of
+      profit.</li>
+      <li>They do not account for commissions, fees, taxes, financing,
+      dividends, early assignment or bid-ask spread. Real results differ from
+      these figures for all of those reasons.</li>
+      <li>They do not use market data of any kind. The page makes no network
+      request, sets no cookie, and stores nothing you type.</li>
+    </ul>
+
+    <h4>Where parameters are stated</h4>
+    <p>Where this site publishes a strategy parameter it uses a short strike of
+    approximately 15&ndash;20 delta and approximately 30&ndash;180 days to
+    expiration on monthly cycles, and for credit spreads an IV Rank above 50%.
+    That volatility condition applies to credit structures and is not applied to
+    debit strategies. Market regime alone never qualifies a strategy: every
+    applicable condition &mdash; direction, volatility where required,
+    expiration, delta, level placement, liquidity, earnings timing and the
+    structure's own risk rules &mdash; has to be verified before anything is
+    called qualified. These calculators verify none of them. They compute
+    arithmetic from numbers you supply, and that is the whole of what a result
+    here means.</p>
+
+    <p class="disclaimer">For educational use only. General education and market
+    analysis, not personal advice, not a recommendation, and not an offer or
+    solicitation to buy or sell any security. Options involve risk and are not
+    suitable for every investor. These calculators ignore commissions, fees,
+    taxes, assignment timing and execution costs, and their output is arithmetic
+    rather than a projection of any result. Nothing here describes any account,
+    position or result. Do your own analysis and consult a licensed advisor
+    before making any trade.<br>
+    Edition 2026-09-05 &middot; Content current through 2026-09-05. This tab
+    carries no market data, so both dates are the date the calculators were
+    built and verified.</p>
+  </div>
+</section>
+
+</div>
+
+<script>
+(function(){
+  "use strict";
+
+  var DASH = "—";
+
+  /* ---- input parsing -------------------------------------------------- */
+  function num(id){
+    var el = document.getElementById(id);
+    if(!el) return NaN;
+    var v = el.value;
+    if(v === null || v === undefined) return NaN;
+    v = String(v).replace(/[\s,$%_]/g, "").trim();
+    if(v === "" || v === "-" || v === "." || v === "-.") return NaN;
+    if(!/^-?(\d+\.?\d*|\.\d+)$/.test(v)) return NaN;
+    var n = parseFloat(v);
+    return isFinite(n) ? n : NaN;
+  }
+  /* strictly positive, for use as a denominator */
+  function den(n){ return (isFinite(n) && n > 0) ? n : NaN; }
+
+  /* ---- output formatting ---------------------------------------------- */
+  function ok(n){ return typeof n === "number" && isFinite(n); }
+
+  function money(n, dp){
+    if(!ok(n)) return null;
+    dp = (dp === undefined) ? 2 : dp;
+    var neg = n < 0, a = Math.abs(n);
+    var s = a.toFixed(dp);
+    var parts = s.split(".");
+    parts[0] = parts[0].replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    return (neg ? "-$" : "$") + parts.join(".");
+  }
+  function pct(n, dp){
+    if(!ok(n)) return null;
+    dp = (dp === undefined) ? 2 : dp;
+    var s = n.toFixed(dp);
+    var parts = s.split(".");
+    var neg = parts[0].charAt(0) === "-";
+    var whole = neg ? parts[0].slice(1) : parts[0];
+    whole = whole.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    parts[0] = (neg ? "-" : "") + whole;
+    return parts.join(".") + "%";
+  }
+  function plain(n, dp){
+    if(!ok(n)) return null;
+    return n.toFixed(dp === undefined ? 2 : dp);
+  }
+
+  /* text may be null -> renders the em dash. sign: "signed" colours it. */
+  function put(id, text, sign, raw){
+    var el = document.getElementById(id);
+    if(!el) return;
+    var cls = "ov";
+    if(text === null || text === undefined){
+      text = DASH;
+      cls += " blank";
+    } else if(sign === "signed" && ok(raw)){
+      /* gain/loss colouring, used only where the sign genuinely means
+         gain or loss - never on a distance, a direction or a cost basis */
+      if(raw > 0) cls += " pos";
+      else if(raw < 0) cls += " neg";
+    } else if(sign === "loss" && ok(raw)){
+      cls += " neg";                       /* a loss is a loss either way */
+    } else if(sign === "tag"){
+      cls += " tag";
+    }
+    el.className = cls;
+    el.textContent = text;
+  }
+
+  /* ---- 01 cash-secured put -------------------------------------------- */
+  function calcCsp(){
+    var k = num("csp-k"), p = num("csp-p"), s = num("csp-s"), d = num("csp-d");
+    var basis = (ok(k) && ok(p)) ? k - p : NaN;
+    var vs     = (ok(basis)) ? (basis / den(s) - 1) * 100 : NaN;
+    var cap    = ok(k) ? k * 100 : NaN;
+    var stat   = ok(p) ? p / den(k) * 100 : NaN;
+    var ann    = ok(stat) ? stat * 365 / den(d) : NaN;
+
+    put("csp-basis", money(basis));
+    put("csp-vs", pct(vs));   /* a basis below price is not "good"; left neutral */
+    put("csp-cap", money(cap, 0));
+    put("csp-static", pct(stat), "signed", stat);
+    put("csp-ann", pct(ann), "signed", ann);
+    put("csp-be", money(basis));
+  }
+
+  /* ---- 02 covered call ------------------------------------------------- */
+  function calcCc(){
+    var s = num("cc-s"), k = num("cc-k"), p = num("cc-p"), d = num("cc-d");
+    var yld    = ok(p) ? p / den(s) * 100 : NaN;
+    var called = (ok(k) && ok(s) && ok(p)) ? ((k - s) + p) / den(s) * 100 : NaN;
+    var ann    = ok(called) ? called * 365 / den(d) : NaN;
+    var be     = (ok(s) && ok(p)) ? s - p : NaN;
+
+    put("cc-yield", pct(yld), "signed", yld);
+    put("cc-called", pct(called), "signed", called);
+    put("cc-ann", pct(ann), "signed", ann);
+    put("cc-be", money(be));
+  }
+
+  /* ---- 03 vertical spread ---------------------------------------------- */
+  function calcVs(){
+    var creditEl = document.getElementById("vs-credit");
+    var isCredit = creditEl ? creditEl.checked : true;
+    var ks = num("vs-short"), kl = num("vs-long"), amt = num("vs-amt");
+
+    var width = (ok(ks) && ok(kl)) ? Math.abs(ks - kl) : NaN;
+    var gain = NaN, loss = NaN, be = NaN, ror = NaN, type = null;
+
+    if(ok(width) && ok(amt)){
+      if(isCredit){
+        gain = amt;
+        loss = width - amt;
+        ror  = amt / den(loss) * 100;
+        if(ks > kl){ be = ks - amt; type = "Bull put (credit)"; }
+        else if(ks < kl){ be = ks + amt; type = "Bear call (credit)"; }
+        else { type = "Strikes are equal"; }
+      } else {
+        gain = width - amt;
+        loss = amt;
+        ror  = gain / den(amt) * 100;
+        if(kl < ks){ be = kl + amt; type = "Bull call (debit)"; }
+        else if(kl > ks){ be = kl - amt; type = "Bear put (debit)"; }
+        else { type = "Strikes are equal"; }
+      }
+    } else if(ok(ks) && ok(kl) && ks === kl){
+      type = "Strikes are equal";
+    }
+
+    put("vs-type", type, "tag");
+    put("vs-width", money(width));
+    put("vs-gain", money(gain), "signed", gain);
+    put("vs-loss", money(loss), "loss", loss);
+    put("vs-be", money(be));
+    put("vs-ror", pct(ror), "signed", ror);
+  }
+
+  /* ---- 04 wheel cycle -------------------------------------------------- */
+  function calcWheel(){
+    var kp = num("wh-kp"), pp = num("wh-pp"),
+        kc = num("wh-kc"), pc = num("wh-pc");
+
+    var basis  = (ok(kp) && ok(pp)) ? kp - pp : NaN;
+    var adj    = (ok(basis) && ok(pc)) ? basis - pc : NaN;
+    var income = (ok(pp) && ok(pc)) ? (pp + pc) / den(kp) * 100 : NaN;
+    var cycle  = (ok(kc) && ok(kp) && ok(pp) && ok(pc))
+                 ? (kc - kp + pp + pc) / den(kp) * 100 : NaN;
+
+    put("wh-basis", money(basis));
+    put("wh-adj", money(adj));
+    put("wh-income", pct(income), "signed", income);
+    put("wh-cycle", pct(cycle), "signed", cycle);
+  }
+
+  /* ---- 05 position sizing --------------------------------------------- */
+  function calcSizing(){
+    var budget = num("ps-budget"), loss = num("ps-loss");
+    var n = NaN, used = NaN, left = NaN;
+    if(ok(budget) && budget >= 0 && ok(loss) && loss > 0){
+      n = Math.floor(budget / loss);
+      used = n * loss;
+      left = budget - used;
+    }
+    put("ps-n", ok(n) ? String(n) : null);
+    put("ps-used", money(used));
+    put("ps-left", money(left));
+  }
+
+  /* ---- 06 annualization ------------------------------------------------ */
+  function calcAnnualize(){
+    var r = num("an-r"), d = num("an-d");
+    var periods = ok(d) ? 365 / den(d) : NaN;
+    var simple  = (ok(r) && ok(periods)) ? r * periods : NaN;
+    var comp = NaN;
+    if(ok(r) && ok(periods) && (1 + r / 100) > 0){
+      comp = (Math.pow(1 + r / 100, periods) - 1) * 100;
+    }
+    put("an-simple", pct(simple), "signed", simple);
+    put("an-comp", pct(comp), "signed", comp);
+    put("an-periods", plain(periods, 2));
+  }
+
+  /* ---- 07 breakeven and required move ---------------------------------- */
+  function calcBreakeven(){
+    var putEl = document.getElementById("be-put");
+    var isPut = putEl ? putEl.checked : true;
+    var k = num("be-k"), p = num("be-p"), s = num("be-s");
+
+    var be = (ok(k) && ok(p)) ? (isPut ? k - p : k + p) : NaN;
+    var dist = (ok(be) && ok(s)) ? be - s : NaN;
+    var move = ok(dist) ? dist / den(s) * 100 : NaN;
+
+    /* direction is not gain or loss - these stay neutral deliberately */
+    put("be-be", money(be));
+    put("be-move", pct(move));
+    put("be-dist", money(dist));
+  }
+
+  /* ---- wiring ---------------------------------------------------------- */
+  var calcs = [calcCsp, calcCc, calcVs, calcWheel,
+               calcSizing, calcAnnualize, calcBreakeven];
+
+  function recalc(){
+    for(var i = 0; i < calcs.length; i++){
+      try { calcs[i](); } catch(e){ /* one calculator never breaks the rest */ }
+    }
+  }
+
+  function boot(){
+    var els = document.querySelectorAll("input");
+    for(var i = 0; i < els.length; i++){
+      els[i].addEventListener("input", recalc);
+      els[i].addEventListener("change", recalc);
+    }
+    recalc();
+  }
+
+  if(document.readyState === "loading"){
+    document.addEventListener("DOMContentLoaded", boot);
+  } else {
+    boot();
+  }
+})();
+</script>
+</body></html>

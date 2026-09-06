@@ -1,0 +1,513 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Economy &mdash; The Brief</title>
+<style>
+:root {
+  --bg:#0d0f14; --card:#151820; --line:#252a38; --text:#e2e6f0;
+  --dim:#6b7591; --accent:#5aa9ff; --up:#4ec9a0; --dn:#e2688a; --warn:#d9a441;
+}
+* { box-sizing:border-box; }
+html { background:var(--bg); }
+body {
+  margin:0; background:var(--bg); color:var(--text);
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:15px; line-height:1.55; -webkit-font-smoothing:antialiased;
+}
+.wrap { max-width:1100px; margin:0 auto; padding:0 22px 72px; }
+
+header.page { border-bottom:1px solid var(--line); padding:34px 0 22px; margin-bottom:8px; }
+header.page h1 { margin:0; font-size:30px; letter-spacing:-.4px; font-weight:600; }
+.datesline { margin-top:10px; color:var(--dim); font-size:13px; }
+.datesline b { color:var(--text); font-weight:600; }
+.sep { color:var(--line); padding:0 8px; }
+
+.notice {
+  margin-top:20px; background:var(--card); border:1px solid var(--line);
+  border-left:3px solid var(--warn); border-radius:6px; padding:14px 16px;
+  font-size:13.5px; color:var(--dim);
+}
+.notice b { color:var(--text); font-weight:600; }
+
+section { margin:38px 0 0; }
+h2 {
+  display:flex; align-items:center; gap:11px; margin:0 0 14px;
+  font-size:12px; font-weight:600; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--dim);
+}
+.chip {
+  display:inline-flex; align-items:center; justify-content:center;
+  min-width:22px; height:22px; padding:0 6px; border-radius:4px;
+  background:var(--card); border:1px solid var(--line);
+  color:var(--accent); font-size:11px; letter-spacing:.04em; font-weight:600;
+}
+.sub { color:var(--dim); font-size:13px; margin:-4px 0 14px; max-width:74ch; }
+.sub em { color:var(--text); font-style:normal; }
+
+.card { background:var(--card); border:1px solid var(--line); border-radius:8px; overflow:hidden; }
+.scroll { overflow-x:auto; }
+table { width:100%; border-collapse:collapse; font-size:13.5px; min-width:600px; }
+th {
+  text-align:right; padding:11px 14px; font-size:10.5px; letter-spacing:.1em;
+  text-transform:uppercase; color:var(--dim); font-weight:600;
+  border-bottom:1px solid var(--line); white-space:nowrap;
+}
+th:first-child, td:first-child { text-align:left; }
+td { padding:11px 14px; text-align:right; border-bottom:1px solid var(--line);
+     white-space:nowrap; font-variant-numeric:tabular-nums; }
+tr:last-child td { border-bottom:none; }
+tbody tr:hover td { background:rgba(90,169,255,.035); }
+td.name { font-weight:600; white-space:normal; }
+td.name small { display:block; font-weight:400; color:var(--dim); font-size:11.5px; }
+.obs { color:var(--dim); font-size:12px; font-variant-numeric:tabular-nums; }
+.up { color:var(--up); }
+.dn { color:var(--dn); }
+.z  { color:var(--text); }
+
+.await { border:1px dashed var(--line); border-radius:8px; padding:18px;
+          background:rgba(21,24,32,.55); }
+.await .tag {
+  display:inline-block; font-size:10px; letter-spacing:.14em; text-transform:uppercase;
+  color:var(--warn); border:1px solid rgba(217,164,65,.35); border-radius:3px;
+  padding:2px 7px; margin-bottom:9px; font-weight:600;
+}
+.await p { margin:0; color:var(--dim); font-size:13.5px; max-width:78ch; }
+.await p + p { margin-top:8px; }
+.await b { color:var(--text); font-weight:600; }
+.gap { margin-bottom:14px; }
+.gaptop { margin-top:14px; }
+
+.edlist { list-style:none; margin:0; padding:0; }
+.edlist li { display:grid; grid-template-columns:180px minmax(0,1fr); gap:16px;
+             padding:14px; border-bottom:1px solid var(--line); }
+.edlist li:last-child { border-bottom:none; }
+.edlist .lab { font-weight:600; font-size:13px; line-height:1.5; }
+.edlist .lab small { display:block; font-weight:400; color:var(--dim); font-size:11.5px;
+                      letter-spacing:.06em; text-transform:uppercase; margin-top:3px; }
+.edlist p { margin:0; color:var(--dim); font-size:13.5px; }
+.edlist b { color:var(--text); font-weight:600; }
+.edlist .pending .lab small { color:var(--warn); }
+@media (max-width:620px) {
+  .edlist li { grid-template-columns:minmax(0,1fr); gap:5px; }
+}
+
+.state { font-size:11px; letter-spacing:.06em; text-transform:uppercase; font-weight:600; }
+.state.ok { color:var(--up); }
+.foot { color:var(--dim); font-size:12px; padding:11px 14px; border-top:1px solid var(--line);
+         line-height:1.6; }
+.foot b { color:var(--text); font-weight:600; }
+
+footer { margin-top:52px; border-top:1px solid var(--line); padding-top:22px;
+          color:var(--dim); font-size:12.5px; }
+footer h3 { font-size:11px; letter-spacing:.14em; text-transform:uppercase; color:var(--dim);
+             margin:0 0 8px; font-weight:600; }
+footer p { margin:0 0 16px; max-width:82ch; }
+@media (max-width:620px) {
+  header.page h1 { font-size:24px; }
+  .wrap { padding:0 15px 56px; }
+}
+</style>
+</head>
+<body>
+<!-- SHARED NAVIGATION -->
+<style>
+.tb-shell{background:#0d0f14;border-bottom:1px solid #252a38;
+ font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+.tb-bar{max-width:1100px;margin:0 auto;padding:14px 16px 0;display:flex;
+ align-items:baseline;gap:12px;flex-wrap:wrap}
+.tb-mark{font-size:20px;font-weight:700;color:#fff;letter-spacing:-0.4px}
+.tb-ed{font-size:11px;color:#6b7591}
+.tb-nav{max-width:1100px;margin:0 auto;padding:0 16px;display:flex;gap:2px;
+ flex-wrap:wrap}
+.tb-nav a{display:block;padding:10px 14px;font-size:13px;color:#6b7591;
+ text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap}
+.tb-nav a:hover{color:#e2e6f0}
+.tb-nav a[aria-current="page"]{color:#fff;border-bottom-color:#5aa9ff;
+ font-weight:600}
+.tb-nav a.tb-off{color:#4a5266;cursor:not-allowed}
+.tb-stale{background:#3a2a12;color:#fbbf24;border-bottom:1px solid #5a4520;
+ font:600 12px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+ padding:8px 16px;text-align:center}
+.tb-note{background:#1b2430;color:#9fb3c8;font:12px/1.5 -apple-system,
+ BlinkMacSystemFont,'Segoe UI',sans-serif;padding:5px 16px;text-align:center;
+ border-bottom:1px solid #26313f}
+.tb-prelaunch{background:#1c2030;color:#9fb3c8;border-bottom:1px solid #2a3040;
+ font:600 11px/1.5 -apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+ letter-spacing:.4px;padding:6px 16px;text-align:center}
+@media(max-width:640px){.tb-nav a{padding:9px 10px;font-size:12px}}
+</style>
+<div class="tb-prelaunch" role="note">Pre-launch review — not final</div>
+<div class="tb-stale" role="alert">Economy is interim. Its daily readings are through the latest close; its monthly and weekly series carry their own dates, shown beside each reading. Section 02 publishes no aggregate recession reading and section 12 holds two of its five items awaiting interpretation.</div>
+<div class="tb-shell">
+  <div class="tb-bar"><div class="tb-mark">The Brief</div><div class="tb-ed">Edition 2026-09-06</div></div>
+  <nav class="tb-nav" aria-label="Primary"><a href="brief.html">The Brief</a><a href="screeners.html">Screeners</a><a href="sp-overview.html">S&P Overview</a><a href="economy.html" aria-current="page">Economy</a><a href="learning.html">Learning</a><a href="tools.html">Tools</a><a href="risk.html">Risk & Disclosures</a></nav>
+</div>
+
+<div class="wrap">
+
+<header class="page">
+  <h1>Economy</h1>
+  <div class="datesline">
+    Edition <b>5 Sep 2026</b><span class="sep">/</span>
+    market and daily series through <b>4 Sep 2026</b><span class="sep">/</span>
+    weekly and monthly series carry their own release dates, shown on every row
+  </div>
+  <div class="notice">
+    <b>This page is interim.</b> The measured sections below are built from live
+    macro and price data and are current. Two limits are stated rather than
+    papered over. Section 02 shows each recession tripwire against its own
+    published standard threshold and publishes <b>no aggregate reading</b>.
+    Section 12 reads only what this page already displays, and any item whose
+    reviewed interpretation has not been supplied says so instead of being
+    filled in. No number on this page is estimated, carried forward, or standing
+    in for one that is missing.
+  </div>
+</header>
+
+
+<section>
+  <h2><span class="chip">01</span> Activity, output and demand</h2>
+  <p class="sub">Monthly readings of national activity, industrial output,
+  capacity, household demand and sentiment, each shown at its own release
+  month and unadjusted.</p>
+  <div class="card scroll">
+    <table>
+      <thead><tr><th>Reading</th><th>Latest</th><th>Prior</th><th>Observed</th></tr></thead>
+      <tbody>
+        <tr><td class="name">Chicago Fed National Activity Index<small>zero equals trend growth</small></td>
+            <td>-0.08</td><td class="obs">0.06</td>
+            <td class="obs">Jul 2026</td></tr>
+        <tr><td class="name">&hellip; three-month average</td>
+            <td>-0.04</td><td class="obs">0.01</td>
+            <td class="obs">Jul 2026</td></tr>
+        <tr><td class="name">Atlanta Fed GDPNow<small>annualised real GDP, current quarter</small></td>
+            <td>4.75%</td><td class="obs">1.54%</td>
+            <td class="obs">quarter beginning Jul 2026</td></tr>
+        <tr><td class="name">Industrial production<small>month over month</small></td>
+            <td><span class="up">+0.20%</span></td>
+            <td class="obs">index 102.99</td>
+            <td class="obs">Jul 2026</td></tr>
+        <tr><td class="name">Capacity utilisation<small>total industry</small></td>
+            <td>76.29%</td><td class="obs">76.20%</td>
+            <td class="obs">Jul 2026</td></tr>
+        <tr><td class="name">Retail and food services sales<small>month over month</small></td>
+            <td><span class="dn">-0.58%</span></td><td class="obs">&mdash;</td>
+            <td class="obs">Jul 2026</td></tr>
+        <tr><td class="name">Consumer sentiment<small>University of Michigan</small></td>
+            <td>55.2</td><td class="obs">49.5</td>
+            <td class="obs">Jul 2026</td></tr>
+      </tbody>
+    </table>
+    <div class="foot">Every row here is a monthly series. The most recent release covers
+    Jul 2026; that is ordinary publication lag, not an out-of-date page.</div>
+  </div>
+</section>
+
+
+<section>
+  <h2><span class="chip">02</span> Recession-risk checklist</h2>
+  <p class="sub">Each tripwire is shown against its <em>published standard</em>
+  definition &mdash; public, citable, and not this page's invention &mdash; at its
+  own observation date. <em>No overall reading is published.</em></p>
+  <div class="card scroll">
+    <table>
+      <thead><tr><th>Tripwire</th><th>Reading</th><th>Standard trigger</th>
+        <th>Against that standard</th><th>Observed</th></tr></thead>
+      <tbody>
+        <tr><td class="name">Sahm rule, real time<small>unemployment 3-month average against its prior 12-month low</small></td>
+            <td>-0.07 pp</td><td class="obs">+0.50 pp</td>
+            <td><span class="state ok">below trigger</span></td>
+            <td class="obs">Aug 2026</td></tr>
+        <tr><td class="name">10-year minus 2-year Treasury</td>
+            <td>0.41 pp</td><td class="obs">below zero</td>
+            <td><span class="state ok">positive</span>
+                <div class="obs">last inverted 5 Sep 2024</div></td>
+            <td class="obs">4 Sep 2026</td></tr>
+        <tr><td class="name">10-year minus 3-month Treasury</td>
+            <td>0.87 pp</td><td class="obs">below zero</td>
+            <td><span class="state ok">positive</span>
+                <div class="obs">last inverted 16 Oct 2025</div></td>
+            <td class="obs">4 Sep 2026</td></tr>
+        <tr><td class="name">Chicago Fed activity, three-month average</td>
+            <td>-0.04</td><td class="obs">below &minus;0.70</td>
+            <td><span class="state ok">above trigger</span></td>
+            <td class="obs">Jul 2026</td></tr>
+        <tr><td class="name">Initial jobless claims<small>weekly, seasonally adjusted</small></td>
+            <td>206,000</td><td class="obs">no single standard level</td>
+            <td class="obs">4-week average 207,250
+                <div>52-week range 189,000 &ndash; 259,000</div></td>
+            <td class="obs">week ending 29 Aug 2026</td></tr>
+        <tr><td class="name">Smoothed recession probability<small>a published model, not computed here</small></td>
+            <td>0.76%</td><td class="obs">no single standard level</td>
+            <td class="obs">prior month 0.56%</td>
+            <td class="obs">Jul 2026</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="await gaptop">
+    <span class="tag">No aggregate reading</span>
+    <p>The individual tripwires above are published. An <b>overall recession
+    verdict, score, probability or summary judgement of this page's own is
+    not</b> &mdash; because which indicators belong on the list, what weight each
+    should carry, which thresholds apply and how a mixed board should resolve
+    have not been approved. Publishing a single line before those are settled
+    would give it more authority than its method has earned.</p>
+    <p>So the fourth column reads each tripwire strictly against the published
+    standard definition beside it, at that reading's own observation date. Those
+    states are not weighted, not scored, and do not combine. The smoothed
+    recession probability is one input carrying its own publisher's model, not
+    this page's conclusion.</p>
+  </div>
+</section>
+
+
+<section>
+  <h2><span class="chip">03</span> Yield curve and interest rates</h2>
+  <div class="card scroll">
+    <table>
+      <thead><tr><th>Rate</th><th>Latest</th><th>Prior day</th><th>1 month</th>
+        <th>3 months</th><th>1 year</th><th>Observed</th></tr></thead>
+      <tbody>
+        <tr><td class="name">Effective federal funds</td><td>3.63</td><td class="obs">3.63</td><td class="obs">3.63</td><td class="obs">3.62</td><td class="obs">4.33</td><td class="obs">3 Sep 2026</td></tr>
+        <tr><td class="name">2-year Treasury</td><td>4.34</td><td class="obs">4.39</td><td class="obs">4.20</td><td class="obs">4.05</td><td class="obs">3.61</td><td class="obs">3 Sep 2026</td></tr>
+        <tr><td class="name">10-year Treasury</td><td>4.77</td><td class="obs">4.79</td><td class="obs">4.63</td><td class="obs">4.47</td><td class="obs">4.22</td><td class="obs">3 Sep 2026</td></tr>
+        <tr><td class="name">30-year Treasury<small>held with only two observations, so no comparison history is shown</small></td><td>5.25</td><td class="obs">5.22</td><td class="obs">&mdash;</td><td class="obs">&mdash;</td><td class="obs">&mdash;</td><td class="obs">3 Sep 2026</td></tr>
+        <tr><td class="name">10-year real yield<small>inflation-indexed</small></td><td>2.42</td><td class="obs">2.45</td><td class="obs">2.40</td><td class="obs">2.11</td><td class="obs">1.82</td><td class="obs">3 Sep 2026</td></tr>
+        <tr><td class="name">10y &minus; 2y spread</td><td>0.41</td><td class="obs">0.43</td><td class="obs">0.45</td><td class="obs">0.38</td><td class="obs">0.58</td><td class="obs">4 Sep 2026</td></tr>
+        <tr><td class="name">10y &minus; 3m spread</td><td>0.87</td><td class="obs">0.88</td><td class="obs">0.74</td><td class="obs">0.77</td><td class="obs">0.01</td><td class="obs">4 Sep 2026</td></tr>
+      </tbody>
+    </table>
+    <div class="foot">All figures in percent; the two spreads in percentage points. The 3-month,
+    5-year and 20-year tenors are not in the available data, so no full curve is drawn rather than
+    one drawn through invented points.</div>
+  </div>
+</section>
+
+
+<section>
+  <h2><span class="chip">04</span> Inflation</h2>
+  <div class="card scroll">
+    <table>
+      <thead><tr><th>Measure</th><th>Year over year</th><th>Month over month</th>
+        <th>Observed</th></tr></thead>
+      <tbody>
+        <tr><td class="name">Consumer prices, all items</td>
+            <td>3.30%</td><td><span class="up">+0.07%</span></td>
+            <td class="obs">Jul 2026</td></tr>
+        <tr><td class="name">Consumer prices, core<small>excluding food and energy</small></td>
+            <td>2.47%</td><td><span class="up">+0.22%</span></td>
+            <td class="obs">Jul 2026</td></tr>
+        <tr><td class="name">Core PCE price index<small>the Federal Reserve's preferred measure</small></td>
+            <td>3.34%</td><td><span class="up">+0.25%</span></td>
+            <td class="obs">Jul 2026</td></tr>
+        <tr><td class="name">Consumer expectation, one year ahead<small>University of Michigan survey</small></td>
+            <td>4.2%</td>
+            <td class="obs">prior month 4.6%</td>
+            <td class="obs">Jul 2026</td></tr>
+        <tr><td class="name">10-year breakeven<small>market implied</small></td>
+            <td>2.35%</td>
+            <td class="obs">prior day 2.35%</td>
+            <td class="obs">4 Sep 2026</td></tr>
+        <tr><td class="name">Five-year, five-year forward<small>market implied</small></td>
+            <td>2.33%</td>
+            <td class="obs">prior day 2.33%</td>
+            <td class="obs">4 Sep 2026</td></tr>
+      </tbody>
+    </table>
+    <div class="foot">The first four rows are monthly and publish with a lag; each carries its own
+    release month. The last two are daily market-implied readings and are current.</div>
+  </div>
+</section>
+
+
+<section>
+  <h2><span class="chip">05</span> Employment</h2>
+  <div class="card scroll">
+    <table>
+      <thead><tr><th>Reading</th><th>Latest</th><th>Context</th><th>Observed</th></tr></thead>
+      <tbody>
+        <tr><td class="name">Non-farm payrolls<small>change on the month, thousands of jobs</small></td>
+            <td><span class="up">+162</span></td>
+            <td class="obs">3-month average +71
+              &nbsp;&middot;&nbsp; 12-month average +50</td>
+            <td class="obs">Aug 2026</td></tr>
+        <tr><td class="name">Unemployment rate</td>
+            <td>4.1%</td>
+            <td class="obs">prior month 4.1%
+              &nbsp;&middot;&nbsp; a year earlier 4.3%</td>
+            <td class="obs">Aug 2026</td></tr>
+        <tr><td class="name">Initial jobless claims<small>seasonally adjusted</small></td>
+            <td>206,000</td>
+            <td class="obs">4-week average 207,250
+              &nbsp;&middot;&nbsp; 52-week range 189,000 &ndash; 259,000</td>
+            <td class="obs">week ending 29 Aug 2026</td></tr>
+        <tr><td class="name">Sahm rule gap<small>real-time series</small></td>
+            <td>-0.07 pp</td>
+            <td class="obs">prior month -0.03 pp
+              &nbsp;&middot;&nbsp; standard trigger +0.50 pp</td>
+            <td class="obs">Aug 2026</td></tr>
+      </tbody>
+    </table>
+    <div class="foot">Payrolls and the unemployment rate are monthly; claims are weekly and are the
+    freshest labour reading on the page.</div>
+  </div>
+</section>
+
+
+<section>
+  <h2><span class="chip">06</span> Financial conditions</h2>
+  <p class="sub">On the two Chicago Fed indices, zero is the historical average and a
+  negative reading means conditions are <em>looser</em> than average. Every figure in this
+  table is a level, not a change.</p>
+  <div class="card scroll">
+    <table>
+      <thead><tr><th>Measure</th><th>Latest</th><th>1 month earlier</th>
+        <th>End 2025</th><th>1 year earlier</th><th>Observed</th></tr></thead>
+      <tbody>
+        <tr><td class="name">National Financial Conditions Index</td><td>-0.558</td><td class="obs">-0.538</td><td class="obs">-0.540</td><td class="obs">-0.527</td><td class="obs">28 Aug 2026</td></tr>
+        <tr><td class="name">&hellip; adjusted for economic conditions</td><td>-0.582</td><td class="obs">-0.586</td><td class="obs">-0.568</td><td class="obs">-0.581</td><td class="obs">28 Aug 2026</td></tr>
+        <tr><td class="name">St. Louis Fed financial stress index</td><td>-0.8526</td><td class="obs">-0.8245</td><td class="obs">-0.5732</td><td class="obs">-0.7495</td><td class="obs">28 Aug 2026</td></tr>
+        <tr><td class="name">US high-yield spread<small>option-adjusted, percentage points</small></td><td>2.65</td><td class="obs">2.73</td><td class="obs">2.81</td><td class="obs">2.88</td><td class="obs">3 Sep 2026</td></tr>
+        <tr><td class="name">Emerging-market corporate spread<small>option-adjusted, percentage points</small></td><td>1.38</td><td class="obs">1.44</td><td class="obs">1.56</td><td class="obs">1.56</td><td class="obs">3 Sep 2026</td></tr>
+      </tbody>
+    </table>
+    <div class="foot">
+      The conditions and stress indices are weekly; the two spreads are daily.
+      The national index has been below zero for <b>330</b> consecutive weekly
+      readings, since 8 May 2020.
+      Available spread history begins 5 Sep 2023: within that window only
+      <b>23 of 787</b> observations sit below the current high-yield reading.
+      That is a narrow spread measured against a short window, and the window is stated because
+      it bounds the claim.
+    </div>
+  </div>
+</section>
+
+
+<section>
+  <h2><span class="chip">07</span> Bonds</h2>
+  <p class="sub">Duration and credit across the ladder. Period returns use adjusted closes, so
+  coupons and distributions are included; the close column is the unadjusted close.</p>
+  <div class="card scroll"><table><thead><tr><th>Instrument</th><th>Close</th><th>1 day</th><th>1 month</th><th>3 months</th><th>Year to date</th><th>1 year</th><th>52-week range</th></tr></thead><tbody><tr><td class="name">SHY<small>iShares 1&ndash;3 Year Treasury Bond</small></td><td>81.69</td><td><span class="dn">-0.02%</span></td><td><span class="up">+0.04%</span></td><td><span class="up">+0.69%</span></td><td><span class="up">+0.38%</span></td><td><span class="up">+1.65%</span></td><td class="obs">81.59 &ndash; 83.20</td></tr><tr><td class="name">IEF<small>iShares 7&ndash;10 Year Treasury Bond</small></td><td>92.25</td><td><span class="dn">-0.03%</span></td><td><span class="dn">-0.78%</span></td><td><span class="dn">-0.44%</span></td><td><span class="dn">-2.18%</span></td><td><span class="dn">-1.11%</span></td><td class="obs">92.03 &ndash; 98.05</td></tr><tr><td class="name">TLT<small>iShares 20+ Year Treasury Bond</small></td><td>82.21</td><td><span class="up">+0.17%</span></td><td><span class="dn">-0.57%</span></td><td><span class="dn">-2.23%</span></td><td><span class="dn">-3.89%</span></td><td><span class="dn">-2.56%</span></td><td class="obs">81.17 &ndash; 92.19</td></tr><tr><td class="name">LQD<small>iShares iBoxx Investment Grade Corporate Bond</small></td><td>105.48</td><td><span class="dn">-0.02%</span></td><td><span class="dn">-0.76%</span></td><td><span class="dn">-1.31%</span></td><td><span class="dn">-2.45%</span></td><td><span class="dn">-1.21%</span></td><td class="obs">105.20 &ndash; 112.93</td></tr><tr><td class="name">HYG<small>iShares iBoxx High Yield Corporate Bond</small></td><td>79.16</td><td><span class="dn">-0.06%</span></td><td><span class="up">+0.09%</span></td><td><span class="up">+1.16%</span></td><td><span class="up">+0.66%</span></td><td><span class="up">+2.35%</span></td><td class="obs">78.56 &ndash; 81.36</td></tr></tbody></table><div class="foot">Closes of 4 Sep 2026. No share split falls inside any period shown, so the return columns need no correction.</div></div>
+</section>
+
+<section>
+  <h2><span class="chip">08</span> Crude oil</h2>
+  <div class="card scroll"><table><thead><tr><th>Instrument</th><th>Close</th><th>1 day</th><th>1 month</th><th>3 months</th><th>Year to date</th><th>1 year</th><th>52-week range</th></tr></thead><tbody><tr><td class="name">USO<small>United States Oil Fund</small></td><td>141.96</td><td><span class="dn">-0.09%</span></td><td><span class="up">+23.57%</span></td><td><span class="up">+6.72%</span></td><td><span class="up">+105.26%</span></td><td><span class="up">+91.37%</span></td><td class="obs">65.98 &ndash; 154.08</td></tr><tr><td class="name">DBC<small>Invesco DB Commodity Index Tracking Fund</small></td><td>31.90</td><td><span class="dn">-0.19%</span></td><td><span class="up">+12.01%</span></td><td><span class="up">+9.13%</span></td><td><span class="up">+42.67%</span></td><td><span class="up">+48.40%</span></td><td class="obs">21.97 &ndash; 32.13</td></tr></tbody></table><div class="foot">Closes of 4 Sep 2026. Spot WTI and Brent, the futures front spread and inventories are not in the available data and are not shown.</div></div>
+</section>
+
+<section>
+  <h2><span class="chip">09</span> Gold and silver</h2>
+  <div class="card scroll"><table><thead><tr><th>Instrument</th><th>Close</th><th>1 day</th><th>1 month</th><th>3 months</th><th>Year to date</th><th>1 year</th><th>52-week range</th></tr></thead><tbody><tr><td class="name">GLD<small>SPDR Gold Shares</small></td><td>406.77</td><td><span class="dn">-0.84%</span></td><td><span class="up">+4.40%</span></td><td><span class="up">+2.66%</span></td><td><span class="up">+2.64%</span></td><td><span class="up">+24.51%</span></td><td class="obs">325.35 &ndash; 509.70</td></tr><tr><td class="name">SLV<small>iShares Silver Trust</small></td><td>59.82</td><td><span class="dn">-1.21%</span></td><td><span class="up">+6.69%</span></td><td><span class="dn">-2.84%</span></td><td><span class="dn">-7.14%</span></td><td><span class="up">+61.98%</span></td><td class="obs">36.63 &ndash; 109.83</td></tr></tbody></table><div class="foot">Closes of 4 Sep 2026. The London gold and silver fixes are not in the available data; these are the listed funds' own closes.</div></div>
+</section>
+
+
+<section>
+  <h2><span class="chip">10</span> US dollar</h2>
+  <div class="card scroll">
+    <table>
+      <thead><tr><th>Measure</th><th>Latest</th><th>1 month</th><th>End 2025</th>
+        <th>1 year</th><th>Observed</th></tr></thead>
+      <tbody>
+        <tr><td class="name">Broad trade-weighted dollar index<small>index level</small></td><td>118.75</td><td class="obs">120.79</td><td class="obs">119.75</td><td class="obs">120.26</td><td class="obs">28 Aug 2026</td></tr>
+        <tr><td class="name">Advanced-economies dollar index<small>index level</small></td><td>112.23</td><td class="obs">114.28</td><td class="obs">111.19</td><td class="obs">110.89</td><td class="obs">28 Aug 2026</td></tr>
+        <tr><td class="name">EUR / USD<small>US dollars per euro &mdash; percentage change</small></td>
+            <td>1.1614</td><td><span class="up">+0.51%</span></td>
+            <td><span class="dn">-1.11%</span></td><td><span class="dn">-0.30%</span></td>
+            <td class="obs">4 Sep 2026</td></tr>
+        <tr><td class="name">USD / JPY<small>yen per US dollar &mdash; percentage change</small></td>
+            <td>156.24</td><td><span class="dn">-0.95%</span></td>
+            <td><span class="dn">-0.26%</span></td><td><span class="up">+5.23%</span></td>
+            <td class="obs">4 Sep 2026</td></tr>
+        <tr><td class="name">UUP<small>Invesco DB US Dollar Index Bullish Fund &mdash; percentage change</small></td>
+            <td>28.08</td><td><span class="dn">-0.04%</span></td>
+            <td><span class="up">+3.88%</span></td><td><span class="up">+5.46%</span></td>
+            <td class="obs">4 Sep 2026</td></tr>
+    </tbody>
+    </table>
+    <div class="foot">The first two rows are index levels for each date; the last three are
+    percentage changes. They come from feeds on different publication schedules, so the two index
+    rows sit several sessions behind the three market rows &mdash; which is why every row carries its
+    own observation date rather than the edition's.</div>
+  </div>
+</section>
+
+
+<section>
+  <h2><span class="chip">11</span> Upcoming economic events</h2>
+  <p class="sub">High-importance United States releases scheduled from the edition date onward.</p>
+  <div class="card scroll">
+    <table>
+      <thead><tr><th>Event</th><th>Date</th><th>Time, Eastern</th><th>Forecast</th>
+        <th>Previous</th></tr></thead>
+      <tbody><tr><td class="name">Core PPI m/m</td><td class="obs">10 Sep 2026</td><td class="obs">7:30am</td><td class="obs">&mdash;</td><td class="obs">&mdash;</td></tr><tr><td class="name">PPI m/m</td><td class="obs">10 Sep 2026</td><td class="obs">&mdash;</td><td class="obs">&mdash;</td><td class="obs">&mdash;</td></tr><tr><td class="name">Core CPI m/m</td><td class="obs">11 Sep 2026</td><td class="obs">7:30am</td><td class="obs">&mdash;</td><td class="obs">&mdash;</td></tr><tr><td class="name">Core CPI y/y</td><td class="obs">11 Sep 2026</td><td class="obs">&mdash;</td><td class="obs">&mdash;</td><td class="obs">&mdash;</td></tr><tr><td class="name">CPI m/m</td><td class="obs">11 Sep 2026</td><td class="obs">&mdash;</td><td class="obs">&mdash;</td><td class="obs">&mdash;</td></tr><tr><td class="name">CPI y/y</td><td class="obs">11 Sep 2026</td><td class="obs">&mdash;</td><td class="obs">&mdash;</td><td class="obs">&mdash;</td></tr><tr><td class="name">Federal Funds Rate</td><td class="obs">16 Sep 2026</td><td class="obs">1:00pm</td><td class="obs">&mdash;</td><td class="obs">&mdash;</td></tr><tr><td class="name">FOMC Economic Projections</td><td class="obs">16 Sep 2026</td><td class="obs">&mdash;</td><td class="obs">&mdash;</td><td class="obs">&mdash;</td></tr><tr><td class="name">FOMC Statement</td><td class="obs">16 Sep 2026</td><td class="obs">&mdash;</td><td class="obs">&mdash;</td><td class="obs">&mdash;</td></tr><tr><td class="name">FOMC Press Conference</td><td class="obs">16 Sep 2026</td><td class="obs">1:30pm</td><td class="obs">&mdash;</td><td class="obs">&mdash;</td></tr><tr><td class="name">Core PCE Price Index m/m</td><td class="obs">30 Sep 2026</td><td class="obs">7:30am</td><td class="obs">&mdash;</td><td class="obs">&mdash;</td></tr><tr><td class="name">Final GDP q/q</td><td class="obs">30 Sep 2026</td><td class="obs">&mdash;</td><td class="obs">&mdash;</td><td class="obs">&mdash;</td></tr></tbody>
+    </table>
+    <div class="foot">
+      Calendar snapshot captured <b>28 Aug 2026</b> &mdash; 8 days before this edition.
+      Dates and event names are reliable. The forecast and previous columns are as of that capture,
+      and several are blank because no estimate had been published by then. There is no live feed
+      behind this section yet; nothing in it has been updated by hand.
+    </div>
+  </div>
+</section>
+
+
+<section>
+  <h2><span class="chip">12</span> What it means for markets</h2>
+  <p class="sub">Five short readings of what this page already shows, each
+  pointing at a figure displayed in a section above. The language is
+  <em>conditional</em> throughout: these describe the readings and what would
+  move them. Where the reviewed interpretation has not been supplied, the item
+  says so rather than being filled in.</p>
+  <div class="card">
+    <ul class="edlist">
+      <li class="pending"><div class="lab">Equities<small>Awaiting interpretation</small></div><p>This page displays no equity reading &mdash; no index level, breadth, valuation or earnings figure appears in any section above &mdash; and the reviewed interpretation that would connect these macro readings to equities has not been supplied. Nothing is written here rather than reaching to another tab or filling the space.</p></li>
+      <li><div class="lab">Bonds and interest rates</div><p>Both curve spreads in section 03 are positive: 10y&minus;2y at +0.41 pp and 10y&minus;3m at +0.87 pp. Effective fed funds sits at 3.63% below the 4.34% two-year and 4.77% ten-year in the same table. In section 07 the year-to-date column falls as maturity rises &mdash; SHY +0.38%, IEF -2.18%, TLT -3.89%. A move in the ten-year, or a repricing of the policy decision listed in section 11, would change both those spreads and those return columns; which way is not stated here.</p></li>
+      <li><div class="lab">Dollar and commodities</div><p>Section 10 shows the broad trade-weighted dollar index at 118.75 and the advanced-economies index at 112.23 (28 Aug 2026), with UUP +3.88% year to date, EUR/USD at 1.1614 and USD/JPY at 156.24 (4 Sep 2026). The commodity rows have risen over the same stretch: USO +105.26% and DBC +42.67% year to date, GLD +24.51% and SLV +61.98% over one year. The two index rows sit several sessions behind the market rows, so any read across the two is bounded by that gap.</p></li>
+      <li class="pending"><div class="lab">Volatility<small>Awaiting interpretation</small></div><p>No volatility reading is displayed anywhere on this page: no implied volatility, no realised volatility and no options measure appears in any section above. The financial-conditions and credit-spread readings in section 06 measure something else and are not used as a substitute for one, and no reviewed interpretation has been supplied.</p></li>
+      <li><div class="lab">What to watch next</div><p>Section 11 lists CPI on 11 Sep 2026, the federal funds decision with its projections on 16 Sep 2026 and the core PCE price index on 30 Sep 2026. Section 04's monthly inflation rows run through Jul 2026, so those are the first prints that would move them. The calendar snapshot behind section 11 was captured 28 Aug 2026 and its forecast column is blank for these releases &mdash; the dates are reliable, the expectations are not current.</p></li>
+    </ul>
+    <div class="foot">Each line restates figures already displayed in the sections it
+    names; no figure appears here that does not appear there, and nothing is taken from
+    another page. None of it is a recommendation, a forecast or a directional call.</div>
+  </div>
+</section>
+
+
+<footer>
+  <h3>Sources</h3>
+  <p>Macro series from the Federal Reserve Bank of St. Louis (FRED), carrying data
+  originated by the Bureau of Labor Statistics, the Bureau of Economic Analysis,
+  the Board of Governors of the Federal Reserve System, the Federal Reserve Banks
+  of Chicago, St. Louis and Atlanta, the University of Michigan and ICE BofA.
+  Daily price history from Alpha Vantage. Release schedule from a weekly
+  economic-calendar snapshot.</p>
+
+  <h3>Dates</h3>
+  <p>Edition 5 Sep 2026. Market and daily series through 4 Sep 2026.
+  Weekly and monthly series carry their own observation dates on every row and are
+  never restamped with the edition date. The economic calendar in section 11 is a
+  snapshot of 28 Aug 2026 and is labelled as such where it appears.</p>
+
+  <h3>Disclaimer</h3>
+  <p>For education and general market information only. Nothing here is investment
+  advice, a recommendation, or an offer or solicitation to buy or sell any
+  security. Data may contain errors or omissions and is provided without warranty.
+  Past performance does not indicate future results.</p>
+</footer>
+
+</div>
+
+<!-- SHARED DISCLAIMER -->
+<style>.tb-dis{max-width:1100px;margin:32px auto 0;padding:16px;
+ border-top:1px solid #252a38;color:#6b7591;font:11px/1.6 -apple-system,
+ BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}</style>
+<div class="tb-dis">Educational use only - not investment advice. Nothing here
+is a recommendation to buy or sell any security, and nothing here is
+personalised to your circumstances, objectives or risk tolerance. Options carry
+substantial risk and are not suitable for every investor. Data may be delayed,
+incomplete or inaccurate. Past performance does not indicate future results.</div>
+</body>
+</html>
