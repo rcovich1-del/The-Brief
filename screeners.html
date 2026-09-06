@@ -391,15 +391,16 @@
       </div>
 
       <div class="f">
-        <div class="lab"><span>Rows shown</span><span class="val" id="vTop"></span></div>
+        <div class="lab"><span>Rows displayed</span><span class="val" id="vTop"></span></div>
         <select id="fTop">
           <option value="25">Top 25</option>
           <option value="100">Top 100</option>
           <option value="500">Top 500</option>
           <option value="0">All matches</option>
         </select>
-        <div class="hint">One row per contract. A ticker can appear more than once at different
-          strikes and expiries.</div>
+        <div class="hint">This changes only how many matching rows appear below; it does not
+          change the total match count. One row is one contract, so a ticker can appear more
+          than once at different strikes and expiries.</div>
       </div>
     </aside>
 
@@ -510,7 +511,7 @@
   </div>
 
   <div class="foot">
-    Generated Sep 6, 2026 10:01 AM · Data: end-of-day option screeners · Educational use only
+    Generated Sep 6, 2026 6:47 PM · Data: end-of-day option screeners · Educational use only
   </div>
 
 </div>
@@ -543,7 +544,7 @@
           <div class="f" data-k="cvol"><div class="lab"><span>Call volume ≥</span><span class="val" id="ma20_v_cvol"></span></div><input type="range" id="ma20_lo_cvol"><div class="nums"><input type="number" id="ma20_nlo_cvol"><span class="sep">and up</span></div><div class="full" id="ma20_f_cvol"></div><div class="hint">Call contracts traded. Calls only, not total options volume.</div></div>
           <div class="f" data-k="mcap"><div class="lab"><span>Market cap ≥</span><span class="val" id="ma20_v_mcap"></span></div><input type="range" id="ma20_lo_mcap"><div class="nums"><input type="number" id="ma20_nlo_mcap"><span class="sep">and up</span></div><div class="full" id="ma20_f_mcap"></div><div class="hint">Reported in billions of dollars.</div></div>
           <div class="f" data-k="d2e"><div class="lab"><span>Days to next earnings</span><span class="val" id="ma20_v_d2e"></span></div><input type="range" id="ma20_lo_d2e"><input type="range" id="ma20_hi_d2e"><div class="nums"><input type="number" id="ma20_nlo_d2e"><span class="sep">to</span><input type="number" id="ma20_nhi_d2e"></div><div class="full" id="ma20_f_d2e"></div><div class="hint">Calendar days from the session date. Rows with no next-earnings date drop out once you move this off its full range.</div></div>
-          <div class="f"><div class="lab"><span>Rows shown</span><span class="val" id="ma20_vtop"></span></div><select id="ma20_top"><option value="25">Top 25</option><option value="100">Top 100</option><option value="500">Top 500</option><option value="0" selected>All matches</option></select><div class="hint">Every row that matches is shown by default. The counts under the table always report the full match, not the slice.</div></div>
+          <div class="f"><div class="lab"><span>Rows displayed</span><span class="val" id="ma20_vtop"></span></div><select id="ma20_top"><option value="25">Top 25</option><option value="100">Top 100</option><option value="500">Top 500</option><option value="0" selected>All matches</option></select><div class="hint">This changes only how many matching rows appear below. The total match count does not change.</div></div>
         </div>
       </details>
     </aside>
@@ -572,7 +573,7 @@
           <div class="f" data-k="ivp"><div class="lab"><span>IV percentile</span><span class="val" id="ma50_v_ivp"></span></div><input type="range" id="ma50_lo_ivp"><input type="range" id="ma50_hi_ivp"><div class="nums"><input type="number" id="ma50_nlo_ivp"><span class="sep">to</span><input type="number" id="ma50_nhi_ivp"></div><div class="full" id="ma50_f_ivp"></div><div class="hint">Where implied volatility sits in its own past-year range.</div></div>
           <div class="f" data-k="cvol"><div class="lab"><span>Call volume ≥</span><span class="val" id="ma50_v_cvol"></span></div><input type="range" id="ma50_lo_cvol"><div class="nums"><input type="number" id="ma50_nlo_cvol"><span class="sep">and up</span></div><div class="full" id="ma50_f_cvol"></div><div class="hint">Call contracts traded. Calls only, not total options volume.</div></div>
           <div class="f" data-k="mcap"><div class="lab"><span>Market cap ≥</span><span class="val" id="ma50_v_mcap"></span></div><input type="range" id="ma50_lo_mcap"><div class="nums"><input type="number" id="ma50_nlo_mcap"><span class="sep">and up</span></div><div class="full" id="ma50_f_mcap"></div><div class="hint">Reported in billions of dollars.</div></div>
-          <div class="f"><div class="lab"><span>Rows shown</span><span class="val" id="ma50_vtop"></span></div><select id="ma50_top"><option value="25">Top 25</option><option value="100">Top 100</option><option value="500">Top 500</option><option value="0" selected>All matches</option></select><div class="hint">Every row that matches is shown by default. The counts under the table always report the full match, not the slice.</div></div>
+          <div class="f"><div class="lab"><span>Rows displayed</span><span class="val" id="ma50_vtop"></span></div><select id="ma50_top"><option value="25">Top 25</option><option value="100">Top 100</option><option value="500">Top 500</option><option value="0" selected>All matches</option></select><div class="hint">This changes only how many matching rows appear below. The total match count does not change.</div></div>
         </div>
       </details>
     </aside>
@@ -687,7 +688,7 @@ moving-average column, this horizon appears here with the same columns as the ot
           <div class="f" data-k="ovol"><div class="lab"><span>Options volume ≥</span><span class="val" id="ivne_v_ovol"></span></div><input type="range" id="ivne_lo_ovol"><div class="nums"><input type="number" id="ivne_nlo_ovol"><span class="sep">and up</span></div><div class="full" id="ivne_f_ovol"></div><div class="hint">Total options contracts traded — puts and calls together.</div></div>
           <div class="f" data-k="empct"><div class="lab"><span>Expected move</span><span class="val" id="ivne_v_empct"></span></div><input type="range" id="ivne_lo_empct"><input type="range" id="ivne_hi_empct"><div class="nums"><input type="number" id="ivne_nlo_empct"><span class="sep">to</span><input type="number" id="ivne_nhi_empct"></div><div class="full" id="ivne_f_empct"></div><div class="hint">The delivered expected move as a percentage of the last price.</div></div>
           <div class="f" data-k="d2e"><div class="lab"><span>Days to earnings</span><span class="val" id="ivne_v_d2e"></span></div><input type="range" id="ivne_lo_d2e"><input type="range" id="ivne_hi_d2e"><div class="nums"><input type="number" id="ivne_nlo_d2e"><span class="sep">to</span><input type="number" id="ivne_nhi_d2e"></div><div class="full" id="ivne_f_d2e"></div><div class="hint">Calendar days from the session date to the next scheduled report.</div></div>
-          <div class="f"><div class="lab"><span>Rows shown</span><span class="val" id="ivne_vtop"></span></div><select id="ivne_top"><option value="25">Top 25</option><option value="100">Top 100</option><option value="500">Top 500</option><option value="0" selected>All matches</option></select><div class="hint">Every row that matches is shown by default. The counts under the table always report the full match, not the slice.</div></div>
+          <div class="f"><div class="lab"><span>Rows displayed</span><span class="val" id="ivne_vtop"></span></div><select id="ivne_top"><option value="25">Top 25</option><option value="100">Top 100</option><option value="500">Top 500</option><option value="0" selected>All matches</option></select><div class="hint">This changes only how many matching rows appear below. The total match count does not change.</div></div>
         </div>
       </details>
     </aside>
@@ -781,7 +782,7 @@ moving-average column, this horizon appears here with the same columns as the ot
           <div class="f" data-k="ovol"><div class="lab"><span>Options volume ≥</span><span class="val" id="ive_v_ovol"></span></div><input type="range" id="ive_lo_ovol"><div class="nums"><input type="number" id="ive_nlo_ovol"><span class="sep">and up</span></div><div class="full" id="ive_f_ovol"></div><div class="hint">Total options contracts traded — puts and calls together.</div></div>
           <div class="f" data-k="empct"><div class="lab"><span>Expected move</span><span class="val" id="ive_v_empct"></span></div><input type="range" id="ive_lo_empct"><input type="range" id="ive_hi_empct"><div class="nums"><input type="number" id="ive_nlo_empct"><span class="sep">to</span><input type="number" id="ive_nhi_empct"></div><div class="full" id="ive_f_empct"></div><div class="hint">The delivered expected move as a percentage of the last price.</div></div>
           <div class="f" data-k="d2e"><div class="lab"><span>Days to earnings</span><span class="val" id="ive_v_d2e"></span></div><input type="range" id="ive_lo_d2e"><input type="range" id="ive_hi_d2e"><div class="nums"><input type="number" id="ive_nlo_d2e"><span class="sep">to</span><input type="number" id="ive_nhi_d2e"></div><div class="full" id="ive_f_d2e"></div><div class="hint">Calendar days from the session date to the next scheduled report.</div></div>
-          <div class="f"><div class="lab"><span>Rows shown</span><span class="val" id="ive_vtop"></span></div><select id="ive_top"><option value="25">Top 25</option><option value="100">Top 100</option><option value="500">Top 500</option><option value="0" selected>All matches</option></select><div class="hint">Every row that matches is shown by default. The counts under the table always report the full match, not the slice.</div></div>
+          <div class="f"><div class="lab"><span>Rows displayed</span><span class="val" id="ive_vtop"></span></div><select id="ive_top"><option value="25">Top 25</option><option value="100">Top 100</option><option value="500">Top 500</option><option value="0" selected>All matches</option></select><div class="hint">This changes only how many matching rows appear below. The total match count does not change.</div></div>
         </div>
       </details>
     </aside>

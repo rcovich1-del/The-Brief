@@ -61,6 +61,29 @@ h1{font-size:30px;line-height:1.15;margin:0 0 12px;letter-spacing:-.5px}
 .wk-summary{font-size:12.5px;color:#9aa3ba;margin:0}
 .wk-level{font-size:10px;text-transform:uppercase;letter-spacing:1px;
  color:var(--dim);margin-top:12px}
+.archive-controls{display:flex;align-items:end;justify-content:space-between;
+ gap:18px;flex-wrap:wrap;margin-bottom:14px}
+.archive-controls label{display:block;font-size:11px;text-transform:uppercase;
+ letter-spacing:1.1px;color:var(--dim);font-weight:700}
+.archive-controls select{display:block;margin-top:6px;min-width:220px;
+ background:#0f131b;color:var(--text);border:1px solid var(--line);
+ border-radius:7px;padding:8px 10px;font:inherit}
+.archive-controls p{margin:0;color:#9aa3ba;font-size:12.5px;max-width:58ch}
+.archive-panel[hidden]{display:none}
+.archive-panel h3{font-size:18px;margin:0 0 4px}
+.archive-panel>.standfirst{margin-bottom:16px}
+.archive-unit{border-top:1px solid var(--line)}
+.archive-unit:last-child{border-bottom:1px solid var(--line)}
+.archive-unit summary{cursor:pointer;display:flex;justify-content:space-between;
+ gap:18px;padding:13px 0;font-weight:600;list-style:none}
+.archive-unit summary::-webkit-details-marker{display:none}
+.archive-unit summary:before{content:">";color:var(--accent);margin-right:8px}
+.archive-unit[open] summary:before{content:"v"}
+.archive-unit summary span:first-child{flex:1}
+.archive-unit summary span:last-child{color:var(--dim);font-size:11px;
+ text-transform:uppercase;letter-spacing:1px;font-weight:700}
+.archive-body{padding:2px 0 14px 22px;color:#b9c1d4}
+.archive-body p,.archive-body ul,.archive-body dl{max-width:74ch}
 .unit h3{font-size:20px;margin:0 0 4px;letter-spacing:-.2px}
 .unit .unit-meta{color:var(--dim);font-size:12px;text-transform:uppercase;
  letter-spacing:1.2px;font-weight:700;margin:0 0 18px}
@@ -206,8 +229,55 @@ table.year tr.now td.m{color:var(--accent);font-weight:700}
   </div>
 </section>
 
+<section id="archive">
+  <h2><span class="chip">04</span> Learning archive</h2>
+  <div class="card archive-controls"><label for="archive-month">Review month<select id="archive-month"><option value="september" selected>September — Diagonal Spreads</option></select></label><p>All four approved units remain available for every published month through September. Selecting a month does not replace or rewrite its material.</p></div><article class="archive-panel card" id="learning-september" data-archive-month="september"><p class="kicker">September archive</p><h3>Diagonal Spreads</h3><p class="standfirst">Two expirations instead of one. This month sits after the chart framework because the entry condition is a chart reading, and after the volatility framework because the position's volatility exposure is the reason it behaves as it does. It is also the one structure in this curriculum whose rule is: do not repair it.</p><details class="archive-unit" open><summary><span>Week 1 &middot; Two expirations, two jobs: what a diagonal is</span><span>Foundations</span></summary><div class="archive-body"><p>A vertical spread uses two strikes in one expiration. A calendar spread uses one strike in two expirations. A diagonal changes both at once - two different strikes and two different expirations. That is the entire definition, and every property this month discusses follows from it.</p>
+<p>The near-dated option is sold. The later-dated option is bought. They are not two halves of the same thing; they have different jobs. The short option's job is to decay: it is closer to expiration, so the passage of time works on it faster than on the option behind it. The long option's job is twofold. First, it limits what an adverse move beyond the short strike can cost, though not to a fixed figure - because the two legs expire at different dates, the worst case depends on what the later-dated option is still worth at the near expiration, and has to be read off the position's own payoff rather than calculated from the strikes. Second, it is still there, holding value, after the short option has expired or been closed.</p>
+<h4>Why two expirations behave differently from one</h4>
+<p>In a vertical spread, both legs experience time identically. Whatever time does to one, it does to the other, and the position's value depends almost entirely on where price sits relative to the strikes. A diagonal breaks that symmetry deliberately. As the near expiration approaches, the sold option loses time value quickly while the purchased option, which still has time remaining, loses it slowly. The gap between those two rates is what the position is designed to collect.</p>
+<p>The same asymmetry is what makes the position awkward to describe with a single payoff diagram. A diagram drawn to the near expiration and a diagram drawn to the far expiration are different pictures of the same trade, and a reader who looks only at the far one can convince themselves a position is comfortable while the near-term exposure is anything but.</p>
+<h4>This is a directional position</h4>
+<p>It is tempting to file a diagonal under income structures and assume it is neutral. It is not. A call diagonal, built above the market, leans against further upside; a put diagonal, built below it, leans against further downside. Put diagonals require additional caution because markets can continue falling quickly. The lean is deliberate and it is the point: the structure is normally opened after an extended move, in the expectation that the move slows, stalls or partially retraces. If the move continues at speed, this position is on the wrong side of it.</p>
+<h4>The exposures</h4>
+<dl class="terms"><dt>Diagonal spread</dt><dd>A short option in a nearer expiration and a long option in a later expiration, at different strikes.</dd><dt>Near-dated leg</dt><dd>The option that was sold. Closer to expiration, decays faster, and defines where the position gets uncomfortable.</dd><dt>Later-dated leg</dt><dd>The option that was bought. Limits, but does not fix, what an adverse move beyond the short strike can cost, and retains value after the short leg is gone.</dd><dt>Theta</dt><dd>The rate at which an option loses value as time passes, all else equal. The two legs of a diagonal have different thetas; that difference is the structure's reason to exist.</dd><dt>Vega</dt><dd>Sensitivity to a change in implied volatility. A diagonal usually starts positive-vega, because the later-dated option it owns is more sensitive to volatility than the nearer one it has sold.</dd><dt>Term structure</dt><dd>The relationship between implied volatility at one expiration and another. A diagonal is exposed to it by construction, because its two legs sit at different points on that curve.</dd><dt>Short strike</dt><dd>The strike of the sold option. The distance between price and this strike is monitored continuously while the position is open, alongside the position's Greeks and its payoff at the near expiration.</dd></dl>
+<p>Positive vega is worth stating plainly, because it is frequently misread as protection. It means the position generally benefits if implied volatility rises and suffers if it falls. It does not mean the position is hedged. A sharp adverse move in the underlying will usually cost more than any accompanying rise in volatility returns, and the two do not net out in the holder's favour just because one of them is pointing the right way.</p>
+<p class="note">This unit publishes no strike or expiration figures. The accepted figures for the short-horizon form of this structure fall outside the parameter ranges this site publishes, and a parameter that cannot be published is left out rather than adjusted to fit. The month therefore teaches the structure, the exposure, the entry condition and the management discipline, and does not teach a number.</p>
+<div class="limits"><h4>What this unit does not establish</h4><ul><li>It does not give an entry rule. That is next week.</li><li>It does not say a diagonal is currently appropriate for anything. The subject is on the page because the calendar put it there.</li><li>It does not establish strike distances. Those are specific to the instrument and do not transfer between a broad index and a single stock; the material supplies no rule for converting one to the other, so none is given.</li></ul></div></div></details><details class="archive-unit"><summary><span>Week 2 &middot; Construction and the entry condition</span><span>Intermediate</span></summary><div class="archive-body"><p>The entry condition for this structure is unusually specific, and it is a chart condition rather than a market condition. It asks about one instrument on two timeframes, and it asks them to agree.</p>
+<h4>Both timeframes, or no trade</h4>
+<p>The setup is an extended recent move, visible as an extreme on the daily chart, and confirmed on a shorter intraday chart - which is the more immediate of the two and the one that supplies the timing. Slowing momentum, or momentum diverging from price, strengthens the case. The rule that matters is the negative one: when the daily and intraday views are neutral, or when they point in opposite directions, there is no trade. Not a smaller trade, not a trade with a wider strike. No trade.</p>
+<p>That rule is doing more work than it appears to. Most of what goes wrong with this structure goes wrong because it was opened into a move that had not finished, and a disagreement between timeframes is the most common early sign that the move has not finished.</p>
+<h4>Assembling it</h4>
+<p>The short option is sold in the nearer expiration. The long option is bought in a later expiration and farther out of the money. The accepted material does not provide a public strike-distance rule that transfers across instruments, so none is implied here. Prefer to open the position for a small credit; accept a small debit only deliberately, knowing that a debit changes what the worst case is and means the position must now move in your favour to break even rather than merely stand still.</p>
+<p>Before treating any calculated maximum as real, confirm it against the actual payoff graph for the actual legs, with commissions and a realistic fill included. Structures with two expirations produce modelled numbers that quietly assume a fill nobody is offering.</p>
+<h4>The width question, answered honestly</h4>
+<p>The distance between the strikes is instrument-specific. What is sensible on a broad index is not sensible on a single stock, and the difference is not a matter of scaling by price. The material behind this curriculum supplies widths for the instruments it was written for and supplies no rule for transferring them anywhere else. So no width is published here. A reader trading a different instrument has to derive one from that instrument's own range and its own option chain, and should treat a borrowed number as a guess.</p>
+<h4>Disqualifying conditions</h4>
+<ul><li>A scheduled earnings announcement falls inside the intended holding period. Building a diagonal around an announcement is a different strategy with different rules - it is October's subject - and the two must not be mixed.</li><li>The position cannot be monitored while the market is open. This is a short-horizon structure whose risk arrives quickly; a position that cannot be watched cannot be managed to its own rules.</li><li>The daily and intraday readings disagree, or both are neutral.</li><li>The option chain is thin enough that the modelled entry price is not obtainable.</li></ul>
+<div class="limits"><h4>What this unit does not establish</h4><ul><li>It does not publish a short-option delta or a days-to-expiration window. Both accepted figures for this form sit outside the ranges this site publishes.</li><li>It does not tell a reader that current conditions meet the entry condition. Whether they do is a reading of a specific chart, which this page has not made.</li></ul></div></div></details><details class="archive-unit"><summary><span>Week 3 &middot; The position that is not repaired</span><span>Advanced</span></summary><div class="archive-body"><p>Every other structure in this curriculum has an adjustment conversation attached to it. This one does not, and that is not an omission. The rule for a short-horizon diagonal is: take the planned profit, or exit at the predefined level, or exit when price comes close to the short strike. Do not add legs to rescue it.</p>
+<h4>Why not</h4>
+<p>Repair works by buying time. A structure with weeks or months left can absorb a change of shape, wait, and let the new arrangement come good. A structure measured in days cannot: there is no time to buy. Adding legs to a short-duration position adds cost, adds complexity, and adds them at the exact moment - price approaching the short strike, quickly - when the reader is least able to think clearly about what they have just built.</p>
+<p>There is a second reason, and it is the more important one. A rule that says close it removes a decision from a moment when the decision would be made badly. That is what most good risk rules are: not clever, just decided in advance.</p>
+<h4>The exits that replace adjustment</h4>
+<ul><li>A profit target, set before entry, taken when it arrives rather than held for more.</li><li>A loss level, set before entry, in whatever unit the reader will actually act on.</li><li>A proximity exit: when the underlying comes near the short strike, the position is closed, regardless of what the far-dated payoff graph suggests it might still be worth.</li><li>A time exit. Index positions are closed before the final session rather than carried into settlement, because settlement introduces a risk that has nothing to do with the thesis and cannot be managed once the market has closed.</li></ul>
+<p>The proximity exit is the one readers argue with, because the payoff graph drawn to the later expiration often still shows a comfortable shape while price sits on top of the short strike. That graph is describing a future that has to be survived first. Being distracted by a profit tent at expiration while near-term exposure is running against you is a documented way to lose more than planned.</p>
+<h4>The failure mode</h4>
+<p>The worst case is fast and specific: a sharp move toward the short strike within roughly a day or two of entry. A call diagonal is damaged by a sharp continued rise; a put diagonal by a sharp continued fall. Put diagonals deserve the extra caution they get, because markets can fall faster than they rise and a position built below the market has less time to react.</p>
+<p>Positive vega does not rescue this. Volatility usually does rise during a fast adverse move, and the gain from that is usually smaller than the loss from the move itself.</p>
+<p class="note">Percentage profit targets and stop percentages exist in the material behind this month, but two accepted sources give different figures and the disagreement has not been resolved. Publishing one of them would present a choice as a settled rule. So no figure is published, and the instruction stands without it: set both levels, in your own units, before you enter.</p>
+<div class="limits"><h4>What this unit does not establish</h4><ul><li>It does not rank adjustment techniques. For this structure, no adjustment is authorised at all.</li><li>It does not state position size. Sizing rules in the underlying material are account-level and are not published as public guidance.</li></ul></div></div></details><details class="archive-unit"><summary><span>Week 4 &middot; Hypothetical worked example and review</span><span>Applied</span></summary><div class="archive-body"><p>This is a hypothetical worked example, constructed for this page. The numbers are round and the instrument is unnamed on purpose: nothing here is a trade anyone took, and nothing here is evidence about what this structure returns. No archived trade and no case study has been cleared for publication, so none appears here.</p>
+<h4>The situation</h4>
+<p>An index has risen for several sessions and is quoted at 100.00. The daily chart shows the move as an extreme relative to its own recent range. The intraday chart agrees and shows momentum slowing. The index's own recent high is just under 102. There are no scheduled events inside the intended holding period.</p>
+<h4>The decision sequence</h4>
+<ul><li>Do the two timeframes agree? Yes - both read extended, and the intraday chart is slowing rather than accelerating. If either had been neutral, the sequence stops here.</li><li>Where would the move have to go for the thesis to be wrong? Through the recent high near 102. The short call is therefore placed above it, at 104.</li><li>The long call is bought in a later expiration, farther out, at 106. The two legs are checked against the actual chain, not against a model.</li><li>The position opens for a small credit. Had it required a debit, the worst case would change and the trade would need re-examining before entry rather than after.</li><li>The exits are written down before the order is placed: a profit level, a loss level, a proximity exit if the index reaches the low 104s, and a time exit before settlement.</li></ul>
+<h4>Three ways it ends</h4>
+<ul><li>The index stalls between 100 and 102. The short call decays faster than the long one, the profit level is reached, and the position is closed. The rule that was tested here was the discipline to take the target rather than hold for the rest.</li><li>The index drifts lower. The position is profitable but less so than the first case, because the long call also loses value. This is the outcome readers underestimate: being right about direction is not the same as being paid for it.</li><li>The index gaps to 104 the next morning. The proximity exit triggers at the open. The loss is real and it is inside the number that was written down. Nothing is added to the position to rescue it - and the reason that instruction exists is precisely that at 104, on a gap, it will feel like the wrong instruction.</li></ul>
+<h4>The review, which is the actual exercise</h4>
+<ul><li>Did the entry condition genuinely hold, or was it made to hold?</li><li>Were both exit levels written down before entry, in units that would have been acted on?</li><li>If the position had been left open at the proximity level, what would the worst case have been - and was that number known at entry?</li><li>What did this outcome prove? For a single trade: nothing about the structure. It tests whether the rules were followed, which is a different question from whether the trade made money, and it is the only question a single trade can answer.</li></ul>
+<p class="note">No archived trade has been cleared for publication for this subject, or for any other month in the calendar, so this unit publishes a labelled hypothetical worked example instead. The case material behind this curriculum consists of dated, individual demonstrations recorded as demonstrations rather than as evidence of expected performance. Republishing one without clearance would breach that boundary and would invite readers to treat a single outcome as a result.</p></div></details></article>
+</section>
+
 <section id="coming-next">
-  <h2><span class="chip">04</span> Coming next</h2>
+  <h2><span class="chip">05</span> Coming next</h2>
   <div class="next">
     <div class="card">
       <p class="kicker">Next unit</p>
@@ -223,14 +293,14 @@ table.year tr.now td.m{color:var(--accent);font-weight:700}
 </section>
 
 <section id="year">
-  <h2><span class="chip">05</span> The year ahead</h2>
+  <h2><span class="chip">06</span> The year ahead</h2>
   <div class="card">
     <table class="year"><thead><tr><th>Month</th><th>Subject</th><th>The four units</th></tr></thead><tbody><tr><td class="m">January</td><td class="s">Iron Condor Month</td><td>What an iron condor is: two credit spreads, one expiration &middot; Construction: the two sides are not symmetric &middot; Management: profit target, loss limit, and the repair ceiling &middot; Hypothetical worked example and review</td></tr><tr><td class="m">February</td><td class="s">The Cash-Secured Put</td><td>The obligation you are selling &middot; Choosing a candidate you would accept owning &middot; The layered exit: review level, trend break, hard maximum &middot; Hypothetical worked example and review</td></tr><tr><td class="m">March</td><td class="s">The Bull Put Spread</td><td>Why a second, cheaper option changes everything &middot; Entry: delta, expiration, volatility rank, and where the strike sits &middot; Targets, the loss limit, and the three risk triggers &middot; Hypothetical worked example and review</td></tr><tr><td class="m">April</td><td class="s">Volatility as an Input</td><td>Implied and realised volatility are different measurements &middot; Term structure and skew: reading the surface &middot; Vega, and why a volatility level is not an allocation instruction &middot; Hypothetical worked example and review</td></tr><tr><td class="m">May</td><td class="s">The Wheel, End to End</td><td>The cycle, and why assignment is the plan &middot; The covered call leg and the adjusted cost basis &middot; Where the cycle stops, and the documented way it goes wrong &middot; Hypothetical worked example and review</td></tr><tr><td class="m">June</td><td class="s">The Bear Call Spread</td><td>Selling above the market: the mirror is not exact &middot; Entry on the call side, and where resistance sits &middot; Management, and the exposure that appears above the short strike &middot; Hypothetical worked example and review</td></tr><tr><td class="m">July</td><td class="s">What a Purchased Option Can and Cannot Do</td><td>The right without the obligation, and the premium as maximum loss &middot; The four sensitivities, and why a correct view can still lose &middot; Time as the failure mode &middot; Hypothetical worked example and review</td></tr><tr><td class="m">August</td><td class="s">Reading the Chart</td><td>Price structure first: highs, lows, support, resistance &middot; Trend context, and matching the chart to the holding period &middot; Momentum inside a trend, and breadth as backdrop &middot; Hypothetical worked example and review</td></tr><tr class="now"><td class="m">September</td><td class="s">Diagonal Spreads</td><td>Two expirations, two jobs: what a diagonal is &middot; Construction and the entry condition &middot; The position that is not repaired &middot; Hypothetical worked example and review</td></tr><tr><td class="m">October</td><td class="s">Earnings and Event Risk</td><td>Why an announcement changes what expirations cost &middot; Pairing expirations around a date &middot; Exiting before the event, and why holding through is a separate decision &middot; Hypothetical worked example and review</td></tr><tr><td class="m">November</td><td class="s">Management Across Structures</td><td>Deciding the exit before the entry &middot; Profit targets: partial credit, taken early &middot; Loss limits, repair boundaries, and the structures that have neither &middot; Hypothetical worked example and review</td></tr><tr><td class="m">December</td><td class="s">What the Material Does Not Settle</td><td>Defined risk as arithmetic: width minus credit &middot; Objectives are not expectations &middot; The open questions, named &middot; Hypothetical worked example and review</td></tr></tbody></table>
   </div>
 </section>
 
 <section id="how" class="foot">
-  <h2><span class="chip">06</span> How this tab is built</h2>
+  <h2><span class="chip">07</span> How this tab is built</h2>
   <div class="card">
     <p>One subject a month, four units inside it, planned twelve months ahead.
     The subject is chosen by the curriculum. It is not chosen by what the market
@@ -276,6 +346,27 @@ table.year tr.now td.m{color:var(--accent);font-weight:700}
 </section>
 
 </div>
+
+<script>
+(function(){
+  const selector=document.getElementById('archive-month');
+  const panels=[...document.querySelectorAll('[data-archive-month]')];
+  if(!selector||!panels.length)return;
+  function showMonth(value,updateHash){
+    const target=panels.find(p=>p.dataset.archiveMonth===value);
+    if(!target)return;
+    panels.forEach(p=>p.hidden=p!==target);
+    selector.value=value;
+    if(updateHash)history.replaceState(null,'','#learning-'+value);
+  }
+  selector.addEventListener('change',()=>showMonth(selector.value,true));
+  const requested=location.hash.replace(/^#learning-/,'');
+  if(requested&&panels.some(p=>p.dataset.archiveMonth===requested)){
+    showMonth(requested,false);
+  }
+})();
+</script>
+
 
 <!-- SHARED DISCLAIMER -->
 <style>.tb-dis{max-width:1100px;margin:32px auto 0;padding:16px;
