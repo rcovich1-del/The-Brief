@@ -65,6 +65,21 @@ legend{font-size:12px;color:#b9c1d4;padding:0;margin-bottom:6px}
 .radios input{accent-color:var(--blue);margin:0}
 .radios input:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
 
+.calc-actions{display:flex;justify-content:flex-end;margin-top:14px}
+.btn-clear{background:var(--card2);color:#b9c1d4;border:1px solid var(--line);
+ border-radius:7px;padding:7px 15px;font:inherit;font-size:12.5px;cursor:pointer;
+ -webkit-appearance:none;appearance:none}
+.btn-clear:hover{background:#20283a;color:#e6edf3;border-color:#39445c}
+.btn-clear:focus-visible{outline:2px solid var(--blue,#5aa9ff);outline-offset:2px}
+.btn-clear:active{transform:translateY(1px)}
+.clear-all{display:flex;justify-content:flex-end;align-items:center;gap:12px;
+ margin-top:16px;flex-wrap:wrap}
+.btn-clear-all{background:#1b2436;color:#dbe3f2;border:1px solid #35405a;
+ border-radius:7px;padding:8px 17px;font:inherit;font-size:12.5px;
+ font-weight:600;cursor:pointer;-webkit-appearance:none;appearance:none}
+.btn-clear-all:hover{background:#24304a;border-color:#4a5878}
+.btn-clear-all:focus-visible{outline:2px solid var(--blue,#5aa9ff);outline-offset:2px}
+.btn-clear-all:active{transform:translateY(1px)}
 .orow{display:flex;justify-content:space-between;align-items:baseline;gap:12px;
  padding:9px 0;border-bottom:1px solid var(--line)}
 .orow:last-child{border-bottom:0}
@@ -160,6 +175,9 @@ legend{font-size:12px;color:#b9c1d4;padding:0;margin-bottom:6px}
       </ul>
     </div>
   </div>
+  <div class="clear-all">
+    <button type="button" class="btn-clear-all" id="clear-all">Clear all calculators</button>
+  </div>
 </section>
 
 <!-- 01 -->
@@ -200,6 +218,9 @@ legend{font-size:12px;color:#b9c1d4;padding:0;margin-bottom:6px}
         <div class="orow"><span class="ol">Annualized return</span><span class="ov blank" id="csp-ann">&mdash;</span></div>
         <div class="orow"><span class="ol">Breakeven</span><span class="ov blank" id="csp-be">&mdash;</span></div>
       </div>
+    </div>
+    <div class="calc-actions">
+      <button type="button" class="btn-clear" data-clear="csp" aria-label="Clear the cash-secured put calculator">Clear</button>
     </div>
     <div class="formula">
       <h4>The formulas used</h4>
@@ -254,6 +275,9 @@ breakeven         = strike - premium</pre>
         <div class="orow"><span class="ol">Annualized if called</span><span class="ov blank" id="cc-ann">&mdash;</span></div>
         <div class="orow"><span class="ol">Breakeven</span><span class="ov blank" id="cc-be">&mdash;</span></div>
       </div>
+    </div>
+    <div class="calc-actions">
+      <button type="button" class="btn-clear" data-clear="cc" aria-label="Clear the covered call calculator">Clear</button>
     </div>
     <div class="formula">
       <h4>The formulas used</h4>
@@ -313,6 +337,9 @@ breakeven         = share price - premium</pre>
         <div class="orow"><span class="ol">Breakeven</span><span class="ov blank" id="vs-be">&mdash;</span></div>
         <div class="orow"><span class="ol">Return on risk</span><span class="ov blank" id="vs-ror">&mdash;</span></div>
       </div>
+    </div>
+    <div class="calc-actions">
+      <button type="button" class="btn-clear" data-clear="vertical" aria-label="Clear the vertical spread calculator">Clear</button>
     </div>
     <div class="formula">
       <h4>The formulas used</h4>
@@ -384,6 +411,9 @@ debit spread    max gain  = width - debit
         <div class="orow"><span class="ol">Full-cycle return if called</span><span class="ov blank" id="wh-cycle">&mdash;</span></div>
       </div>
     </div>
+    <div class="calc-actions">
+      <button type="button" class="btn-clear" data-clear="wheel" aria-label="Clear the wheel cycle calculator">Clear</button>
+    </div>
     <div class="formula">
       <h4>The formulas used</h4>
       <pre>cost basis          = put strike - put premium
@@ -431,6 +461,9 @@ full-cycle return   = (call strike - put strike + put premium + call premium)
         <div class="orow"><span class="ol">Budget remaining</span><span class="ov blank" id="ps-left">&mdash;</span></div>
       </div>
     </div>
+    <div class="calc-actions">
+      <button type="button" class="btn-clear" data-clear="sizing" aria-label="Clear the position sizing calculator">Clear</button>
+    </div>
     <div class="formula">
       <h4>The formulas used</h4>
       <pre>contracts       = floor( risk budget / max loss per contract )
@@ -477,6 +510,9 @@ budget left     = risk budget - risk deployed</pre>
         <div class="orow"><span class="ol">Annualized, compounded</span><span class="ov blank" id="an-comp">&mdash;</span></div>
         <div class="orow"><span class="ol">Periods in a year</span><span class="ov blank" id="an-periods">&mdash;</span></div>
       </div>
+    </div>
+    <div class="calc-actions">
+      <button type="button" class="btn-clear" data-clear="annualize" aria-label="Clear the annualization helper calculator">Clear</button>
     </div>
     <div class="formula">
       <h4>The formulas used</h4>
@@ -530,6 +566,9 @@ compounded        = ((1 + period return / 100) ^ (365 / days) - 1) x 100</pre>
         <div class="orow"><span class="ol">Move required to reach it</span><span class="ov blank" id="be-move">&mdash;</span></div>
         <div class="orow"><span class="ol">Distance from current price</span><span class="ov blank" id="be-dist">&mdash;</span></div>
       </div>
+    </div>
+    <div class="calc-actions">
+      <button type="button" class="btn-clear" data-clear="breakeven" aria-label="Clear the breakeven calculator">Clear</button>
     </div>
     <div class="formula">
       <h4>The formulas used</h4>
@@ -820,12 +859,60 @@ move required= (breakeven - current price) / current price x 100</pre>
     }
   }
 
+  /* ---- clearing ---------------------------------------------------------
+     Reset to what the MARKUP says, not to values hard-coded here. The browser
+     already records the original state of every control: defaultValue for a
+     text field, defaultChecked for a radio. Reading those means a calculator
+     that gains a field, or whose default mode changes, keeps clearing
+     correctly with no second place to update - and no chance of the two
+     drifting apart.
+
+     Results are not blanked directly. Clearing the inputs and re-running the
+     calculators does it, because every calculator already renders a dash when
+     its inputs are missing. One code path, so a cleared calculator and a
+     never-touched one look identical. */
+  function clearScope(root){
+    var els = root.querySelectorAll("input");
+    for(var i = 0; i < els.length; i++){
+      var el = els[i];
+      if(el.type === "radio" || el.type === "checkbox"){
+        el.checked = el.defaultChecked;
+      } else {
+        el.value = el.defaultValue;
+      }
+    }
+    recalc();
+  }
+
   function boot(){
     var els = document.querySelectorAll("input");
     for(var i = 0; i < els.length; i++){
       els[i].addEventListener("input", recalc);
       els[i].addEventListener("change", recalc);
     }
+
+    var btns = document.querySelectorAll("[data-clear]");
+    for(var j = 0; j < btns.length; j++){
+      btns[j].addEventListener("click", function(ev){
+        var sec = document.getElementById(
+          ev.currentTarget.getAttribute("data-clear"));
+        if(sec){
+          clearScope(sec);
+          var first = sec.querySelector("input");
+          if(first) first.focus();   /* ready to type again straight away */
+        }
+      });
+    }
+
+    var all = document.getElementById("clear-all");
+    if(all){
+      all.addEventListener("click", function(){
+        clearScope(document);
+        var top = document.getElementById("csp");
+        if(top) top.scrollIntoView({block: "start"});
+      });
+    }
+
     recalc();
   }
 
