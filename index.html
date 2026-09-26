@@ -15,7 +15,7 @@ html{-webkit-text-size-adjust:100%}
 body{margin:0;background:var(--bg);color:var(--text);font:15px/1.5 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
 a{color:var(--blue)}
 .edu{background:#2a2410;color:var(--amber);font-size:13px;text-align:center;padding:8px 16px;border-bottom:1px solid #4a3d12}
-.wrap{max-width:1100px;margin:0 auto;padding:0 16px}
+.wrap{max-width:1200px;margin:0 auto;padding:0 16px}
 header.site{padding:18px 0 8px}
 header.site h1{margin:0;font-size:24px;letter-spacing:.5px}
 .edition{color:var(--dim);font-size:14px;margin-top:2px}
@@ -33,7 +33,9 @@ main{padding:18px 0 8px}
 .soon p{font-size:18px;margin:8px 0 0}
 .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border:1px solid var(--line);border-radius:8px}
 table{border-collapse:collapse;width:100%;font-size:13px}
-th,td{padding:7px 10px;border-bottom:1px solid var(--line);white-space:nowrap;text-align:left}
+th,td{padding:6px 8px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+td.num,td.date{white-space:nowrap}
+th{vertical-align:bottom}
 td.num,th.num{text-align:right}
 tbody tr:nth-child(even){background:var(--inset)}
 th{background:#10131a;position:sticky;top:0}
@@ -51,6 +53,26 @@ footer.site p{margin:0 0 8px}
 dl.cols{margin:0}
 dl.cols dt{font-weight:600}
 dl.cols dd{margin:0 0 6px;color:var(--dim)}
+#ma-about{font-size:13px;line-height:1.45;padding:12px 16px}
+#ma-about h2{font-size:15px;margin-bottom:4px}
+#ma-about .what{margin-bottom:8px}
+#ma-about dl.cols dd{margin-bottom:4px}
+.subtabs{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}
+.subtabs button{font:inherit;font-size:14px;cursor:pointer;color:var(--text);background:var(--card);border:1px solid var(--line);border-radius:8px;padding:8px 16px}
+.subtabs button[aria-selected=true]{background:var(--amber);border-color:var(--amber);color:#1a1405;font-weight:600}
+.subtabs button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.sortbar{display:none}
+@media (max-width:700px){
+ .sortbar{display:flex;gap:8px;align-items:center;margin:0 0 10px;font-size:14px}
+ .sortbar select{font:inherit;color:var(--text);background:var(--inset);border:1px solid var(--line);border-radius:6px;padding:6px 8px;max-width:100%}
+ .table-wrap{overflow:visible;border:0}
+ table.sortable thead{display:none}
+ table.sortable,table.sortable tbody,table.sortable tr,table.sortable td{display:block;width:100%}
+ table.sortable tr,tbody tr:nth-child(even){background:var(--inset);border:1px solid var(--line);border-radius:8px;margin:0 0 10px;padding:6px 10px}
+ table.sortable td,table.sortable td.num{display:flex;justify-content:space-between;gap:12px;border:0;padding:3px 0;text-align:right;white-space:normal}
+ table.sortable td::before{content:attr(data-label);color:var(--dim);text-align:left;font-weight:600;flex:0 0 auto}
+ table.sortable td:first-child,tbody tr:nth-child(even) td:first-child{position:static;background:transparent;box-shadow:none;font-weight:700;font-size:15px}
+}
 </style>
 </head>
 <body data-page="index.html" data-edition="2026-09-25">
