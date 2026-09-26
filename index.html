@@ -112,6 +112,23 @@ fieldset.chart-legend legend{font-size:12px;color:var(--dim);padding:0;margin:0 
 fieldset.chart-legend label{display:flex;align-items:center;gap:4px;cursor:pointer;min-height:28px}
 fieldset.chart-legend input{width:16px;height:16px;margin:0}
 @media (max-width:700px){fieldset.chart-legend label{min-height:34px}}
+
+.rcards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:4px 0 10px}
+.rcard{border:1px solid var(--line);border-radius:10px;padding:10px 14px}
+.rcard .rc-name{font-size:12px;color:var(--dim);text-transform:uppercase;letter-spacing:.04em;font-weight:600}
+.rcard .reading{font-size:22px;font-weight:700;margin:2px 0}
+.rcard .rc-count{font-size:12.5px;color:var(--dim)}
+.r-on{color:#5fe08f}.r-neu{color:var(--amber)}.r-off{color:#ff8a8a}
+.mk{font-weight:600;white-space:nowrap}.mk::before{content:"\25CF";margin-right:5px;font-size:11px}
+.mk-on{color:#5fe08f}.mk-neu{color:var(--amber)}.mk-off{color:#ff8a8a}.mk-na{color:var(--dim)}
+.mk-na::before{content:""}
+.chart-box .band{fill:#e0605f;opacity:.12}
+.chart-box .ref{stroke:var(--dim);stroke-width:1;stroke-dasharray:4 4}
+.chart-box .reflab{fill:var(--dim);font-size:10.5px}
+.chart-box .dot{stroke:#151820;stroke-width:2}
+.chart-legend-line{display:flex;flex-wrap:wrap;gap:4px 16px;font-size:12.5px;margin:6px 0 0}
+.chart-legend-line span{display:inline-flex;align-items:center}
+@media (max-width:700px){.rcards{grid-template-columns:1fr}.rcard .reading{font-size:20px}}
 </style>
 </head>
 <body data-page="index.html" data-edition="2026-09-25">
@@ -135,17 +152,49 @@ fieldset.chart-legend input{width:16px;height:16px;margin:0}
 </section>
 <div class="subtabs" role="tablist" aria-label="Daily Brief sections"><button type="button" role="tab" id="tab-regime" data-group="sec" data-show="regime" aria-controls="regime" aria-selected="true">Regime</button><button type="button" role="tab" id="tab-market" data-group="sec" data-show="market" aria-controls="market" aria-selected="false">Market</button><button type="button" role="tab" id="tab-economy" data-group="sec" data-show="economy" aria-controls="economy" aria-selected="false">Economy</button><button type="button" role="tab" id="tab-earnings" data-group="sec" data-show="earnings" aria-controls="earnings" aria-selected="false">Earnings</button><button type="button" role="tab" id="tab-setups" data-group="sec" data-show="setups" aria-controls="setups" aria-selected="false">Options setups</button></div>
 <section class="card dsec" id="regime" role="tabpanel" aria-labelledby="tab-regime">
-<h2>Regime call</h2>
-<div class="badge badge-Normal" id="regime-label">Normal</div>
-<p class="rule" id="regime-rule">Normal = VIX below 18 AND SPY above its 20-day average. Defense = VIX above 22 OR SPY below its 50-day average. Caution = anything else. If Normal and Defense are both true, Defense wins. Averages are simple averages of daily closes.</p>
-<p class="commentary" id="comm-regime"><b>Commentary</b>The regime is Normal. VIX closed at 14.87, below 18, and SPY closed at 771.35, above its 20-day average of 765.35. Neither Defense test was met: VIX was not above 22, and SPY was above its 50-day average of 761.57.</p><div class="sortbar"><label for="sort-tbl-regime">Sort by</label><select id="sort-tbl-regime" data-table="tbl-regime"><option value="">As shown</option><option value="0:asc">Test (A to Z)</option><option value="0:desc">Test (Z to A)</option><option value="1:asc">Reading (low to high)</option><option value="1:desc">Reading (high to low)</option><option value="2:asc">Level (low to high)</option><option value="2:desc">Level (high to low)</option><option value="3:asc">Met (A to Z)</option><option value="3:desc">Met (Z to A)</option></select></div><div class="table-wrap"><table class="sortable" id="tbl-regime" aria-label="Regime tests"><thead><tr><th scope="col" data-kind="text"><button type="button">Test</button></th><th scope="col" data-kind="num" class="num"><button type="button">Reading</button></th><th scope="col" data-kind="num" class="num"><button type="button">Level</button></th><th scope="col" data-kind="text"><button type="button">Met</button></th></tr></thead><tbody>
-<tr><td data-label="Test">VIX below 18</td><td class="num" data-label="Reading" data-v="14.87">14.87</td><td class="num" data-label="Level" data-v="18.0">18.00</td><td data-label="Met">Yes</td></tr>
-<tr><td data-label="Test">VIX above 22</td><td class="num" data-label="Reading" data-v="14.87">14.87</td><td class="num" data-label="Level" data-v="22.0">22.00</td><td data-label="Met">No</td></tr>
-<tr><td data-label="Test">SPY above its 20-day average</td><td class="num" data-label="Reading" data-v="771.35">771.35</td><td class="num" data-label="Level" data-v="765.3504999999999">765.35</td><td data-label="Met">Yes</td></tr>
-<tr><td data-label="Test">SPY below its 50-day average</td><td class="num" data-label="Reading" data-v="771.35">771.35</td><td class="num" data-label="Level" data-v="761.5657999999999">761.57</td><td data-label="Met">No</td></tr>
+<h2>Regime: Risk On / Neutral / Risk Off</h2>
+<div class="rcards"><div class="rcard" id="card-spx"><div class="rc-name">S&amp;P 500</div><div class="reading r-on" id="reading-spx">Risk On</div><div class="rc-count" id="count-spx">6 Risk On / 0 Neutral / 3 Risk Off</div></div><div class="rcard" id="card-ndx"><div class="rc-name">Nasdaq</div><div class="reading r-neu" id="reading-ndx">Neutral</div><div class="rc-count" id="count-ndx">3 Risk On / 4 Neutral / 1 Risk Off</div></div></div>
+<p class="rule" id="regime-rule">Each indicator gets a mark - Risk On, Neutral or Risk Off - from the rules at the bottom of this section. Each index's reading is the mark it has most of; if two marks tie, the more cautious one wins. An indicator that is not available is left out of the count.</p>
+<p class="commentary" id="comm-regime"><b>Commentary</b>The S&amp;P 500 reading is Risk On, with 6 Risk On marks, 0 Neutral and 3 Risk Off. All 3 Risk Off marks are breadth: 29.82% of S&amp;P 500 stocks were above their 20-day average, 26.44% were above their 50-day average, and the NYSE had 77 1-month highs. The Nasdaq reading is Neutral, with 3 Risk On, 4 Neutral and 1 Risk Off. The VIX futures curve was in contango, with the November future 5.03% above October.</p><h3>Indicators</h3>
+<div class="sortbar"><label for="sort-tbl-panel">Sort by</label><select id="sort-tbl-panel" data-table="tbl-panel"><option value="">As shown</option><option value="0:asc">Group (A to Z)</option><option value="0:desc">Group (Z to A)</option><option value="1:asc">S&amp;P 500 (A to Z)</option><option value="1:desc">S&amp;P 500 (Z to A)</option><option value="2:asc">S&amp;P value (low to high)</option><option value="2:desc">S&amp;P value (high to low)</option><option value="3:asc">S&amp;P mark (A to Z)</option><option value="3:desc">S&amp;P mark (Z to A)</option><option value="4:asc">Nasdaq (A to Z)</option><option value="4:desc">Nasdaq (Z to A)</option><option value="5:asc">Nasdaq value (low to high)</option><option value="5:desc">Nasdaq value (high to low)</option><option value="6:asc">Nasdaq mark (A to Z)</option><option value="6:desc">Nasdaq mark (Z to A)</option></select></div><div class="table-wrap"><table class="sortable" id="tbl-panel" aria-label="Regime indicators"><thead><tr><th scope="col" data-kind="text"><button type="button">Group</button></th><th scope="col" data-kind="text"><button type="button">S&amp;P 500</button></th><th scope="col" data-kind="num" class="num"><button type="button">S&amp;P value</button></th><th scope="col" data-kind="text"><button type="button">S&amp;P mark</button></th><th scope="col" data-kind="text"><button type="button">Nasdaq</button></th><th scope="col" data-kind="num" class="num"><button type="button">Nasdaq value</button></th><th scope="col" data-kind="text"><button type="button">Nasdaq mark</button></th></tr></thead><tbody>
+<tr><td data-label="Group">Trend</td><td data-label="S&amp;P 500">SPY vs. 20-day average</td><td class="num" data-label="S&amp;P value" data-v="0.78">+0.78%</td><td data-label="S&amp;P mark"><span class="mk mk-on">Risk On</span></td><td data-label="Nasdaq">QQQ vs. 20-day average</td><td class="num" data-label="Nasdaq value" data-v="3.28">+3.28%</td><td data-label="Nasdaq mark"><span class="mk mk-on">Risk On</span></td></tr>
+<tr><td data-label="Group">Trend</td><td data-label="S&amp;P 500">SPY vs. 50-day average</td><td class="num" data-label="S&amp;P value" data-v="1.28">+1.28%</td><td data-label="S&amp;P mark"><span class="mk mk-on">Risk On</span></td><td data-label="Nasdaq">QQQ vs. 50-day average</td><td class="num" data-label="Nasdaq value" data-v="4.47">+4.47%</td><td data-label="Nasdaq mark"><span class="mk mk-on">Risk On</span></td></tr>
+<tr><td data-label="Group">Trend</td><td data-label="S&amp;P 500">SPY vs. 200-day average</td><td class="num" data-label="S&amp;P value" data-v="7.37">+7.37%</td><td data-label="S&amp;P mark"><span class="mk mk-on">Risk On</span></td><td data-label="Nasdaq">QQQ vs. 200-day average</td><td class="num" data-label="Nasdaq value" data-v="11.86">+11.86%</td><td data-label="Nasdaq mark"><span class="mk mk-neu">Neutral</span></td></tr>
+<tr><td data-label="Group">Momentum</td><td data-label="S&amp;P 500">SPY 14-day RSI</td><td class="num" data-label="S&amp;P value" data-v="55.89">55.89</td><td data-label="S&amp;P mark"><span class="mk mk-on">Risk On</span></td><td data-label="Nasdaq">QQQ 14-day RSI</td><td class="num" data-label="Nasdaq value" data-v="64.69">64.69</td><td data-label="Nasdaq mark"><span class="mk mk-on">Risk On</span></td></tr>
+<tr><td data-label="Group">Breadth</td><td data-label="S&amp;P 500">% of stocks above 20-day average ($S5TW)</td><td class="num" data-label="S&amp;P value" data-v="29.82">29.82%</td><td data-label="S&amp;P mark"><span class="mk mk-off">Risk Off</span></td><td data-label="Nasdaq">% of stocks above 20-day average ($NDTW)</td><td class="num" data-label="Nasdaq value" data-v="54.45">54.45%</td><td data-label="Nasdaq mark"><span class="mk mk-neu">Neutral</span></td></tr>
+<tr><td data-label="Group">Breadth</td><td data-label="S&amp;P 500">% of stocks above 50-day average ($S5FI)</td><td class="num" data-label="S&amp;P value" data-v="26.44">26.44%</td><td data-label="S&amp;P mark"><span class="mk mk-off">Risk Off</span></td><td data-label="Nasdaq">% of stocks above 50-day average ($NDFI)</td><td class="num" data-label="Nasdaq value" data-v="46.53">46.53%</td><td data-label="Nasdaq mark"><span class="mk mk-off">Risk Off</span></td></tr>
+<tr><td data-label="Group">Breadth</td><td data-label="S&amp;P 500">1-month highs, NYSE ($M1HN)</td><td class="num" data-label="S&amp;P value" data-v="77.0">77</td><td data-label="S&amp;P mark"><span class="mk mk-off">Risk Off</span></td><td data-label="Nasdaq">1-month highs, Nasdaq ($M1HQ)</td><td class="num" data-label="Nasdaq value" data-v="213.0">213</td><td data-label="Nasdaq mark"><span class="mk mk-neu">Neutral</span></td></tr>
+<tr><td data-label="Group">Volatility</td><td data-label="S&amp;P 500">VIX</td><td class="num" data-label="S&amp;P value" data-v="14.87">14.87</td><td data-label="S&amp;P mark"><span class="mk mk-on">Risk On</span></td><td data-label="Nasdaq">VXN</td><td class="num" data-label="Nasdaq value" data-v="20.87">20.87</td><td data-label="Nasdaq mark"><span class="mk mk-neu">Neutral</span></td></tr>
+<tr><td data-label="Group">Volatility</td><td data-label="S&amp;P 500">VIX term structure (futures)</td><td class="num" data-label="S&amp;P value" data-v="5.0255361447848035">+5.03%</td><td data-label="S&amp;P mark"><span class="mk mk-on">Risk On</span></td><td data-label="Nasdaq">-</td><td class="num" data-label="Nasdaq value" data-v="">-</td><td data-label="Nasdaq mark">-</td></tr>
 </tbody></table></div>
-<p class="what" id="regime-note">The regime only describes the market. It never picks, hides or labels any trade or setup.</p>
-<p class="credit">VIX: Barchart (Macro Dashboard, close of Friday, September 25, 2026). SPY close and its averages: Alpha Vantage daily closes; the averages are worked out by this page.</p>
+<p class="what" id="term-note">VIX term structure: Nov 2026 future 18.38 vs. Oct 2026 future 17.50 (the two nearest months that have not expired; the front month expires Oct 21, 2026) = +5.03%, contango (the later month costs more).</p>
+<p class="small">$S5TW / $S5FI count S&amp;P 500 stocks; $NDTW / $NDFI count Nasdaq-100 stocks. 1-month highs count every stock on the exchange.</p>
+<div class="chart" id="vix-curve">
+<h4>The VIX curve: spot VIX and each futures month, by days to expiry</h4>
+<div class="chart-box" id="curve-box"><p class="small">The chart needs JavaScript; the values are in the table above.</p></div>
+<div class="chart-legend-line" id="curve-legend"><span><span class="sw" style="border-top-color:#e2e6f0"></span>Sep 25, 2026</span><span><span class="sw" style="border-top-color:#3987e5"></span>Sep 18, 2026 (1 week earlier)</span><span><span class="sw dash" style="border-top-color:#d95926"></span>Aug 26, 2026 (1 month earlier)</span></div>
+<p class="credit">A line that rises to the right is in contango (later months cost more: the usual, calm shape); one that falls to the right is in backwardation (near-term fear priced above later months). Point at (or tap) the chart to see each point.</p>
+</div>
+<div class="chart" id="term-chart">
+<h4>VIX term structure over time (second futures month vs. front month)</h4>
+<div class="subtabs periods" role="tablist" aria-label="Term structure period"><button type="button" role="tab" data-tswin="21" aria-selected="true">1 Month</button><button type="button" role="tab" data-tswin="63" aria-selected="false">3 Months</button><button type="button" role="tab" data-tswin="0" aria-selected="false">All</button></div>
+<div class="chart-box" id="term-box"><p class="small">The chart needs JavaScript.</p></div>
+<p class="credit">Worked out by this page for every trading day, using the two nearest unexpired futures on that day. The shaded area is backwardation. History starts Jul 24, 2026 and grows by one day with each edition.</p>
+<script type="application/json" id="regime-chart-data">{"curves":[{"date":"2026-09-25","label":"Sep 25, 2026","tag":"edition","points":[{"x":0,"y":14.87,"name":"VIX (spot)"},{"x":26,"y":17.5046,"name":"Oct 2026 future"},{"x":54,"y":18.3843,"name":"Nov 2026 future"},{"x":82,"y":18.7539,"name":"Dec 2026 future"},{"x":117,"y":19.5362,"name":"Jan 2027 future"}]},{"date":"2026-09-18","label":"Sep 18, 2026 (1 week earlier)","tag":"1 week earlier","points":[{"x":0,"y":14.81,"name":"VIX (spot)"},{"x":33,"y":18.0411,"name":"Oct 2026 future"},{"x":61,"y":18.7049,"name":"Nov 2026 future"},{"x":89,"y":19.125,"name":"Dec 2026 future"},{"x":124,"y":19.8901,"name":"Jan 2027 future"}]},{"date":"2026-08-26","label":"Aug 26, 2026 (1 month earlier)","tag":"1 month earlier","points":[{"x":0,"y":15.21,"name":"VIX (spot)"},{"x":21,"y":17.05,"name":"Sep 2026 future"},{"x":56,"y":18.78,"name":"Oct 2026 future"},{"x":84,"y":19.51,"name":"Nov 2026 future"},{"x":112,"y":19.71,"name":"Dec 2026 future"}]}],"term":[{"date":"2026-07-24","slope":3.921272944724641,"front":["VIQ26",19.231],"second":["VIU26",19.9851]},{"date":"2026-07-27","slope":3.5509138381200955,"front":["VIQ26",19.15],"second":["VIU26",19.83]},{"date":"2026-07-28","slope":3.464566929133861,"front":["VIQ26",19.05],"second":["VIU26",19.71]},{"date":"2026-07-29","slope":1.3745704467353903,"front":["VIQ26",20.37],"second":["VIU26",20.65]},{"date":"2026-07-30","slope":4.906666666666681,"front":["VIQ26",18.75],"second":["VIU26",19.67]},{"date":"2026-07-31","slope":5.405405405405395,"front":["VIQ26",18.5],"second":["VIU26",19.5]},{"date":"2026-08-03","slope":6.890756302520984,"front":["VIQ26",17.85],"second":["VIU26",19.08]},{"date":"2026-08-04","slope":6.9637883008356605,"front":["VIQ26",17.95],"second":["VIU26",19.2]},{"date":"2026-08-05","slope":6.704545454545463,"front":["VIQ26",17.6],"second":["VIU26",18.78]},{"date":"2026-08-06","slope":8.139534883720945,"front":["VIQ26",17.2],"second":["VIU26",18.6]},{"date":"2026-08-07","slope":7.9420289855072435,"front":["VIQ26",17.25],"second":["VIU26",18.62]},{"date":"2026-08-10","slope":9.605185621685353,"front":["VIQ26",16.97],"second":["VIU26",18.6]},{"date":"2026-08-11","slope":9.91044776119403,"front":["VIQ26",16.75],"second":["VIU26",18.41]},{"date":"2026-08-12","slope":12.204234122042346,"front":["VIQ26",16.06],"second":["VIU26",18.02]},{"date":"2026-08-13","slope":13.433772755806661,"front":["VIQ26",15.93],"second":["VIU26",18.07]},{"date":"2026-08-14","slope":13.413098236775834,"front":["VIQ26",15.88],"second":["VIU26",18.01]},{"date":"2026-08-17","slope":15.64102564102563,"front":["VIQ26",15.6],"second":["VIU26",18.04]},{"date":"2026-08-18","slope":13.749999999999996,"front":["VIQ26",16.0],"second":["VIU26",18.2]},{"date":"2026-08-19","slope":10.313390313390315,"front":["VIU26",17.55],"second":["VIV26",19.36]},{"date":"2026-08-20","slope":9.167604049493816,"front":["VIU26",17.78],"second":["VIV26",19.41]},{"date":"2026-08-21","slope":9.348441926345629,"front":["VIU26",17.65],"second":["VIV26",19.3]},{"date":"2026-08-24","slope":8.945868945868952,"front":["VIU26",17.55],"second":["VIV26",19.12]},{"date":"2026-08-25","slope":10.058139534883725,"front":["VIU26",17.2],"second":["VIV26",18.93]},{"date":"2026-08-26","slope":10.146627565982413,"front":["VIU26",17.05],"second":["VIV26",18.78]},{"date":"2026-08-27","slope":10.746268656716417,"front":["VIU26",16.75],"second":["VIV26",18.55]},{"date":"2026-08-28","slope":10.658682634730553,"front":["VIU26",16.7],"second":["VIV26",18.48]},{"date":"2026-08-31","slope":11.09770808202657,"front":["VIU26",16.58],"second":["VIV26",18.42]},{"date":"2026-09-01","slope":9.476744186046515,"front":["VIU26",17.2],"second":["VIV26",18.83]},{"date":"2026-09-02","slope":10.963855421686741,"front":["VIU26",16.6],"second":["VIV26",18.42]},{"date":"2026-09-03","slope":12.074303405572785,"front":["VIU26",16.15],"second":["VIV26",18.1]},{"date":"2026-09-04","slope":12.211838006230536,"front":["VIU26",16.05],"second":["VIV26",18.01]},{"date":"2026-09-08","slope":10.744297719087626,"front":["VIU26",16.66],"second":["VIV26",18.45]},{"date":"2026-09-09","slope":8.888888888888879,"front":["VIU26",17.1],"second":["VIV26",18.62]},{"date":"2026-09-10","slope":5.650969529085881,"front":["VIU26",18.05],"second":["VIV26",19.07]},{"date":"2026-09-11","slope":6.179775280898858,"front":["VIU26",17.8],"second":["VIV26",18.9]},{"date":"2026-09-14","slope":9.614243323442118,"front":["VIU26",16.85],"second":["VIV26",18.47]},{"date":"2026-09-15","slope":8.721272834413686,"front":["VIU26",16.97],"second":["VIV26",18.45]},{"date":"2026-09-16","slope":2.4064171122994527,"front":["VIV26",18.7],"second":["VIX26",19.15]},{"date":"2026-09-17","slope":3.788692347498035,"front":["VIV26",17.9719],"second":["VIX26",18.6528]},{"date":"2026-09-18","slope":3.679376534690215,"front":["VIV26",18.0411],"second":["VIX26",18.7049]},{"date":"2026-09-21","slope":3.743016759776552,"front":["VIV26",17.9],"second":["VIX26",18.57]},{"date":"2026-09-22","slope":4.770114942528747,"front":["VIV26",17.4],"second":["VIX26",18.23]},{"date":"2026-09-23","slope":4.249291784702547,"front":["VIV26",17.65],"second":["VIX26",18.4]},{"date":"2026-09-24","slope":4.020100502512558,"front":["VIV26",17.91],"second":["VIX26",18.63]},{"date":"2026-09-25","slope":5.0255361447848035,"front":["VIV26",17.5046],"second":["VIX26",18.3843]}],"colors":{"edition":["#e2e6f0",false],"1 week earlier":["#3987e5",false],"1 month earlier":["#d95926",true],"term":["#3987e5",false]}}</script>
+</div>
+<h3>The rules</h3>
+<div class="sortbar"><label for="sort-tbl-rules">Sort by</label><select id="sort-tbl-rules" data-table="tbl-rules"><option value="">As shown</option><option value="0:asc">Indicator (A to Z)</option><option value="0:desc">Indicator (Z to A)</option><option value="1:asc">Risk On (A to Z)</option><option value="1:desc">Risk On (Z to A)</option><option value="2:asc">Neutral (A to Z)</option><option value="2:desc">Neutral (Z to A)</option><option value="3:asc">Risk Off (A to Z)</option><option value="3:desc">Risk Off (Z to A)</option></select></div><div class="table-wrap"><table class="sortable" id="tbl-rules" aria-label="Regime rules"><thead><tr><th scope="col" data-kind="text"><button type="button">Indicator</button></th><th scope="col" data-kind="text"><button type="button">Risk On</button></th><th scope="col" data-kind="text"><button type="button">Neutral</button></th><th scope="col" data-kind="text"><button type="button">Risk Off</button></th></tr></thead><tbody>
+<tr><td data-label="Indicator">SPY / QQQ vs. 20- and 50-day average</td><td data-label="Risk On">Price above the average</td><td data-label="Neutral">Exactly on the average</td><td data-label="Risk Off">Price below the average</td></tr>
+<tr><td data-label="Indicator">SPY / QQQ vs. 200-day average</td><td data-label="Risk On">Above, and no more than 10% above</td><td data-label="Neutral">More than 10% above (stretched)</td><td data-label="Risk Off">Below the average</td></tr>
+<tr><td data-label="Indicator">14-day RSI</td><td data-label="Risk On">55 to 80</td><td data-label="Neutral">Between 45 and 55, or between 80 and 90</td><td data-label="Risk Off">45 or lower, or 90 or higher</td></tr>
+<tr><td data-label="Indicator">% of stocks above their 20- / 50-day average</td><td data-label="Risk On">55% or more</td><td data-label="Neutral">50% to just under 55%</td><td data-label="Risk Off">Below 50%</td></tr>
+<tr><td data-label="Indicator">1-month highs (NYSE, Nasdaq)</td><td data-label="Risk On">300 or more</td><td data-label="Neutral">100 to 299</td><td data-label="Risk Off">Below 100</td></tr>
+<tr><td data-label="Indicator">VIX</td><td data-label="Risk On">10 to 18</td><td data-label="Neutral">Above 18 and below 25, or below 10</td><td data-label="Risk Off">25 or higher</td></tr>
+<tr><td data-label="Indicator">VXN (Nasdaq-100 volatility)</td><td data-label="Risk On">20 or lower</td><td data-label="Neutral">Above 20 and below 28</td><td data-label="Risk Off">28 or higher</td></tr>
+<tr><td data-label="Indicator">VIX term structure: second futures month vs. front month</td><td data-label="Risk On">+1.5% or more (contango)</td><td data-label="Neutral">Above 0% and below +1.5% (flattening)</td><td data-label="Risk Off">0% or below (backwardation)</td></tr>
+</tbody></table></div>
+<p class="what" id="regime-note">The readings only describe the market. They never pick, hide or label any trade or setup.</p>
+<p class="credit">Data from Barchart (Macro Dashboard, close of Friday, September 25, 2026). Chart history: the same Barchart table for each earlier trading day. Futures expiry dates are worked out by this page from Cboe's rule. SPY and QQQ distances from their averages are checked against Alpha Vantage daily closes.</p>
 </section>
 <section class="card dsec" id="market" role="tabpanel" aria-labelledby="tab-market" hidden>
 <h2>Market snapshot, key indicators &amp; sectors</h2>
@@ -434,6 +483,79 @@ fieldset.chart-legend input{width:16px;height:16px;margin:0}
 })();
 
 (function(){
+  var el=document.getElementById('regime-chart-data'); if(!el)return;
+  var D=JSON.parse(el.textContent), NS='http://www.w3.org/2000/svg';
+  function mk(tag,a,p){var e=document.createElementNS(NS,tag);for(var k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e;}
+  function fd(iso){var p=iso.split('-');return ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'][parseInt(p[1],10)-1]+' '+parseInt(p[2],10)+', '+p[0];}
+  function ticks(lo,hi){var span=hi-lo||1,raw=span/4,mag=Math.pow(10,Math.floor(Math.log10(raw))),st=[1,2,2.5,5,10].map(function(x){return x*mag;}).find(function(x){return x>=raw;});
+    var out=[];for(var v=Math.ceil(lo/st)*st;v<=hi+1e-9;v+=st)out.push(Math.round(v*1e6)/1e6);return out;}
+  function frame(box){var W=box.clientWidth;if(!W)return null;box.innerHTML='';var H=W<500?220:270;
+    var f={W:W,H:H,L:46,R:W<500?16:24,T:10,B:30};f.svg=mk('svg',{viewBox:'0 0 '+W+' '+H,width:W,height:H},box);return f;}
+  function tipbox(box){var t=document.createElement('div');t.className='ctip';t.hidden=true;box.appendChild(t);return t;}
+  function place(box,tip,px){var bw=box.clientWidth,tw=tip.offsetWidth;tip.style.left=Math.max(0,Math.min(bw-tw,px+10>bw-tw?px-tw-10:px+10))+'px';tip.style.top='4px';}
+  // ---- 1. the VIX futures curve (edition date, 1 week and 1 month earlier)
+  var cbox=document.getElementById('curve-box');
+  function drawCurve(){var f=frame(cbox);if(!f)return;var C=D.curves;if(!C.length)return;
+    var xmax=0,lo=1e9,hi=-1e9;C.forEach(function(c){c.points.forEach(function(p){if(p.x>xmax)xmax=p.x;if(p.y<lo)lo=p.y;if(p.y>hi)hi=p.y;});});
+    var pad=(hi-lo)*0.1||0.5;lo-=pad;hi+=pad;
+    var X=function(x){return f.L+x/xmax*(f.W-f.L-f.R);},Y=function(y){return f.T+(hi-y)/(hi-lo)*(f.H-f.T-f.B);};
+    ticks(lo,hi).forEach(function(v){mk('line',{x1:f.L,x2:f.W-f.R,y1:Y(v),y2:Y(v),'class':'grid'},f.svg);
+      var t=mk('text',{x:f.L-6,y:Y(v)+4,'text-anchor':'end','class':'axis'},f.svg);t.textContent=v;});
+    var step=(xmax>150||f.W<500)?60:30;for(var x=0;x<=xmax;x+=step){var t=mk('text',{x:X(x),y:f.H-10,'text-anchor':x===0?'start':(X(x)>f.W-f.R-30?'end':'middle'),'class':'axis'},f.svg);t.textContent=x===0?'today':x+' days';}
+    C.slice().reverse().forEach(function(c){var col=D.colors[c.tag],d='';
+      c.points.forEach(function(p,i){d+=(i?'L':'M')+X(p.x).toFixed(1)+' '+Y(p.y).toFixed(1);});
+      mk('path',{d:d,fill:'none',stroke:'#151820','stroke-width':5},f.svg);
+      mk('path',{d:d,fill:'none',stroke:col[0],'stroke-width':c.tag==='edition'?2.5:2,'stroke-dasharray':col[1]?'6 4':'none','class':'line','data-date':c.date},f.svg);
+      c.points.forEach(function(p){mk('circle',{cx:X(p.x),cy:Y(p.y),r:4,fill:col[0],'class':'dot'},f.svg);});});
+    var hair=mk('line',{x1:0,x2:0,y1:f.T,y2:f.H-f.B,'class':'xhair',visibility:'hidden'},f.svg),tip=tipbox(cbox);tip.id='curve-tip';
+    var hit=mk('rect',{x:f.L,y:f.T,width:f.W-f.L-f.R,height:f.H-f.T-f.B,fill:'transparent'},f.svg);
+    function show(e){var r=f.svg.getBoundingClientRect(),x=(e.clientX-r.left)*(f.W/r.width),xv=(x-f.L)/(f.W-f.L-f.R)*xmax;
+      hair.setAttribute('x1',x);hair.setAttribute('x2',x);hair.setAttribute('visibility','visible');
+      tip.innerHTML=C.map(function(c){var best=c.points.reduce(function(a,p){return Math.abs(p.x-xv)<Math.abs(a.x-xv)?p:a;});
+        return '<div class="row" data-date="'+c.date+'"><span>'+fd(c.date)+': '+best.name+(best.x?' ('+best.x+' days)':'')+'</span><span>'+best.y.toFixed(2)+'</span></div>';}).join('');
+      tip.hidden=false;place(cbox,tip,x/f.W*cbox.clientWidth);}
+    hit.addEventListener('pointermove',show);hit.addEventListener('pointerdown',show);
+    hit.addEventListener('pointerleave',function(e){if(e.pointerType==='mouse'){tip.hidden=true;hair.setAttribute('visibility','hidden');}});
+    cbox.setAttribute('data-lines',C.map(function(c){return c.date;}).join(','));}
+  // ---- 2. term structure over time
+  var tbox=document.getElementById('term-box'),win=21;
+  function drawTerm(){var f=frame(tbox);if(!f)return;var S=D.term;if(!S.length)return;
+    var P=win>0?S.slice(Math.max(0,S.length-1-win)):S,n=P.length-1;
+    var lo=0,hi=1.5;P.forEach(function(p){if(p.slope<lo)lo=p.slope;if(p.slope>hi)hi=p.slope;});var pad=(hi-lo)*0.1||0.5;lo-=pad;hi+=pad;
+    var X=function(i){return f.L+(n?i/n:0.5)*(f.W-f.L-f.R);},Y=function(y){return f.T+(hi-y)/(hi-lo)*(f.H-f.T-f.B);};
+    mk('rect',{x:f.L,y:Y(0),width:f.W-f.L-f.R,height:Math.max(0,f.H-f.B-Y(0)),'class':'band'},f.svg);
+    ticks(lo,hi).forEach(function(v){mk('line',{x1:f.L,x2:f.W-f.R,y1:Y(v),y2:Y(v),'class':v===0?'zero':'grid'},f.svg);
+      var t=mk('text',{x:f.L-6,y:Y(v)+4,'text-anchor':'end','class':'axis'},f.svg);t.textContent=(v>0?'+':'')+v+'%';});
+    mk('line',{x1:f.L,x2:f.W-f.R,y1:Y(1.5),y2:Y(1.5),'class':'ref'},f.svg);
+    var a=mk('text',{x:f.L+4,y:Y(1.5)-4,'class':'reflab'},f.svg);a.textContent='+1.5%: Risk On from here up';
+    var b=mk('text',{x:f.L+4,y:Math.min(f.H-f.B-4,Y(0)+13),'class':'reflab'},f.svg);b.textContent='below 0%: backwardation';
+    var xi=W1(f.W)?[0,n]:[0,Math.round(n/2),n];
+    xi.forEach(function(i,j){var t=mk('text',{x:X(i),y:f.H-10,'text-anchor':j===0?'start':(j===xi.length-1?'end':'middle'),'class':'axis'},f.svg);t.textContent=fd(P[i].date);});
+    var d='';P.forEach(function(p,i){d+=(i?'L':'M')+X(i).toFixed(1)+' '+Y(p.slope).toFixed(1);});
+    mk('path',{d:d,fill:'none',stroke:'#151820','stroke-width':5},f.svg);
+    mk('path',{d:d,fill:'none',stroke:D.colors.term[0],'stroke-width':2.5,'stroke-linejoin':'round','class':'line'},f.svg);
+    var hair=mk('line',{x1:0,x2:0,y1:f.T,y2:f.H-f.B,'class':'xhair',visibility:'hidden'},f.svg),dot=mk('circle',{r:4,fill:D.colors.term[0],'class':'dot',visibility:'hidden'},f.svg),tip=tipbox(tbox);tip.id='term-tip';
+    var hit=mk('rect',{x:f.L,y:f.T,width:f.W-f.L-f.R,height:f.H-f.T-f.B,fill:'transparent'},f.svg);
+    function show(e){var r=f.svg.getBoundingClientRect(),x=(e.clientX-r.left)*(f.W/r.width),i=n?Math.max(0,Math.min(n,Math.round((x-f.L)/(f.W-f.L-f.R)*n))):0,p=P[i];
+      hair.setAttribute('x1',X(i));hair.setAttribute('x2',X(i));hair.setAttribute('visibility','visible');
+      dot.setAttribute('cx',X(i));dot.setAttribute('cy',Y(p.slope));dot.setAttribute('visibility','visible');
+      tip.innerHTML='<div class="d">'+fd(p.date)+'</div><div class="row" data-date="'+p.date+'"><span>Term structure</span><span>'+(p.slope>=0?'+':'')+p.slope.toFixed(2)+'%</span></div>'+
+        '<div class="row"><span>'+p.front[0]+'</span><span>'+p.front[1].toFixed(2)+'</span></div><div class="row"><span>'+p.second[0]+'</span><span>'+p.second[1].toFixed(2)+'</span></div>';
+      tip.hidden=false;place(tbox,tip,X(i)/f.W*tbox.clientWidth);}
+    hit.addEventListener('pointermove',show);hit.addEventListener('pointerdown',show);
+    hit.addEventListener('pointerleave',function(e){if(e.pointerType==='mouse'){tip.hidden=true;hair.setAttribute('visibility','hidden');dot.setAttribute('visibility','hidden');}});
+    tbox.setAttribute('data-window',String(win));tbox.setAttribute('data-points',String(P.length));tbox.setAttribute('data-last',P[n].date);}
+  function W1(w){return w<500;}
+  document.querySelectorAll('button[data-tswin]').forEach(function(bt){bt.addEventListener('click',function(){
+    win=parseInt(bt.getAttribute('data-tswin'),10);
+    document.querySelectorAll('button[data-tswin]').forEach(function(o){o.setAttribute('aria-selected',o===bt?'true':'false');});drawTerm();});});
+  function all(){drawCurve();drawTerm();}
+  window.briefRegimeResize=all;
+  if(window.ResizeObserver){[cbox,tbox].forEach(function(bx){var lw=0;new ResizeObserver(function(){if(bx.clientWidth!==lw){lw=bx.clientWidth;bx===cbox?drawCurve():drawTerm();}}).observe(bx);});}
+  all();
+})();
+
+(function(){
   function sel(group,id){var found=false;
     document.querySelectorAll('button[data-group="'+group+'"]').forEach(function(b){
       var on=b.getAttribute('data-show')===id; if(on)found=true;});
@@ -443,6 +565,7 @@ fieldset.chart-legend input{width:16px;height:16px;margin:0}
       document.getElementById(b.getAttribute('data-show')).hidden=!on;});
     if(group==='per'&&window.briefPeriodChanged)window.briefPeriodChanged(id);
     if(group==='sec'&&window.briefChartResize)window.briefChartResize();
+    if(group==='sec'&&window.briefRegimeResize)window.briefRegimeResize();
     return true;}
   function go(h){h=(h||'').replace('#','');
     if(h.indexOf('sectors-')===0&&sel('per',h)){sel('sec','market');return;}
