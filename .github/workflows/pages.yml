@@ -28,9 +28,8 @@ jobs:
         shell: bash
         run: |
           mkdir _site
-          cp index.html brief.html screeners.html sp-overview.html _site/
-          cp economy.html learning.html tools.html risk.html _site/
-          cp options-risk-disclosure.pdf README.md .nojekyll _site/
+          cp index.html the-wheel.html ma-screeners.html sp-500-overview.html disclaimers.html _site/
+          cp options-risk-disclosure.pdf .nojekyll _site/
 
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
