@@ -19,6 +19,7 @@ a{color:var(--blue)}
 header.site{padding:18px 0 8px}
 header.site h1{margin:0;font-size:24px;letter-spacing:.5px}
 .edition{color:var(--dim);font-size:14px;margin-top:2px}
+.updated{color:var(--dim);font-size:12px;margin-top:1px}
 nav.tabs{display:flex;flex-wrap:wrap;gap:6px;padding:10px 0 14px;border-bottom:1px solid var(--line)}
 nav.tabs a{flex:0 0 auto;text-decoration:none;color:var(--text);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:7px 14px;font-size:14px;white-space:nowrap}
 nav.tabs a[aria-current=page]{background:var(--blue);border-color:var(--blue);color:#081018;font-weight:600}
@@ -159,6 +160,16 @@ fieldset.chart-legend input{width:16px;height:16px;margin:0}
 @media (max-width:700px){.wk,.cal{grid-template-columns:1fr}.calh{display:none}.cell.past{display:none}
   .cell .dn .dw{display:inline}}
 @media (min-width:701px){.cell .dn .dw{display:none}}
+
+.setup-edu{background:var(--inset);border-radius:8px;padding:8px 12px;font-size:13px;line-height:1.45;margin:0 0 10px}
+.setup-edu p{margin:0 0 4px}.setup-edu p:last-child{margin:0}
+.setup-screen h3{margin-top:4px}
+.setup-screen .looks{font-size:13.5px}
+td .st{display:inline-block;font-size:11px;font-weight:600;color:var(--amber);border:1px solid #4a3d12;border-radius:4px;padding:0 4px;margin-left:4px;white-space:nowrap}
+td.ne{white-space:normal}
+details.allcols{margin:10px 0 4px}
+details.allcols summary{cursor:pointer;font-size:14px;color:var(--blue);padding:6px 0;min-height:32px}
+.subtabs.setg2 button{font-size:13.5px;padding:7px 12px}
 </style>
 </head>
 <body data-page="index.html" data-edition="2026-09-25">
@@ -167,6 +178,7 @@ fieldset.chart-legend input{width:16px;height:16px;margin:0}
 <header class="site">
 <h1>The Brief</h1>
 <div class="edition" id="edition">Edition of <time datetime="2026-09-25">Friday, September 25, 2026</time></div>
+<div class="updated" id="last-updated">Last updated <time datetime="2026-09-27T07:03-05:00">Sunday, September 27, 2026 at 7:03 AM</time> CT</div>
 </header>
 <nav class="tabs" aria-label="Tabs">
 <a href="index.html" aria-current="page">Daily Brief</a>
@@ -396,7 +408,7 @@ fieldset.chart-legend input{width:16px;height:16px;margin:0}
 <tr><td class="date" data-label="Date" data-v="2026-10-07">Wed Oct 7</td><td data-label="Time">2:00 PM ET</td><td data-label="Release">FOMC minutes</td><td data-label="Covers">Meeting of September 15-16</td><td data-label="Source">Federal Reserve</td></tr>
 </tbody></table></div>
 <p class="cal-fed" id="cal-fed"><b>Next Fed interest-rate decision:</b> Wednesday, October 28, 2026, 2:00 PM ET (two-day meeting, October 27-28).</p>
-<p class="credit">Release dates and times: each agency's own schedule page (Bureau of Labor Statistics, Bureau of Economic Analysis, Census Bureau, Federal Reserve Board), read on September 26, 2026. Only major releases are listed; Fed speeches and smaller reports are left out. The trade report is a joint BEA and Census release.</p>
+<p class="credit">Release dates and times: each agency's own schedule page (Bureau of Labor Statistics, Bureau of Economic Analysis, Census Bureau, Federal Reserve Board), read on September 27, 2026. Only major releases are listed; Fed speeches and smaller reports are left out. The trade report is a joint BEA and Census release.</p>
 </section>
 <section class="card dsec" id="earnings" role="tabpanel" aria-labelledby="tab-earnings" hidden>
 <h2>Earnings calendar (S&amp;P 500)</h2>
@@ -623,12 +635,19 @@ fieldset.chart-legend input{width:16px;height:16px;margin:0}
     return true;}
   function go(h){h=(h||'').replace('#','');
     var b=h?document.querySelector('button[data-group]:not([data-group="sec"])[data-show="'+h+'"]'):null;
-    if(b){sel(b.getAttribute('data-group'),h);var s=b.closest('section');if(s)sel('sec',s.id);return;}
+    if(b){sel(b.getAttribute('data-group'),h);var el=document.getElementById(h).parentElement;
+      while(el){if(el.tagName==='SECTION'){sel('sec',el.id);break;}
+        if(el.id){var pb=document.querySelector('button[data-group]:not([data-group="sec"])[data-show="'+el.id+'"]');
+          if(pb)sel(pb.getAttribute('data-group'),el.id);}
+        el=el.parentElement;}
+      return;}
     if(!sel('sec',h)){var f=document.querySelector('button[data-group="sec"]');if(f)sel('sec',f.getAttribute('data-show'));}}
   document.querySelectorAll('button[data-group]').forEach(function(b){
     b.addEventListener('click',function(){var id=b.getAttribute('data-show');sel(b.getAttribute('data-group'),id);
       if(history.replaceState)history.replaceState(null,'','#'+id);});});
-  ['per','earn'].forEach(function(g){var p=document.querySelector('button[data-group="'+g+'"]'); if(p)sel(g,p.getAttribute('data-show'));});
+  var gs=[];document.querySelectorAll('button[data-group]').forEach(function(b){var g=b.getAttribute('data-group');
+    if(g!=='sec'&&gs.indexOf(g)<0)gs.push(g);});
+  gs.forEach(function(g){var p=document.querySelector('button[data-group="'+g+'"]'); if(p)sel(g,p.getAttribute('data-show'));});
   go(location.hash);
   window.addEventListener('hashchange',function(){go(location.hash);});
 })();
