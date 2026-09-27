@@ -28,7 +28,7 @@ jobs:
         shell: bash
         run: |
           mkdir _site
-          cp index.html the-wheel.html ma-screeners.html sp-500-overview.html disclaimers.html _site/
+          cp index.html the-wheel.html ma-screeners.html sp-500-overview.html tools.html disclaimers.html _site/
           cp options-risk-disclosure.pdf .nojekyll _site/
 
       - name: Configure GitHub Pages
