@@ -170,15 +170,23 @@ td.ne{white-space:normal}
 details.allcols{margin:10px 0 4px}
 details.allcols summary{cursor:pointer;font-size:14px;color:var(--blue);padding:6px 0;min-height:32px}
 .subtabs.setg2 button{font-size:13.5px;padding:7px 12px}
+
+.wk-sub{font-size:15px;margin:16px 0 6px;padding-top:10px;border-top:1px solid var(--line)}
+.wk-sub:first-of-type{border-top:0;padding-top:0}
+.wk-line{font-size:14px;margin:6px 0}
+.wk-src{color:var(--dim);font-size:11px}
+.wk-list{margin:6px 0 0;padding-left:18px;font-size:14px}
+.day .wk-none{color:var(--dim);font-size:12.5px;margin:2px 0}
+.ev .wt{color:var(--dim);font-size:11.5px}
 </style>
 </head>
-<body data-page="index.html" data-edition="2026-10-02">
+<body data-page="index.html" data-edition="2026-10-02" data-weekend="true">
 <div class="edu" id="edu-notice">Educational use only, for members of a private trading group. Not investment advice. Options involve risk.</div>
 <div class="wrap">
 <header class="site">
 <h1>The Brief</h1>
-<div class="edition" id="edition">Edition of <time datetime="2026-10-02">Friday, October 2, 2026</time></div>
-<div class="updated" id="last-updated">Last updated <time datetime="2026-10-02T21:48-05:00">Friday, October 2, 2026 at 9:48 PM</time> CT</div>
+<div class="edition" id="edition">Weekend edition: week ending <time datetime="2026-10-02">Friday, October 2, 2026</time></div>
+<div class="updated" id="last-updated">Last updated <time datetime="2026-10-03T11:16-05:00">Saturday, October 3, 2026 at 11:16 AM</time> CT</div>
 </header>
 <nav class="tabs" aria-label="Tabs">
 <a href="index.html" aria-current="page">Daily Brief</a>
@@ -191,10 +199,29 @@ details.allcols summary{cursor:pointer;font-size:14px;color:var(--blue);padding:
 <main>
 <section class="card intro" id="brief-about">
 <h2>Daily Brief</h2>
-<p>The market at the close of Friday, October 2, 2026. Every number is worked out by code from the source named under it; the short commentary sits in a box at the top of each section. Pick a section with the buttons; each has its own link.</p>
+<p>Weekend edition: the week ending Friday, October 2, 2026, starting with the week in review and the week ahead; the other sections show the market at the close of Friday, October 2, 2026. Every number is worked out by code from the source named under it; the short commentary sits in a box at the top of each section. Pick a section with the buttons; each has its own link.</p>
 </section>
-<div class="subtabs" role="tablist" aria-label="Daily Brief sections"><button type="button" role="tab" id="tab-regime" data-group="sec" data-show="regime" aria-controls="regime" aria-selected="true">Regime</button><button type="button" role="tab" id="tab-market" data-group="sec" data-show="market" aria-controls="market" aria-selected="false">Market</button><button type="button" role="tab" id="tab-economy" data-group="sec" data-show="economy" aria-controls="economy" aria-selected="false">Economy</button><button type="button" role="tab" id="tab-earnings" data-group="sec" data-show="earnings" aria-controls="earnings" aria-selected="false">Earnings</button><button type="button" role="tab" id="tab-setups" data-group="sec" data-show="setups" aria-controls="setups" aria-selected="false">Options setups</button></div>
-<section class="card dsec" id="regime" role="tabpanel" aria-labelledby="tab-regime">
+<div class="subtabs" role="tablist" aria-label="Daily Brief sections"><button type="button" role="tab" id="tab-week" data-group="sec" data-show="week" aria-controls="week" aria-selected="true">The week</button><button type="button" role="tab" id="tab-regime" data-group="sec" data-show="regime" aria-controls="regime" aria-selected="false">Regime</button><button type="button" role="tab" id="tab-market" data-group="sec" data-show="market" aria-controls="market" aria-selected="false">Market</button><button type="button" role="tab" id="tab-economy" data-group="sec" data-show="economy" aria-controls="economy" aria-selected="false">Economy</button><button type="button" role="tab" id="tab-earnings" data-group="sec" data-show="earnings" aria-controls="earnings" aria-selected="false">Earnings</button><button type="button" role="tab" id="tab-setups" data-group="sec" data-show="setups" aria-controls="setups" aria-selected="false">Options setups</button></div>
+<section class="card dsec" id="week" role="tabpanel" aria-labelledby="tab-week">
+<h2>Week in review / Week ahead</h2>
+<p class="commentary" id="comm-week"><b>Commentary</b>From Monday, September 28 to Friday, October 2, 2026, SPY closed the week at 769.64, down 1.71 (-0.22%) from 771.35 at the close of Friday, September 25. Technology (XLK) was the best sector at +1.80% and Health Care (XLV) the worst at -2.65%, on total return. The S&amp;P 500 regime reading was Risk Off Monday to Thursday and Neutral on Friday; the Nasdaq read Risk On all five days, with narrow breadth from Wednesday. The week of October 5 has the August trade balance on Tuesday, the FOMC minutes on Wednesday, and S&amp;P 500 reports from STZ, PEP and DAL. The next Fed interest-rate decision is Wednesday, October 28, 2026.</p><h3 class="wk-sub" id="week-review">Week in review: Monday, September 28, 2026 to Friday, October 2, 2026</h3>
+<p class="wk-line"><b>Regime reading each day</b> (the same rules as the Regime section):</p>
+<div class="sortbar"><label for="sort-tbl-week-regime">Sort by</label><select id="sort-tbl-week-regime" data-table="tbl-week-regime"><option value="">As shown</option><option value="0:asc">Day (earliest first)</option><option value="0:desc">Day (latest first)</option><option value="1:asc">S&amp;P 500 (A to Z)</option><option value="1:desc">S&amp;P 500 (Z to A)</option><option value="2:asc">Nasdaq (A to Z)</option><option value="2:desc">Nasdaq (Z to A)</option></select></div><div class="table-wrap"><table class="sortable" id="tbl-week-regime" aria-label="Regime reading each day"><thead><tr><th scope="col" data-kind="date"><button type="button">Day</button></th><th scope="col" data-kind="text"><button type="button">S&amp;P 500</button></th><th scope="col" data-kind="text"><button type="button">Nasdaq</button></th></tr></thead><tbody>
+<tr><td class="date" data-label="Day" data-v="2026-09-28"><span>Mon Sep 28</span></td><td data-label="S&amp;P 500">Risk Off</td><td data-label="Nasdaq">Risk On</td></tr>
+<tr><td class="date" data-label="Day" data-v="2026-09-29"><span>Tue Sep 29</span></td><td data-label="S&amp;P 500">Risk Off</td><td data-label="Nasdaq">Risk On</td></tr>
+<tr><td class="date" data-label="Day" data-v="2026-09-30"><span>Wed Sep 30</span></td><td data-label="S&amp;P 500">Risk Off</td><td data-label="Nasdaq">Risk On, narrow breadth</td></tr>
+<tr><td class="date" data-label="Day" data-v="2026-10-01"><span>Thu Oct 1</span></td><td data-label="S&amp;P 500">Risk Off</td><td data-label="Nasdaq">Risk On, narrow breadth</td></tr>
+<tr><td class="date" data-label="Day" data-v="2026-10-02"><span>Fri Oct 2</span></td><td data-label="S&amp;P 500">Neutral</td><td data-label="Nasdaq">Risk On, narrow breadth</td></tr>
+</tbody></table></div><p class="wk-line" id="week-spy"><b>SPY</b> closed the week at 769.64, down 1.71 (-0.22%) from 771.35 at the close of Friday, September 25, 2026.</p>
+<p class="wk-line" id="week-sectors"><b>Best sector for the week:</b> Technology (XLK) +1.80%. <b>Worst:</b> Health Care (XLV) -2.65%. Total return, close of Fri Sep 25 to close of Fri Oct 2.</p>
+<p class="wk-line" id="week-sp-link">The finished week for the whole index is on the <a href="sp-500-overview.html">S&amp;P 500 Overview</a> tab.</p>
+<h3 class="wk-sub" id="week-ahead">Week ahead: Monday, October 5, 2026 to Friday, October 9, 2026</h3>
+<div class="wk" id="week-days"><div class="day" data-date="2026-10-05" id="wa-2026-10-05"><h4>Mon Oct 5</h4><h5>Economy and Fed</h5><ul><li class="wk-none">No major releases.</li></ul><h5>S&amp;P 500 earnings (largest first)</h5><ul><li class="wk-none">No S&amp;P 500 reports.</li></ul></div><div class="day" data-date="2026-10-06" id="wa-2026-10-06"><h4>Tue Oct 6</h4><h5>Economy and Fed</h5><ul><li class="ev" data-kind="release">8:30 AM ET: <b>Trade balance</b> <span class="co">(August 2026)</span></li></ul><h5>S&amp;P 500 earnings (largest first)</h5><ul><li class="ev" data-kind="earnings" data-sym="STZ"><b>STZ</b> <span class="co">Constellation Brands</span> <span class="co">after close</span></li></ul></div><div class="day" data-date="2026-10-07" id="wa-2026-10-07"><h4>Wed Oct 7</h4><h5>Economy and Fed</h5><ul><li class="ev" data-kind="release">2:00 PM ET: <b>FOMC minutes</b> <span class="co">(Meeting of September 15-16)</span></li></ul><h5>S&amp;P 500 earnings (largest first)</h5><ul><li class="wk-none">No S&amp;P 500 reports.</li></ul></div><div class="day" data-date="2026-10-08" id="wa-2026-10-08"><h4>Thu Oct 8</h4><h5>Economy and Fed</h5><ul><li class="wk-none">No major releases.</li></ul><h5>S&amp;P 500 earnings (largest first)</h5><ul><li class="ev" data-kind="earnings" data-sym="PEP"><b>PEP</b> <span class="co">Pepsico Inc</span> <span class="co">before open</span></li></ul></div><div class="day" data-date="2026-10-09" id="wa-2026-10-09"><h4>Fri Oct 9</h4><h5>Economy and Fed</h5><ul><li class="wk-none">No major releases.</li></ul><h5>S&amp;P 500 earnings (largest first)</h5><ul><li class="ev" data-kind="earnings" data-sym="DAL"><b>DAL</b> <span class="co">Delta Air Lines Inc</span> <span class="co">before open</span></li></ul></div></div>
+<p class="wk-line" id="week-fed"><b>Next Fed interest-rate decision:</b> Wednesday, October 28, 2026, 2:00 PM ET.</p>
+<p class="wk-line"><b>Dates to know</b></p><ul class="wk-list" id="week-dates"><li>No VIX or crude oil futures expirations and no monthly options expiration in the week ahead.</li></ul>
+<p class="credit" id="week-credit">Regime readings: Data from Barchart, by the Regime section's rules. SPY and sector funds: Alpha Vantage daily closes (sectors: adjusted closes, so the figure includes dividends). Economic releases and the Fed: each agency's own schedule page, as in the Economy section. Earnings: Alpha Vantage dates, as in the Earnings calendar; largest first by weight in the S&amp;P 500. Holidays: the NYSE calendar. Expiration dates: the exchanges' published rules.</p>
+</section>
+<section class="card dsec" id="regime" role="tabpanel" aria-labelledby="tab-regime" hidden>
 <h2>Regime: Risk On / Neutral / Risk Off</h2>
 <div class="rcards"><div class="rcard" id="card-spx"><div class="rc-name">S&amp;P 500</div><div class="reading r-neu" id="reading-spx">Neutral</div><div class="rc-count" id="count-spx">3 Risk On / 4 Neutral / 2 Risk Off</div></div><div class="rcard" id="card-ndx"><div class="rc-name">Nasdaq</div><div class="reading r-on" id="reading-ndx">Risk On</div><div class="rc-tag" id="tag-ndx">Risk On, narrow breadth</div><div class="rc-count" id="count-ndx">4 Risk On / 2 Neutral / 2 Risk Off</div></div></div>
 <p class="rule" id="regime-rule">Each indicator gets a mark - Risk On, Neutral or Risk Off - from the rules at the bottom of this section. Each index's reading is the mark it has most of; if two marks tie, the more cautious one wins. An indicator that is not available is left out of the count. When the trend marks and the breadth marks point opposite ways (at least 2 of the 3 trend marks Risk On and at least 2 of the 3 breadth marks Risk Off, or the other way round), a short tag under the reading says so: "narrow breadth" or "broad participation".</p>
@@ -408,7 +435,7 @@ details.allcols summary{cursor:pointer;font-size:14px;color:var(--blue);padding:
 <tr><td class="date" data-label="Date" data-v="2026-10-16">Fri Oct 16</td><td data-label="Time">9:15 AM ET</td><td data-label="Release">Industrial production</td><td data-label="Covers">-</td><td data-label="Source">Federal Reserve</td></tr>
 </tbody></table></div>
 <p class="cal-fed" id="cal-fed"><b>Next Fed interest-rate decision:</b> Wednesday, October 28, 2026, 2:00 PM ET (two-day meeting, October 27-28).</p>
-<p class="credit">Release dates and times: each agency's own schedule page (Bureau of Labor Statistics, Bureau of Economic Analysis, Census Bureau, Federal Reserve Board), read on October 2, 2026. Only major releases are listed; Fed speeches and smaller reports are left out. The trade report is a joint BEA and Census release.</p>
+<p class="credit">Release dates and times: each agency's own schedule page (Bureau of Labor Statistics, Bureau of Economic Analysis, Census Bureau, Federal Reserve Board), read on October 3, 2026. Only major releases are listed; Fed speeches and smaller reports are left out. The trade report is a joint BEA and Census release.</p>
 </section>
 <section class="card dsec" id="earnings" role="tabpanel" aria-labelledby="tab-earnings" hidden>
 <h2>Earnings calendar (S&amp;P 500)</h2>
